@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import styles from './LandingPage.module.css'
 
 
@@ -18,35 +19,97 @@ export default function LandingPage({ navigate }) {
 
   return (
     <main className={styles.main}>
-      <section className={styles.hero}>
-        <div className={`${styles.heroInner} ${visible ? styles.heroVisible : ''}`}>
-          <div className={styles.eyebrow}>
+      <div className={styles.heroWrapper}>
+        <div className={`${styles.gridBg} bg-grid`} aria-hidden="true" />
+        <div className={`${styles.blobBg} shape-blob`} aria-hidden="true" />
+        <div className={`${styles.blobBg2} shape-blob`} aria-hidden="true" style={{ animationDelay: '-4s', background: 'linear-gradient(135deg, var(--purple-200), var(--coral-200))' }} />
+        <section className={styles.hero}>
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className={`${styles.heroInner} ${visible ? styles.heroVisible : ''}`}
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className={styles.eyebrow}
+          >
             <span className={styles.dot} />
             Your commitment, made real
-          </div>
-          <h1 className={styles.headline}>
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className={styles.headline}
+          >
             One pledge.<br/>
-            <em>Your whole future.</em>
-          </h1>
-          <p className={styles.sub}>
+            <motion.em
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >Your whole future.</motion.em>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.6 }}
+            className={styles.sub}
+          >
             A 5-minute interactive journey that turns a decision into a certificate. Not a checkbox - a quest.
-          </p>
-          <div className={styles.heroCtas}>
-            <button className={styles.primaryBtn} onClick={() => navigate('game')}>
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+            className={styles.heroCtas}
+          >
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={styles.primaryBtn} 
+              onClick={() => navigate('game')}
+            >
               Start your pledge quest →
-            </button>
-            <button className={styles.ghostBtn} onClick={() => navigate('community')}>
+            </motion.button>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={styles.ghostBtn} 
+              onClick={() => navigate('community')}
+            >
               See the community wall
-            </button>
-          </div>
-        </div>
+            </motion.button>
+          </motion.div>
+        </motion.div>
 
-        <div className={styles.heroArt} aria-hidden="true">
-          <img src="/assests/cert.jpg" alt="Certificate preview" className={styles.certImage} />
-        </div>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 1, delay: 0.5, type: 'spring' }}
+          className={styles.heroArt} 
+          aria-hidden="true"
+        >
+          <motion.img 
+            animate={{ y: [0, -15, 0] }}
+            transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+            src="/assests/cert.jpg" 
+            alt="Certificate preview" 
+            className={styles.certImage} 
+          />
+        </motion.div>
       </section>
+      </div>
 
-      <section className={styles.aboutInitiative}>
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className={styles.aboutInitiative}
+      >
         <div className={styles.aboutInner}>
           <div className={styles.aboutContent}>
             <div className={styles.sectionLabel}>About the Initiative</div>
@@ -60,57 +123,107 @@ export default function LandingPage({ navigate }) {
               By transforming a simple pledge into an interactive experience, Operation Toofan seeks to build a stronger, drug-free community where every participant becomes an advocate for positive change.
             </p>
             <div className={styles.aboutTags}>
-              <span>Drug-Free Kerala</span>
+              <motion.span whileHover={{ scale: 1.1 }}>Drug-Free Kerala</motion.span>
               <span className={styles.tagDot}>•</span>
-              <span>Youth Awareness</span>
+              <motion.span whileHover={{ scale: 1.1 }}>Youth Awareness</motion.span>
               <span className={styles.tagDot}>•</span>
-              <span>Action</span>
+              <motion.span whileHover={{ scale: 1.1 }}>Action</motion.span>
             </div>
-            <a href="https://providence.edu.in" target="_blank" rel="noopener noreferrer" className={styles.glassBtn}>
+            <motion.a 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              href="https://providence.edu.in" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className={styles.glassBtn}
+            >
               Visit College →
-            </a>
+            </motion.a>
           </div>
-          <div className={styles.aboutLogo}>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className={styles.aboutLogo}
+          >
             <img src="/assests/logo2.jpg" alt="Providence College of Engineering" />
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className={styles.howItWorks}>
+      <motion.section 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className={styles.howItWorks}
+      >
         <div className={styles.sectionLabel}>How it works</div>
         <h2 className={styles.sectionTitle}>Three stages to your certificate</h2>
         <div className={styles.steps}>
           {STEPS.map((s, i) => (
-            <div key={i} className={styles.step}>
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.2, duration: 0.6 }}
+              whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
+              className={styles.step}
+            >
               <div className={styles.stepIcon}>{s.icon}</div>
               <h3>{s.title}</h3>
               <p>{s.body}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
         <div className={styles.stepsCta}>
-          <button className={styles.primaryBtn} onClick={() => navigate('game')}>
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={styles.primaryBtn} 
+            onClick={() => navigate('game')}
+          >
             Begin quest →
-          </button>
+          </motion.button>
         </div>
-      </section>
+      </motion.section>
 
-      <section className={styles.pledge}>
+      <motion.section 
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className={styles.pledge}
+      >
         <blockquote className={styles.pullQuote}>
           "The pledge isn't a promise to the world.<br />
           <em>It's a promise to yourself.</em>"
         </blockquote>
-      </section>
+      </motion.section>
 
-      <section className={styles.forOrgs}>
+      <motion.section 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className={styles.forOrgs}
+      >
         <div className={styles.orgCard}>
         
           <div className={styles.sectionLabel}>For schools &amp; organisations</div>
           <h2 style={{fontSize:'1.6rem'}}>Run a group pledge campaign</h2>
           <p>Enroll a whole classroom, get co-branded certificates, and download a completion report - all free.</p>
-          <button className={styles.outlineBtn}>Contact us →</button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={styles.outlineBtn}
+          >
+            Contact us →
+          </motion.button>
         </div>
-      </section>
+      </motion.section>
 
       <footer className={styles.footer}>
         <span className={styles.logoText}>
@@ -119,9 +232,8 @@ export default function LandingPage({ navigate }) {
         </span>
         <span style={{color:'var(--text-hint)', fontSize:'13px'}}>A drug-free pledge platform · Free forever</span>
         <div style={{display:'flex', gap:'16px'}}>
-          <a href="#">Privacy</a>
-          <a href="#">About</a>
-          <a href="#">Resources</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); navigate('privacy') }}>Privacy</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); navigate('about') }}>About</a>
         </div>
       </footer>
     </main>

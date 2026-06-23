@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import styles from './CertificatePage.module.css'
 import { generateCertificatePDF } from '../utils/generatePDF'
 import CertificateTemplate from '../components/CertificateTemplate'
@@ -105,18 +106,46 @@ Take the Pledge Now : https://operation-toofan-jet.vercel.app/`;
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.inner}>
+      <div className="bg-grid-fade" />
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className={styles.inner}
+      >
         <div className={styles.header}>
-          <div className={styles.congrats}>
+          <motion.div 
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", delay: 0.2 }}
+            className={styles.congrats}
+          >
             <span className={styles.confetti} aria-hidden="true">✦</span>
             Pledge complete
-          </div>
-          <h1 className={styles.title}>Your certificate is ready</h1>
-          <p>You earned {data.xp} XP · {data.score}/5 questions correct{data.perfect ? ' · Perfect score ✦' : ''}</p>
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className={styles.title}
+          >
+            Your certificate is ready
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            You earned {data.xp} XP · {data.score}/5 questions correct{data.perfect ? ' · Perfect score ✦' : ''}
+          </motion.p>
         </div>
 
         {/* ── Certificate preview (scaled to fit) ── */}
-        <div ref={containerRef} style={{ 
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 0.8, type: "spring", bounce: 0.3, delay: 0.2 }}
+          ref={containerRef} style={{ 
           width: '100%', 
           aspectRatio: '1290 / 950', 
           marginBottom: '2rem', 
@@ -132,53 +161,98 @@ Take the Pledge Now : https://operation-toofan-jet.vercel.app/`;
           }}>
             <CertificateTemplate ref={certRef} data={data} />
           </div>
-        </div>
+        </motion.div>
 
-        <div className={styles.actions}>
-          <button className={styles.primaryBtn} onClick={handleDownload} disabled={downloading}>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className={styles.actions}
+        >
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={styles.primaryBtn} 
+            onClick={handleDownload} 
+            disabled={downloading}
+          >
             {downloading ? 'Generating PDF…' : '⬇ Download certificate'}
-          </button>
-          <button className={styles.secondaryBtn} onClick={handleShare} disabled={sharing}>
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={styles.secondaryBtn} 
+            onClick={handleShare} 
+            disabled={sharing}
+          >
             {sharing ? 'Preparing share…' : '⬆ Share my pledge'}
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
-        <div className={styles.next}>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className={styles.next}
+        >
           <button className={styles.ghostLink} onClick={() => navigate('community')}>
             See the community wall →
           </button>
           <button className={styles.ghostLink} onClick={() => navigate('game')}>
             Restart quest
           </button>
-        </div>
+        </motion.div>
 
-        <div className={styles.resources}>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className={styles.resources}
+        >
           <div className={styles.resourcesTitle}>Helpful resources</div>
           <div className={styles.resourceGrid}>
-            <a href="https://www.samhsa.gov/find-help/national-helpline" target="_blank" rel="noopener" className={styles.resourceCard}>
+            <motion.a 
+              whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }}
+              href="https://www.samhsa.gov/find-help/national-helpline" 
+              target="_blank" 
+              rel="noopener" 
+              className={styles.resourceCard}
+            >
               <div className={styles.resourceIcon}>◉</div>
               <div>
                 <div className={styles.resourceName}>SAMHSA Helpline</div>
                 <div className={styles.resourceDesc}>Free, confidential, 24/7 treatment referral</div>
               </div>
-            </a>
-            <a href="https://www.nida.nih.gov" target="_blank" rel="noopener" className={styles.resourceCard}>
+            </motion.a>
+            <motion.a 
+              whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }}
+              href="https://www.nida.nih.gov" 
+              target="_blank" 
+              rel="noopener" 
+              className={styles.resourceCard}
+            >
               <div className={styles.resourceIcon}>◎</div>
               <div>
                 <div className={styles.resourceName}>NIDA</div>
                 <div className={styles.resourceDesc}>Science-based drug information</div>
               </div>
-            </a>
-            <a href="https://www.drugfree.org" target="_blank" rel="noopener" className={styles.resourceCard}>
+            </motion.a>
+            <motion.a 
+              whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }}
+              href="https://www.drugfree.org" 
+              target="_blank" 
+              rel="noopener" 
+              className={styles.resourceCard}
+            >
               <div className={styles.resourceIcon}>◈</div>
               <div>
                 <div className={styles.resourceName}>Partnership to End Addiction</div>
                 <div className={styles.resourceDesc}>Support for families</div>
               </div>
-            </a>
+            </motion.a>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   )
 }

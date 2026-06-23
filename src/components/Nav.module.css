@@ -10,7 +10,6 @@
   position: fixed;
   top: 1rem;
   left: 50%;
-  transform: translateX(-50%);
   width: calc(100% - 2rem);
   max-width: 1200px;
   border-radius: var(--radius-pill);

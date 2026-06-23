@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import ProgressBar from '../components/ProgressBar'
 import { QUESTIONS, VALUES, buildPledgeText } from '../utils/gameData'
 import { supabase } from '../utils/supabase'
@@ -100,6 +101,7 @@ export default function PledgeGame({ navigate }) {
 
   return (
     <div className={styles.wrap}>
+      <div className="bg-grid-fade" />
       <div className={styles.floaters} aria-hidden="true">
         {floaters.map(f => (
           <div key={f.id} className={`${styles.floater} ${f.good ? styles.floaterGood : styles.floaterNeutral}`}>
@@ -110,12 +112,32 @@ export default function PledgeGame({ navigate }) {
 
       <div className={styles.inner}>
         {stage > 0 && (
-          <ProgressBar stage={stage} total={QUESTIONS.length + 2} xp={xp} maxXp={QUESTIONS.length + 1} />
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <ProgressBar stage={stage} total={QUESTIONS.length + 2} xp={xp} maxXp={QUESTIONS.length + 1} />
+          </motion.div>
         )}
 
+        <AnimatePresence mode="wait">
         {stage === 0 && (
-          <div key={key} className={`${styles.scene} ${styles.welcome} animate-fade-up`}>
-            <div className={styles.welcomeIcon} aria-hidden="true">✦</div>
+          <motion.div 
+            key="welcome"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className={`${styles.scene} ${styles.welcome}`}
+          >
+            <motion.div 
+              initial={{ rotate: -180, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              transition={{ type: "spring", duration: 1 }}
+              className={styles.welcomeIcon} 
+              aria-hidden="true"
+            >✦</motion.div>
             <h1 className={styles.welcomeTitle}>Your pledge quest</h1>
             <p className={styles.welcomeSub}>
               {QUESTIONS.length + 2} stages. {QUESTIONS.length} knowledge checks, one pledge you craft yourself, and a certificate that's yours to keep.
@@ -139,22 +161,39 @@ export default function PledgeGame({ navigate }) {
                 autoFocus
               />
             </div>
-            <button className={styles.primaryBtn} onClick={handleStart}>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={styles.primaryBtn} 
+              onClick={handleStart}
+            >
               Begin quest →
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         )}
 
         {q && (
-          <div key={key} className={`${styles.scene} animate-fade-up`}>
+          <motion.div 
+            key={`question-${stage}`}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ type: "spring", bounce: 0.4, duration: 0.6 }}
+            className={styles.scene}
+          >
             <div className={styles.stagePill} style={{ background: 'var(--green-50)', color: 'var(--green-800)' }}>
               ◎ Stage {stage} of {QUESTIONS.length + 2} - Knowledge check
             </div>
             <h2 className={styles.question}>{q.text}</h2>
             <div className={styles.options}>
               {q.options.map((opt, i) => (
-                <button
+                <motion.button
                   key={i}
+                  whileHover={{ scale: answered === null ? 1.02 : 1 }}
+                  whileTap={{ scale: answered === null ? 0.98 : 1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
                   className={`${styles.option} ${
                     answered === opt.text
                       ? opt.correct ? styles.optCorrect : styles.optWrong
@@ -165,40 +204,57 @@ export default function PledgeGame({ navigate }) {
                 >
                   <span className={styles.optLetter}>{String.fromCharCode(65 + i)}</span>
                   <span>{opt.text}</span>
-                  {answered !== null && opt.correct && <span className={styles.optCheck}>✓</span>}
-                </button>
+                  {answered !== null && opt.correct && <motion.span initial={{scale:0}} animate={{scale:1}} className={styles.optCheck}>✓</motion.span>}
+                </motion.button>
               ))}
             </div>
             {answered !== null && (
-              <div className={`${styles.explanation} animate-fade-up`}>
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                transition={{ duration: 0.4 }}
+                className={styles.explanation}
+              >
                 <div className={styles.explanationIcon}>◎</div>
                 <p>{q.explanation}</p>
-              </div>
+              </motion.div>
             )}
-          </div>
+          </motion.div>
         )}
 
         {stage === QUESTIONS.length + 1 && (
-          <div key={key} className={`${styles.scene} animate-fade-up`}>
+          <motion.div 
+            key="craft"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className={styles.scene}
+          >
             <div className={styles.stagePill} style={{ background: 'var(--purple-50)', color: 'var(--purple-800)' }}>
               ◈ Stage {QUESTIONS.length + 1} of {QUESTIONS.length + 2} - Craft your pledge
             </div>
             <h2 className={styles.question}>What does this pledge stand for?</h2>
             <p className={styles.valueSub}>Pick up to 3 values that matter most to you</p>
             <div className={styles.valueGrid}>
-              {VALUES.map(v => {
+              {VALUES.map((v, i) => {
                 const sel = !!selectedValues.find(x => x.id === v.id)
                 return (
-                  <button
+                  <motion.button
                     key={v.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     className={`${styles.valueBtn} ${sel ? styles.valueSel : ''}`}
                     onClick={() => toggleValue(v)}
                     aria-pressed={sel}
                   >
                     <span className={styles.valueIcon}>{v.icon}</span>
                     <span>{v.label}</span>
-                    {sel && <span className={styles.valueCheck}>✓</span>}
-                  </button>
+                    {sel && <motion.span initial={{scale:0}} animate={{scale:1}} className={styles.valueCheck}>✓</motion.span>}
+                  </motion.button>
                 )
               })}
             </div>
@@ -212,16 +268,19 @@ export default function PledgeGame({ navigate }) {
               </div>
             </div>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className={styles.primaryBtn}
               onClick={handleSealPledge}
               disabled={selectedValues.length === 0}
               style={{ marginTop: '1.5rem' }}
             >
               Seal my pledge →
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         )}
+        </AnimatePresence>
       </div>
     </div>
   )
