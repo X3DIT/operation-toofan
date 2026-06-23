@@ -52,7 +52,7 @@ const CertificateTemplate = forwardRef(({ data }, ref) => {
       <div className={styles.date}>{data?.date || 'November 12 | 2024'}</div>
 
       <div className={styles.given}>
-        This certifies that:
+        This is to certify that:
       </div>
 
       <div className={styles.name}>
@@ -60,7 +60,7 @@ const CertificateTemplate = forwardRef(({ data }, ref) => {
       </div>
 
       <div className={styles.award}>
-        Drug-Free Commitment
+        Operation Toofan Drug-Free Pledge
       </div>
 
       <div className={styles.quote}>
@@ -77,14 +77,14 @@ const CertificateTemplate = forwardRef(({ data }, ref) => {
       </div>
 
       <div className={`${styles.sig} ${styles.sig1}`}>
-        <div className={styles.script}>Operation</div>
+        <div className={styles.script}>Santosh</div>
         <div className={styles.line}></div>
         <div className={styles.role}>Campaign Initiative</div>
         <div className={styles.person}>Operation Toofan</div>
       </div>
 
       <div className={`${styles.sig} ${styles.sig2}`}>
-        <div className={styles.script}>Toofan</div>
+        <div className={styles.script}>Madhav</div>
         <div className={styles.line}></div>
         <div className={styles.role}>Official Record</div>
         <div className={styles.person}>ID: {data?.id || '---'}</div>
@@ -124,6 +124,9 @@ const CertificateTemplate = forwardRef(({ data }, ref) => {
           </text>
         </svg>
       </div>
+
+      {/* PROVIDENCE LOGO */}
+      <img src="/assests/providence.png" alt="Providence Logo" className={styles.providenceLogo} />
 
     </div>
   );

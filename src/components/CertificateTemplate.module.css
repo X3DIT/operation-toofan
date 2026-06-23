@@ -50,7 +50,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #c54f33;
+    background: #3B6D11;
     margin-left: 12px;
 }
 
@@ -180,3 +180,13 @@
     width: 100%;
     height: 100%;
 }
+
+/* PROVIDENCE LOGO */
+.providenceLogo {
+    position: absolute;
+    left: 96px;
+    bottom: 50px;
+    height: 60px;
+    width: auto;
+}
+

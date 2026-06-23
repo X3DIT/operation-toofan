@@ -4,7 +4,7 @@ export default function Nav({ page, navigate }) {
   return (
     <nav className={styles.nav}>
       <button className={styles.logo} onClick={() => navigate('landing')}>
-        <span className={styles.logoMark}>✦</span>
+        <img src="/assests/logo.png" alt="Operation Toofan" className={styles.logoImage} />
         <span className={styles.logoText}>Operation Toofan</span>
       </button>
       <div className={styles.links}>

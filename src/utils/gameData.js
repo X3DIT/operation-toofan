@@ -14,7 +14,7 @@ export const QUESTIONS = [
     text: 'A close friend offers you a substance at a party. What\'s the strongest response?',
     options: [
       { text: '"Maybe just this once, it won\'t matter."', correct: false },
-      { text: '"No thanks — I\'m good. Let\'s do something else."', correct: true },
+      { text: '"No thanks - I\'m good. Let\'s do something else."', correct: true },
       { text: '"I\'ll try a tiny bit so I don\'t seem rude."', correct: false },
     ],
     explanation: 'A clear, calm refusal with an alternative keeps your boundaries firm without creating conflict. You don\'t owe anyone an explanation.',
@@ -23,11 +23,11 @@ export const QUESTIONS = [
     id: 3,
     text: 'What\'s the first step if someone you know shows signs of addiction?',
     options: [
-      { text: 'Ignore it — it\'s their personal choice', correct: false },
+      { text: 'Ignore it - it\'s their personal choice', correct: false },
       { text: 'Confront them aggressively to scare them straight', correct: false },
       { text: 'Talk to a trusted adult or helpline with care', correct: true },
     ],
-    explanation: 'Addiction is a health issue, not a moral failure. Connecting someone to professional support — not shame or confrontation — is the most effective first step.',
+    explanation: 'Addiction is a health issue, not a moral failure. Connecting someone to professional support - not shame or confrontation - is the most effective first step.',
   },
   {
     id: 4,
@@ -66,5 +66,5 @@ export const buildPledgeText = (name, values) => {
   const list = labels.length === 1
     ? labels[0]
     : labels.slice(0, -1).join(', ') + ' and ' + labels[labels.length - 1]
-  return `I, ${name}, pledge to stay drug-free. I choose this for ${list} — because my life is worth protecting.`
+  return `I, ${name}, pledge to stay drug-free. I choose this for ${list} - because my life is worth protecting.`
 }

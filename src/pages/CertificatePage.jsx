@@ -32,7 +32,7 @@ export default function CertificatePage({ data, navigate }) {
   }
 
   const handleShare = async () => {
-    const text = `I just took the drug-free pledge! "${data.pledgeText}" — Join me at Operation Toofan.`
+    const text = `I just took the drug-free pledge! "${data.pledgeText}" - Join me at Operation Toofan.`
     if (navigator.share) {
       await navigator.share({ title: 'My drug-free pledge', text })
     } else {
@@ -54,9 +54,24 @@ export default function CertificatePage({ data, navigate }) {
           <p>You earned {data.xp} XP · {data.score}/3 questions correct{data.perfect ? ' · Perfect score ✦' : ''}</p>
         </div>
 
-        {/* ── Certificate preview (captured for PDF) ── */}
-        <div style={{ overflow: 'auto', maxWidth: '100%', marginBottom: '2rem' }}>
-          <CertificateTemplate ref={certRef} data={data} />
+        {/* ── Certificate preview (scaled to fit) ── */}
+        <div style={{ 
+          containerType: 'inline-size', 
+          width: '100%', 
+          aspectRatio: '1290 / 950', 
+          marginBottom: '2rem', 
+          overflow: 'hidden', 
+          borderRadius: 'var(--radius)',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
+        }}>
+          <div style={{ 
+            width: '1290px', 
+            height: '950px', 
+            transform: 'scale(calc(100cqw / 1290))', 
+            transformOrigin: 'top left' 
+          }}>
+            <CertificateTemplate ref={certRef} data={data} />
+          </div>
         </div>
 
         <div className={styles.actions}>

@@ -126,7 +126,7 @@ export default function PledgeGame({ navigate }) {
         {q && (
           <div key={key} className={`${styles.scene} animate-fade-up`}>
             <div className={styles.stagePill} style={{ background: 'var(--green-50)', color: 'var(--green-800)' }}>
-              ◎ Stage {stage} of {QUESTIONS.length + 2} — Knowledge check
+              ◎ Stage {stage} of {QUESTIONS.length + 2} - Knowledge check
             </div>
             <h2 className={styles.question}>{q.text}</h2>
             <div className={styles.options}>
@@ -159,7 +159,7 @@ export default function PledgeGame({ navigate }) {
         {stage === QUESTIONS.length + 1 && (
           <div key={key} className={`${styles.scene} animate-fade-up`}>
             <div className={styles.stagePill} style={{ background: 'var(--purple-50)', color: 'var(--purple-800)' }}>
-              ◈ Stage {QUESTIONS.length + 1} of {QUESTIONS.length + 2} — Craft your pledge
+              ◈ Stage {QUESTIONS.length + 1} of {QUESTIONS.length + 2} - Craft your pledge
             </div>
             <h2 className={styles.question}>What does this pledge stand for?</h2>
             <p className={styles.valueSub}>Pick up to 3 values that matter most to you</p>

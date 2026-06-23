@@ -60,3 +60,8 @@
   font-size: 14px;
 }
 .cta:hover { background: var(--green-800); }
+
+.logoImage {
+  height: 28px;
+  width: auto;
+}
