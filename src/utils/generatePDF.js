@@ -49,6 +49,46 @@ async function inlineAllImages(container) {
 }
 
 /**
+ * Generates a canvas from the certificate element.
+ */
+export async function generateCertificateCanvas(element) {
+  if (document.fonts && document.fonts.ready) {
+    await document.fonts.ready;
+  }
+
+  const clone = element.cloneNode(true);
+  const offscreen = document.createElement('div');
+  offscreen.style.cssText = `
+    position: fixed;
+    left: -9999px;
+    top: 0;
+    width: 1290px;
+    height: 950px;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+  `;
+  offscreen.appendChild(clone);
+  document.body.appendChild(offscreen);
+
+  await inlineAllImages(clone);
+  await new Promise(resolve => setTimeout(resolve, 200));
+
+  const canvas = await html2canvas(clone, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#f5f5f3',
+    logging: false,
+    allowTaint: true,
+    width: 1290,
+    height: 950,
+  });
+
+  document.body.removeChild(offscreen);
+  return canvas;
+}
+
+/**
  * Generates a certificate PDF using html2canvas + jsPDF.
  *
  * The certificate is displayed scaled-down in the browser via CSS transform.
@@ -60,48 +100,7 @@ async function inlineAllImages(container) {
  */
 export async function generateCertificatePDF(data, element) {
   try {
-    // ── Step 1: Wait for fonts to be fully loaded ──
-    if (document.fonts && document.fonts.ready) {
-      await document.fonts.ready;
-    }
-
-    // ── Step 2: Clone element into a full-size off-screen container ──
-    // This avoids html2canvas issues with CSS transform: scale()
-    const clone = element.cloneNode(true);
-    const offscreen = document.createElement('div');
-    offscreen.style.cssText = `
-      position: fixed;
-      left: -9999px;
-      top: 0;
-      width: 1290px;
-      height: 950px;
-      overflow: hidden;
-      z-index: -1;
-      pointer-events: none;
-    `;
-    offscreen.appendChild(clone);
-    document.body.appendChild(offscreen);
-
-    // ── Step 3: Convert all images (especially SVGs) to inline base64 ──
-    // html2canvas cannot render external SVG files in <img> tags
-    await inlineAllImages(clone);
-
-    // Small delay to let inlined images settle
-    await new Promise(resolve => setTimeout(resolve, 200));
-
-    // ── Step 4: Capture the off-screen clone as a canvas ──
-    const canvas = await html2canvas(clone, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: '#f5f5f3',
-      logging: false,
-      allowTaint: true,
-      width: 1290,
-      height: 950,
-    });
-
-    // Clean up the off-screen element
-    document.body.removeChild(offscreen);
+    const canvas = await generateCertificateCanvas(element);
 
     const imgData = canvas.toDataURL('image/jpeg', 0.95);
 

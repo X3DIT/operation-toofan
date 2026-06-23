@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import styles from './CertificatePage.module.css'
-import { generateCertificatePDF } from '../utils/generatePDF'
+import { generateCertificatePDF, generateCertificateCanvas } from '../utils/generatePDF'
 import CertificateTemplate from '../components/CertificateTemplate'
 import html2canvas from 'html2canvas'
 
@@ -60,7 +60,7 @@ Take the Pledge Now : https://operation-toofan-jet.vercel.app/`;
       if (!element) throw new Error('Certificate element not found');
 
       // Generate canvas from certificate
-      const canvas = await html2canvas(element, { scale: 2 });
+      const canvas = await generateCertificateCanvas(element);
       
       canvas.toBlob(async (blob) => {
         if (!blob) return;

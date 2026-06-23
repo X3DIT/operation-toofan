@@ -19,8 +19,8 @@ export default function LandingPage({ navigate }) {
 
   return (
     <main className={styles.main}>
+      <div className="bg-grid-fade" />
       <div className={styles.heroWrapper}>
-        <div className={`${styles.gridBg} bg-grid`} aria-hidden="true" />
         <div className={`${styles.blobBg} shape-blob`} aria-hidden="true" />
         <div className={`${styles.blobBg2} shape-blob`} aria-hidden="true" style={{ animationDelay: '-4s', background: 'linear-gradient(135deg, var(--purple-200), var(--coral-200))' }} />
         <section className={styles.hero}>
@@ -208,9 +208,10 @@ export default function LandingPage({ navigate }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className={styles.forOrgs}
+        className={`${styles.forOrgs} bg-dot`}
       >
-        <div className={styles.orgCard}>
+        <div className={styles.forOrgsInner}>
+          <div className={styles.orgCard}>
         
           <div className={styles.sectionLabel}>For schools &amp; organisations</div>
           <h2 style={{fontSize:'1.6rem'}}>Run a group pledge campaign</h2>
@@ -222,6 +223,7 @@ export default function LandingPage({ navigate }) {
           >
             Contact us →
           </motion.button>
+        </div>
         </div>
       </motion.section>
 

@@ -168,14 +168,23 @@ a:hover { text-decoration: underline; }
   animation: panGrid 4s linear infinite;
 }
 
+.bg-dot {
+  background-size: 20px 20px;
+  background-image: radial-gradient(var(--border-strong) 1.5px, transparent 1.5px);
+}
+
 .bg-grid-fade {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  opacity: 0.5;
-  z-index: 0;
+  opacity: 0.4;
+  z-index: -1;
   pointer-events: none;
-  mask-image: radial-gradient(ellipse at center, black, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black, transparent 70%);
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px),
+                    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  animation: panGrid 15s linear infinite;
+  mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black, transparent 80%);
 }
 
 .animate-fade-up { animation: fadeUp 0.5s ease both; }
