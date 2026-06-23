@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import styles from './CertificatePage.module.css'
 import { generateCertificatePDF } from '../utils/generatePDF'
+import CertificateTemplate from '../components/CertificateTemplate'
 
 export default function CertificatePage({ data, navigate }) {
   const certRef = useRef(null)
@@ -21,9 +22,11 @@ export default function CertificatePage({ data, navigate }) {
   const handleDownload = async () => {
     setDownloading(true)
     try {
-      await generateCertificatePDF(data)
+      const element = certRef.current
+      if (!element) throw new Error('Certificate element not found')
+      await generateCertificatePDF(data, element)
     } catch (e) {
-      console.error(e)
+      console.error('PDF generation failed:', e)
     }
     setDownloading(false)
   }
@@ -39,15 +42,6 @@ export default function CertificatePage({ data, navigate }) {
     }
   }
 
-  const valueColors = {
-    green: { bg: 'var(--green-50)', color: 'var(--green-800)' },
-    purple: { bg: 'var(--purple-50)', color: 'var(--purple-800)' },
-    teal: { bg: 'var(--teal-50)', color: 'var(--teal-800)' },
-    blue: { bg: '#e6f1fb', color: '#0c447c' },
-    amber: { bg: 'var(--amber-50)', color: 'var(--amber-600)' },
-    coral: { bg: 'var(--coral-50)', color: 'var(--coral-600)' },
-  }
-
   return (
     <div className={styles.wrap}>
       <div className={styles.inner}>
@@ -60,49 +54,9 @@ export default function CertificatePage({ data, navigate }) {
           <p>You earned {data.xp} XP · {data.score}/3 questions correct{data.perfect ? ' · Perfect score ✦' : ''}</p>
         </div>
 
-        <div className={styles.certCard} ref={certRef} id="certificate">
-          <div className={styles.certHeader}>
-            <div className={styles.certMark} aria-hidden="true">✦</div>
-            <div className={styles.certEyebrow}>Certificate of pledge</div>
-            <div className={styles.certIssuer}>Operation Toofan · Drug-free commitment programme</div>
-          </div>
-
-          <div className={styles.certBody}>
-            <div className={styles.certNameLabel}>This certifies that</div>
-            <div className={styles.certName}>{data.name}</div>
-            <div className={styles.certDateLine}>on {data.date}</div>
-
-            <div className={styles.certPledge}>
-              <div className={styles.certPledgeQuote}>"</div>
-              {data.pledgeText}
-            </div>
-
-            {data.values.length > 0 && (
-              <div className={styles.certValues}>
-                {data.values.map(v => (
-                  <span
-                    key={v.id}
-                    className={styles.certValue}
-                    style={valueColors[v.color] || valueColors.green}
-                  >
-                    {v.icon} {v.label}
-                  </span>
-                ))}
-                {data.perfect && (
-                  <span className={`${styles.certValue} ${styles.animate_shimmer}`} style={{ background: 'var(--amber-50)', color: 'var(--amber-600)' }}>
-                    ✦ Perfect score
-                  </span>
-                )}
-              </div>
-            )}
-          </div>
-
-          <div className={styles.certFooter}>
-            <div className={styles.certSeal}>
-              <div className={styles.sealRing}>✦</div>
-            </div>
-            <div className={styles.certId}>{data.id}</div>
-          </div>
+        {/* ── Certificate preview (captured for PDF) ── */}
+        <div style={{ overflow: 'auto', maxWidth: '100%', marginBottom: '2rem' }}>
+          <CertificateTemplate ref={certRef} data={data} />
         </div>
 
         <div className={styles.actions}>
