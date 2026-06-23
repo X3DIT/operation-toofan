@@ -2,16 +2,9 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabase'
 import styles from './CommunityWall.module.css'
 
-const SEED_PLEDGES = [
-  { name: 'Aarav M.', city: 'Mumbai, India', date: 'Oct 12', perfect: true, values: ['My health', 'My future'] },
-  { name: 'Sarah J.', city: 'London, UK', date: 'Oct 12', perfect: false, values: ['My family', 'My freedom'] },
-  { name: 'Chen W.', city: 'Singapore', date: 'Oct 11', perfect: true, values: ['My dreams', 'My friends'] },
-  { name: 'Elena R.', city: 'Madrid, Spain', date: 'Oct 11', perfect: true, values: ['My family', 'My future'] },
-  { name: 'David K.', city: 'New York, USA', date: 'Oct 10', perfect: false, values: ['My health', 'My friends'] },
-  { name: 'Fatima A.', city: 'Dubai, UAE', date: 'Oct 10', perfect: true, values: ['My dreams', 'My freedom'] },
-]
+const SEED_PLEDGES = []
 
-const BASE_TOTAL_PLEDGES = 15420
+const BASE_TOTAL_PLEDGES = 0
 const VALUE_COLORS = {
   'My health': { bg: 'var(--green-50)', color: 'var(--green-800)' },
   'My future': { bg: 'var(--purple-50)', color: 'var(--purple-800)' },
@@ -20,12 +13,6 @@ const VALUE_COLORS = {
   'My dreams': { bg: 'var(--amber-50)', color: 'var(--amber-600)' },
   'My freedom': { bg: 'var(--coral-50)', color: 'var(--coral-600)' },
 }
-
-function initials(name) {
-  return name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
-}
-
-const AVATAR_COLORS = ['#e1f5ee', '#eeedfe', '#faeeda', '#e6f1fb', '#faece7', '#eaf3de']
 
 export default function CommunityWall({ navigate }) {
   const [filter, setFilter] = useState('all')
@@ -88,16 +75,15 @@ export default function CommunityWall({ navigate }) {
           {filtered.map((p, i) => (
             <div key={i} className={styles.card}>
               <div className={styles.cardTop}>
-                <div
+                <img
+                  src="/assests/dummy-avatar.jpg"
+                  alt=""
                   className={styles.avatar}
-                  style={{ background: AVATAR_COLORS[i % AVATAR_COLORS.length] }}
                   aria-hidden="true"
-                >
-                  {initials(p.name)}
-                </div>
+                />
                 <div>
                   <div className={styles.cardName}>{p.name}</div>
-                  <div className={styles.cardMeta}>{p.city} · {p.date}</div>
+                  <div className={styles.cardMeta}>{p.date}</div>
                 </div>
                 {p.perfect && (
                   <span className={styles.perfectBadge} title="Perfect score">✦</span>

@@ -66,7 +66,6 @@ export default function PledgeGame({ navigate }) {
 
     const newPledge = {
       name: name.trim(),
-      city: 'Hometown Hero',
       date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric' }),
       perfect: score === QUESTIONS.length,
       values: selectedValues.map(v => v.label)
