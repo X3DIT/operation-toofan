@@ -58,10 +58,33 @@
   padding: 8px 18px;
   border-radius: var(--radius-pill);
   font-size: 14px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .cta:hover { background: var(--green-800); }
 
 .logoImage {
   height: 28px;
   width: auto;
+}
+
+@media (max-width: 600px) {
+  .nav {
+    padding: 0 0.75rem;
+    width: calc(100% - 1rem);
+  }
+  .logoText {
+    display: none;
+  }
+  .links {
+    gap: 4px;
+  }
+  .link {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+  .cta {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
 }

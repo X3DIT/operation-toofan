@@ -72,13 +72,17 @@ export default function PledgeGame({ navigate }) {
       values: selectedValues.map(v => v.label)
     }
 
-    // Save to Supabase (if configured)
-    if (import.meta.env.VITE_SUPABASE_URL) {
-      await supabase.from('pledges').insert([newPledge])
-    } else {
-      // Fallback to localStorage if Supabase isn't set up yet
-      const savedPledges = JSON.parse(localStorage.getItem('toofan_pledges') || '[]')
-      localStorage.setItem('toofan_pledges', JSON.stringify([newPledge, ...savedPledges]))
+    const isRobot = name.trim().toLowerCase() === 'robot'
+
+    // Save to Supabase (if configured) and not robot easter egg
+    if (!isRobot) {
+      if (import.meta.env.VITE_SUPABASE_URL) {
+        await supabase.from('pledges').insert([newPledge])
+      } else {
+        // Fallback to localStorage if Supabase isn't set up yet
+        const savedPledges = JSON.parse(localStorage.getItem('toofan_pledges') || '[]')
+        localStorage.setItem('toofan_pledges', JSON.stringify([newPledge, ...savedPledges]))
+      }
     }
 
     navigate('certificate', {
