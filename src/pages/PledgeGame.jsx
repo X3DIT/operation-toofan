@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import ProgressBar from '../components/ProgressBar'
 import { QUESTIONS, VALUES, buildPledgeText } from '../utils/gameData'
+import { supabase } from '../utils/supabase'
 import styles from './PledgeGame.module.css'
 
 const STAGE_LABELS = ['Welcome', 'Knowledge', 'Knowledge', 'Knowledge', 'Your values', 'Certificate']
@@ -59,9 +60,27 @@ export default function PledgeGame({ navigate }) {
     })
   }
 
-  const handleSealPledge = () => {
+  const handleSealPledge = async () => {
     const id = 'PLG-' + Math.random().toString(36).substring(2, 8).toUpperCase() + '-' + new Date().getFullYear()
     const pledgeText = buildPledgeText(name.trim(), selectedValues)
+
+    const newPledge = {
+      name: name.trim(),
+      city: 'Hometown Hero',
+      date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric' }),
+      perfect: score === QUESTIONS.length,
+      values: selectedValues.map(v => v.label)
+    }
+
+    // Save to Supabase (if configured)
+    if (import.meta.env.VITE_SUPABASE_URL) {
+      await supabase.from('pledges').insert([newPledge])
+    } else {
+      // Fallback to localStorage if Supabase isn't set up yet
+      const savedPledges = JSON.parse(localStorage.getItem('toofan_pledges') || '[]')
+      localStorage.setItem('toofan_pledges', JSON.stringify([newPledge, ...savedPledges]))
+    }
+
     navigate('certificate', {
       name: name.trim(),
       pledgeText,
