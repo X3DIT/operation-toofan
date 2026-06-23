@@ -29,7 +29,7 @@ export default function CertificatePage({ data, navigate }) {
   }
 
   const handleShare = async () => {
-    const text = `I just took the drug-free pledge! "${data.pledgeText}" — Join me at StayFree.`
+    const text = `I just took the drug-free pledge! "${data.pledgeText}" — Join me at Operation Toofan.`
     if (navigator.share) {
       await navigator.share({ title: 'My drug-free pledge', text })
     } else {
@@ -64,7 +64,7 @@ export default function CertificatePage({ data, navigate }) {
           <div className={styles.certHeader}>
             <div className={styles.certMark} aria-hidden="true">✦</div>
             <div className={styles.certEyebrow}>Certificate of pledge</div>
-            <div className={styles.certIssuer}>StayFree · Drug-free commitment programme</div>
+            <div className={styles.certIssuer}>Operation Toofan · Drug-free commitment programme</div>
           </div>
 
           <div className={styles.certBody}>

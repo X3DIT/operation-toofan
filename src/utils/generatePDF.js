@@ -23,7 +23,7 @@ export async function generateCertificatePDF(data) {
   doc.setFontSize(11)
   doc.setTextColor(99, 153, 34)
   doc.setFont('helvetica', 'normal')
-  doc.text('✦  STAYFREE', W / 2, 22, { align: 'center' })
+  doc.text('✦  OPERATION TOOFAN', W / 2, 22, { align: 'center' })
 
   doc.setFontSize(9)
   doc.setTextColor(136, 135, 128)
@@ -88,13 +88,13 @@ export async function generateCertificatePDF(data) {
   doc.setTextColor(136, 135, 128)
   doc.setFont('helvetica', 'normal')
   doc.text(`Pledge ID: ${data.id}`, 20, H - 17)
-  doc.text('Verify at stayfree.app/verify', W / 2, H - 17, { align: 'center' })
-  doc.text('stayfree.app', W - 20, H - 17, { align: 'right' })
+  doc.text('Verify at operation-toofan.app/verify', W / 2, H - 17, { align: 'center' })
+  doc.text('operation-toofan.app', W - 20, H - 17, { align: 'right' })
 
   doc.setFontSize(20)
   doc.setTextColor(59, 109, 17)
   doc.text('✦', 25, H - 37)
   doc.text('✦', W - 20, H - 37)
 
-  doc.save(`StayFree-Pledge-${data.name.replace(/\s+/g, '-')}.pdf`)
+  doc.save(`Operation-Toofan-Pledge-${data.name.replace(/\s+/g, '-')}.pdf`)
 }

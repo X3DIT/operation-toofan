@@ -110,7 +110,7 @@ export default function LandingPage({ navigate }) {
       </section>
 
       <footer className={styles.footer}>
-        <span className={styles.logoText}>✦ StayFree</span>
+        <span className={styles.logoText}>✦ Operation Toofan</span>
         <span style={{color:'var(--text-hint)', fontSize:'13px'}}>A drug-free pledge platform · Free forever</span>
         <div style={{display:'flex', gap:'16px'}}>
           <a href="#">Privacy</a>

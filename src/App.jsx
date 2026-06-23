@@ -4,10 +4,12 @@ import LandingPage from './pages/LandingPage'
 import PledgeGame from './pages/PledgeGame'
 import CertificatePage from './pages/CertificatePage'
 import CommunityWall from './pages/CommunityWall'
+import SendPage from './pages/SendPage'
 import Nav from './components/Nav'
 
 export default function App() {
-  const [page, setPage] = useState('landing')
+  const initialPage = window.location.pathname.includes('/send') ? 'send' : 'landing'
+  const [page, setPage] = useState(initialPage)
   const [pledgeData, setPledgeData] = useState(null)
 
   const navigate = (to, data) => {
@@ -23,6 +25,7 @@ export default function App() {
       {page === 'game' && <PledgeGame navigate={navigate} />}
       {page === 'certificate' && <CertificatePage data={pledgeData} navigate={navigate} />}
       {page === 'community' && <CommunityWall navigate={navigate} />}
+      {page === 'send' && <SendPage />}
     </div>
   )
 }
