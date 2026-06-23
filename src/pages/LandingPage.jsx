@@ -1,11 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './LandingPage.module.css'
 
-const STATS = [
-  { value: '2.8M+', label: 'pledges taken worldwide' },
-  { value: '94%', label: 'felt more accountable' },
-  { value: '180+', label: 'schools enrolled' },
-]
 
 const STEPS = [
   { icon: '◎', title: 'Answer 3 questions', body: 'Short knowledge checks on peer pressure and drug risks. No wrong answers - just honest thinking.' },
@@ -30,7 +25,7 @@ export default function LandingPage({ navigate }) {
             Your commitment, made real
           </div>
           <h1 className={styles.headline}>
-            One pledge.<br />
+            One pledge.<br/>
             <em>Your whole future.</em>
           </h1>
           <p className={styles.sub}>
@@ -47,31 +42,8 @@ export default function LandingPage({ navigate }) {
         </div>
 
         <div className={styles.heroArt} aria-hidden="true">
-          <div className={styles.certPreview}>
-            <div className={styles.certMark}>✦</div>
-            <div className={styles.certTitle}>Certificate of pledge</div>
-            <div className={styles.certName}>Priya Sharma</div>
-            <div className={styles.certDate}>June 23, 2026</div>
-            <div className={styles.certText}>
-              I pledge to stay drug-free. I choose this for my health, my family, and my dreams - because my life is worth protecting.
-            </div>
-            <div className={styles.certBadges}>
-              <span className={styles.certBadge}>✦ My health</span>
-              <span className={styles.certBadge}>✦ My family</span>
-              <span className={styles.certBadge}>✦ My dreams</span>
-            </div>
-            <div className={styles.certId}>PLG-X7K2M4-2026</div>
-          </div>
+          <img src="/assests/cert.jpg" alt="Certificate preview" className={styles.certImage} />
         </div>
-      </section>
-
-      <section className={styles.statsRow}>
-        {STATS.map((s, i) => (
-          <div key={i} className={styles.statCard}>
-            <div className={styles.statValue}>{s.value}</div>
-            <div className={styles.statLabel}>{s.label}</div>
-          </div>
-        ))}
       </section>
 
       <section className={styles.howItWorks}>
@@ -102,6 +74,7 @@ export default function LandingPage({ navigate }) {
 
       <section className={styles.forOrgs}>
         <div className={styles.orgCard}>
+        
           <div className={styles.sectionLabel}>For schools &amp; organisations</div>
           <h2 style={{fontSize:'1.6rem'}}>Run a group pledge campaign</h2>
           <p>Enroll a whole classroom, get co-branded certificates, and download a completion report - all free.</p>
