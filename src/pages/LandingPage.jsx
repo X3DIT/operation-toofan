@@ -46,6 +46,36 @@ export default function LandingPage({ navigate }) {
         </div>
       </section>
 
+      <section className={styles.aboutInitiative}>
+        <div className={styles.aboutInner}>
+          <div className={styles.aboutContent}>
+            <div className={styles.sectionLabel}>About the Initiative</div>
+            <h2 className={styles.sectionTitle}>
+              Operation Toofan is conducted by<br/>Providence College of Engineering
+            </h2>
+            <p className={styles.aboutText}>
+              Operation Toofan is a student-led anti-drug awareness initiative conducted by Providence College of Engineering. The platform aims to encourage young people to make informed, healthy choices through awareness, reflection, and personal commitment.
+            </p>
+            <p className={styles.aboutText}>
+              By transforming a simple pledge into an interactive experience, Operation Toofan seeks to build a stronger, drug-free community where every participant becomes an advocate for positive change.
+            </p>
+            <div className={styles.aboutTags}>
+              <span>Drug-Free Kerala</span>
+              <span className={styles.tagDot}>•</span>
+              <span>Youth Awareness</span>
+              <span className={styles.tagDot}>•</span>
+              <span>Action</span>
+            </div>
+            <a href="https://providence.edu.in" target="_blank" rel="noopener noreferrer" className={styles.glassBtn}>
+              Visit College →
+            </a>
+          </div>
+          <div className={styles.aboutLogo}>
+            <img src="/assests/logo2.jpg" alt="Providence College of Engineering" />
+          </div>
+        </div>
+      </section>
+
       <section className={styles.howItWorks}>
         <div className={styles.sectionLabel}>How it works</div>
         <h2 className={styles.sectionTitle}>Three stages to your certificate</h2>

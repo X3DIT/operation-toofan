@@ -2,11 +2,12 @@ import { useRef, useState, useEffect } from 'react'
 import styles from './CertificatePage.module.css'
 import { generateCertificatePDF } from '../utils/generatePDF'
 import CertificateTemplate from '../components/CertificateTemplate'
+import html2canvas from 'html2canvas'
 
 export default function CertificatePage({ data, navigate }) {
   const certRef = useRef(null)
   const [downloading, setDownloading] = useState(false)
-  const [copied, setCopied] = useState(false)
+  const [sharing, setSharing] = useState(false)
 
   if (!data) {
     return (
@@ -46,13 +47,59 @@ export default function CertificatePage({ data, navigate }) {
   }
 
   const handleShare = async () => {
-    const text = `I just took the drug-free pledge! "${data.pledgeText}" - Join me at Operation Toofan.`
-    if (navigator.share) {
-      await navigator.share({ title: 'My drug-free pledge', text })
-    } else {
-      await navigator.clipboard.writeText(text)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2500)
+    const text = `Today, I pledged to stay drug-free through Operation Toofan.
+
+A single pledge may seem small, but thousands of pledges can create a powerful movement. Join me and take the Drug-Free Pledge:
+
+Take the Pledge Now : https://operation-toofan-jet.vercel.app/`;
+    
+    setSharing(true);
+    try {
+      const element = certRef.current;
+      if (!element) throw new Error('Certificate element not found');
+
+      // Generate canvas from certificate
+      const canvas = await html2canvas(element, { scale: 2 });
+      
+      canvas.toBlob(async (blob) => {
+        if (!blob) return;
+        const file = new File([blob], 'certificate.png', { type: 'image/png' });
+
+        // Try using native share with file (works on modern mobile browsers)
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              title: 'My drug-free pledge',
+              text: text,
+              files: [file]
+            });
+            setSharing(false);
+            return; // Successfully shared
+          } catch (shareError) {
+            console.log('Error sharing via navigator.share:', shareError);
+          }
+        }
+
+        // Fallback: Download the image and open WhatsApp
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = 'certificate.png';
+        link.href = url;
+        link.click();
+        URL.revokeObjectURL(url);
+
+        // Open WhatsApp with text
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+        window.open(whatsappUrl, '_blank');
+        setSharing(false);
+      }, 'image/png');
+
+    } catch (e) {
+      console.error('Error generating image for share:', e);
+      // Fallback to text-only share if image generation fails
+      const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
+      setSharing(false);
     }
   }
 
@@ -65,7 +112,7 @@ export default function CertificatePage({ data, navigate }) {
             Pledge complete
           </div>
           <h1 className={styles.title}>Your certificate is ready</h1>
-          <p>You earned {data.xp} XP · {data.score}/3 questions correct{data.perfect ? ' · Perfect score ✦' : ''}</p>
+          <p>You earned {data.xp} XP · {data.score}/5 questions correct{data.perfect ? ' · Perfect score ✦' : ''}</p>
         </div>
 
         {/* ── Certificate preview (scaled to fit) ── */}
@@ -91,8 +138,8 @@ export default function CertificatePage({ data, navigate }) {
           <button className={styles.primaryBtn} onClick={handleDownload} disabled={downloading}>
             {downloading ? 'Generating PDF…' : '⬇ Download certificate'}
           </button>
-          <button className={styles.secondaryBtn} onClick={handleShare}>
-            {copied ? '✓ Copied to clipboard' : '⬆ Share my pledge'}
+          <button className={styles.secondaryBtn} onClick={handleShare} disabled={sharing}>
+            {sharing ? 'Preparing share…' : '⬆ Share my pledge'}
           </button>
         </div>
 
