@@ -90,40 +90,12 @@ const CertificateTemplate = forwardRef(({ data }, ref) => {
         <div className={styles.person}>ID: {data?.id || '---'}</div>
       </div>
 
-      {/* BURST */}
-      <svg className={styles.burst} width="220" height="220" viewBox="0 0 220 220">
-        <g stroke="#c54f33" strokeWidth="1">
-          <line x1="110" y1="20" x2="110" y2="110"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(10 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(20 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(30 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(40 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(50 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(60 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(70 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(80 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(90 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(100 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(110 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(120 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(130 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(140 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(150 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(160 110 110)"/>
-          <line x1="110" y1="20" x2="110" y2="110" transform="rotate(170 110 110)"/>
-        </g>
-        <circle cx="110" cy="110" r="10" fill="#d65235"/>
-      </svg>
+      {/* BURST REPLACEMENT */}
+      <img src="/assests/1element.svg" alt="Element" className={styles.burst} width="220" />
 
-      {/* STAMP */}
-      <div className={styles.stamp}>
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="42" fill="none" stroke="#3e3e44" strokeWidth="1"/>
-          <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="8" fill="#3e3e44">
-            ★
-          </text>
-        </svg>
-      </div>
+
+      {/* MAIN LOGO */}
+      <img src="/assests/logo.png" alt="Main Logo" className={styles.mainLogo} />
 
       {/* PROVIDENCE LOGO */}
       <img src="/assests/providence.png" alt="Providence Logo" className={styles.providenceLogo} />

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import styles from './CertificatePage.module.css'
 import { generateCertificatePDF } from '../utils/generatePDF'
 import CertificateTemplate from '../components/CertificateTemplate'
@@ -18,6 +18,20 @@ export default function CertificatePage({ data, navigate }) {
       </div>
     )
   }
+
+  const containerRef = useRef(null)
+  const [scale, setScale] = useState(1)
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver(entries => {
+      for (let entry of entries) {
+        setScale(entry.contentRect.width / 1290);
+      }
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const handleDownload = async () => {
     setDownloading(true)
@@ -55,8 +69,7 @@ export default function CertificatePage({ data, navigate }) {
         </div>
 
         {/* ── Certificate preview (scaled to fit) ── */}
-        <div style={{ 
-          containerType: 'inline-size', 
+        <div ref={containerRef} style={{ 
           width: '100%', 
           aspectRatio: '1290 / 950', 
           marginBottom: '2rem', 
@@ -67,7 +80,7 @@ export default function CertificatePage({ data, navigate }) {
           <div style={{ 
             width: '1290px', 
             height: '950px', 
-            transform: 'scale(calc(100cqw / 1290))', 
+            transform: `scale(${scale})`, 
             transformOrigin: 'top left' 
           }}>
             <CertificateTemplate ref={certRef} data={data} />
