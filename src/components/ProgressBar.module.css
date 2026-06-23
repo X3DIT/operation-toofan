@@ -1,0 +1,36 @@
+.wrap { margin-bottom: 2rem; }
+.stages {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.dot {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border-strong);
+  transition: background 0.4s ease;
+}
+.done { background: var(--green-400); }
+.current { background: var(--green-200); }
+
+.xpRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.label { font-size: 12px; color: var(--text-hint); min-width: 20px; }
+.track {
+  flex: 1;
+  height: 5px;
+  background: var(--gray-100);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.fill {
+  height: 100%;
+  background: var(--green-400);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+.count { font-size: 12px; font-weight: 500; color: var(--text-muted); min-width: 36px; text-align: right; }

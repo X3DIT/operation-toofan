@@ -1,0 +1,115 @@
+.wrap { min-height: calc(100vh - 60px); padding: 4rem 1.5rem; }
+.inner { max-width: 900px; margin: 0 auto; }
+
+.header { text-align: center; margin-bottom: 2.5rem; }
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--green-600);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.title { font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--text); margin-bottom: 6px; }
+.header p { font-size: 15px; margin-bottom: 2rem; }
+
+.counter {
+  display: inline-block;
+  background: var(--green-50);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem 3rem;
+}
+.counterNum {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  color: var(--green-800);
+}
+.counterLabel { font-size: 13px; color: var(--green-600); margin-top: 2px; }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+.filterBtn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+.filterBtn:hover { border-color: var(--green-400); color: var(--text); }
+.filterActive { background: var(--green-600) !important; border-color: var(--green-600) !important; color: #fff !important; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
+  margin-bottom: 3rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  transition: border-color 0.15s;
+}
+.card:hover { border-color: var(--green-400); }
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  flex-shrink: 0;
+}
+.cardName { font-size: 14px; font-weight: 500; color: var(--text); }
+.cardMeta { font-size: 12px; color: var(--text-hint); }
+.perfectBadge {
+  margin-left: auto;
+  font-size: 14px;
+  color: var(--amber-400);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.cardValues { display: flex; flex-wrap: wrap; gap: 5px; }
+.valuePill {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.cta {
+  text-align: center;
+  padding: 3rem;
+  background: var(--green-50);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.cta p { margin-bottom: 1rem; }
+.primaryBtn {
+  background: var(--green-600);
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 500;
+}
+.primaryBtn:hover { background: var(--green-800); }
