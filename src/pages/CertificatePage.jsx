@@ -7,7 +7,8 @@ import html2canvas from 'html2canvas'
 
 export default function CertificatePage({ data, navigate }) {
   const certRef = useRef(null)
-  const [downloading, setDownloading] = useState(false)
+  const [downloadingPDF, setDownloadingPDF] = useState(false)
+  const [downloadingPNG, setDownloadingPNG] = useState(false)
   const [sharing, setSharing] = useState(false)
 
   if (!data) {
@@ -35,8 +36,8 @@ export default function CertificatePage({ data, navigate }) {
     return () => observer.disconnect();
   }, []);
 
-  const handleDownload = async () => {
-    setDownloading(true)
+  const handleDownloadPDF = async () => {
+    setDownloadingPDF(true)
     try {
       const element = certRef.current
       if (!element) throw new Error('Certificate element not found')
@@ -44,7 +45,29 @@ export default function CertificatePage({ data, navigate }) {
     } catch (e) {
       console.error('PDF generation failed:', e)
     }
-    setDownloading(false)
+    setDownloadingPDF(false)
+  }
+
+  const handleDownloadPNG = async () => {
+    setDownloadingPNG(true)
+    try {
+      const element = certRef.current
+      if (!element) throw new Error('Certificate element not found')
+      const canvas = await generateCertificateCanvas(element)
+      
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = `Operation-Toofan-Pledge-${(data.name || 'Certificate').replace(/\s+/g, '-')}.png`;
+        link.href = url;
+        link.click();
+        URL.revokeObjectURL(url);
+      }, 'image/png');
+    } catch (e) {
+      console.error('PNG generation failed:', e)
+    }
+    setDownloadingPNG(false)
   }
 
   const handleShare = async () => {
@@ -173,10 +196,19 @@ Take the Pledge Now : https://operation-toofan-jet.vercel.app/`;
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={styles.primaryBtn} 
-            onClick={handleDownload} 
-            disabled={downloading}
+            onClick={handleDownloadPDF} 
+            disabled={downloadingPDF}
           >
-            {downloading ? 'Generating PDF…' : '⬇ Download certificate'}
+            {downloadingPDF ? 'Generating PDF…' : '⬇ Download PDF'}
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={styles.primaryBtn} 
+            onClick={handleDownloadPNG} 
+            disabled={downloadingPNG}
+          >
+            {downloadingPNG ? 'Generating PNG…' : '⬇ Download PNG'}
           </motion.button>
           <motion.button 
             whileHover={{ scale: 1.05 }}

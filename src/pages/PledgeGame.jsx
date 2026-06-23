@@ -32,9 +32,17 @@ export default function PledgeGame({ navigate }) {
   const goNext = () => setStage(s => s + 1)
 
   const handleStart = () => {
-    if (!name.trim()) { nameRef.current?.focus(); return }
-    setXp(0); setScore(0); setSelectedValues([])
-    goNext()
+    const trimmedName = name.trim();
+    if (!trimmedName) { nameRef.current?.focus(); return }
+    
+    if (trimmedName.toLowerCase() === 'bypass') {
+      setScore(QUESTIONS.length);
+      setXp(QUESTIONS.length);
+      setStage(QUESTIONS.length + 1);
+    } else {
+      setXp(0); setScore(0); setSelectedValues([])
+      goNext()
+    }
   }
 
   const handleAnswer = (opt, qIdx) => {
@@ -73,9 +81,10 @@ export default function PledgeGame({ navigate }) {
     }
 
     const isRobot = name.trim().toLowerCase() === 'robot'
+    const isBypass = name.trim().toLowerCase() === 'bypass'
 
-    // Save to Supabase (if configured) and not robot easter egg
-    if (!isRobot) {
+    // Save to Supabase (if configured) and not robot easter egg or bypass
+    if (!isRobot && !isBypass) {
       if (import.meta.env.VITE_SUPABASE_URL) {
         await supabase.from('pledges').insert([newPledge])
       } else {
