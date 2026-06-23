@@ -7,6 +7,15 @@ import styles from './PledgeGame.module.css'
 
 const STAGE_LABELS = ['Welcome', 'Knowledge', 'Knowledge', 'Knowledge', 'Your values', 'Certificate']
 
+function generatePledgeId(date = new Date()) {
+  const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase()
+  const year = date.getFullYear()
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+
+  return `PRC - ${randomPart}-${year}${day}${month}`
+}
+
 export default function PledgeGame({ navigate }) {
   const [stage, setStage] = useState(0)
   const [name, setName] = useState('')
@@ -70,7 +79,7 @@ export default function PledgeGame({ navigate }) {
   }
 
   const handleSealPledge = async () => {
-    const id = 'PLG-' + Math.random().toString(36).substring(2, 8).toUpperCase() + '-' + new Date().getFullYear()
+    const id = generatePledgeId()
     const pledgeText = buildPledgeText(name.trim(), selectedValues)
 
     const newPledge = {

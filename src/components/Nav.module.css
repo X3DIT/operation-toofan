@@ -4,6 +4,7 @@
   justify-content: space-between;
   padding: 0 2rem;
   height: 60px;
+  background: rgba(255, 255, 255, 0.72);
   background: color-mix(in srgb, var(--surface) 35%, transparent);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -17,6 +18,11 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   z-index: 100;
+  isolation: isolate;
+  overflow: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform, backdrop-filter;
 }
 
 .logo {
@@ -72,6 +78,11 @@
   .nav {
     padding: 0 0.75rem;
     width: calc(100% - 1rem);
+    background: rgba(255, 255, 255, 0.62);
+    background: color-mix(in srgb, var(--surface) 48%, transparent);
+    backdrop-filter: saturate(150%) blur(18px);
+    -webkit-backdrop-filter: saturate(150%) blur(18px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
   }
   .logoText {
     display: none;
