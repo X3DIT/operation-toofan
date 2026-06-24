@@ -438,7 +438,7 @@ export default function CertificateDrawAnimation({ data, onComplete }) {
           initial="hidden"
           animate={vis('sig1') ? 'visible' : 'hidden'}
         >
-          <div style={S.script}>nil</div>
+          <div style={S.script}>sign</div>
           <div style={S.line} />
           <div style={S.role}>Campaign Initiative</div>
           <div style={S.person}>Operation Toofan</div>
@@ -451,7 +451,7 @@ export default function CertificateDrawAnimation({ data, onComplete }) {
           initial="hidden"
           animate={vis('sig2') ? 'visible' : 'hidden'}
         >
-          <div style={S.script}>nil</div>
+          <div style={S.script}>sign</div>
           <div style={S.line} />
           <div style={S.role}>Official Record</div>
           <div style={S.person}>ID: {data?.id || '---'}</div>

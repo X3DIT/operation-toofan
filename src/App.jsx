@@ -35,7 +35,6 @@ export default function App() {
 
   return (
     <div>
-      <Nav page={page} navigate={navigate} />
       <AnimatePresence mode="wait">
         <motion.div
           key={page}
@@ -45,6 +44,7 @@ export default function App() {
           variants={pageVariants}
           transition={pageTransition}
         >
+          <Nav page={page} navigate={navigate} />
           {page === 'landing' && <LandingPage navigate={navigate} />}
           {page === 'game' && <PledgeGame navigate={navigate} />}
           {page === 'certificate' && <CertificatePage data={pledgeData} navigate={navigate} />}

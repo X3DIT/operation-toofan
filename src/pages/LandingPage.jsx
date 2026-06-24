@@ -5,9 +5,9 @@ import FAQAccordion from '../components/FAQAccordion'
 
 
 const STEPS = [
-  { icon: '◎', title: 'Answer 3 questions', body: 'Short knowledge checks on peer pressure and drug risks. No wrong answers - just honest thinking.' },
+  { icon: '◈', title: 'Answer 3 questions', body: 'Short knowledge checks on peer pressure and drug risks. No wrong answers - just honest thinking.' },
   { icon: '◈', title: 'Shape your pledge', body: 'Pick the values that matter to you - family, health, dreams. Your pledge builds itself from your choices.' },
-  { icon: '◉', title: 'Earn your certificate', body: 'A personalized PDF with your name, pledge text, and a unique ID you can verify, share, or print.' },
+  { icon: '◈', title: 'Earn your certificate', body: 'A personalized PDF with your name, pledge text, and a unique ID you can verify, share, or print.' },
 ]
 
 export default function LandingPage({ navigate }) {
@@ -96,7 +96,7 @@ export default function LandingPage({ navigate }) {
           <motion.img 
             animate={{ y: [0, -15, 0] }}
             transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
-            src="/assests/cert.jpg" 
+            src="/assests/cert.png" 
             alt="Certificate preview" 
             className={styles.certImage} 
           />
