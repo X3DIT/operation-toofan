@@ -217,7 +217,7 @@ Take the Pledge Now : https://operation-toofan-jet.vercel.app/`;
             onClick={handleShare} 
             disabled={sharing}
           >
-            {sharing ? 'Preparing share…' : '⬆ Share my pledge'}
+            {sharing ? 'Preparing share…' : '⬆ "Challenge a friend'}
           </motion.button>
         </motion.div>
 
@@ -245,41 +245,41 @@ Take the Pledge Now : https://operation-toofan-jet.vercel.app/`;
           <div className={styles.resourceGrid}>
             <motion.a 
               whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }}
-              href="https://www.samhsa.gov/find-help/national-helpline" 
+              href="https://keralaexcise.gov.in/vimukthi-3/" 
               target="_blank" 
               rel="noopener" 
               className={styles.resourceCard}
             >
               <div className={styles.resourceIcon}>◉</div>
               <div>
-                <div className={styles.resourceName}>SAMHSA Helpline</div>
-                <div className={styles.resourceDesc}>Free, confidential, 24/7 treatment referral</div>
+                <div className={styles.resourceName}>Vimukthi Mission</div>
+                <div className={styles.resourceDesc}>The state's official anti-drug and anti-alcohol awareness mission.</div>
               </div>
             </motion.a>
             <motion.a 
               whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }}
-              href="https://www.nida.nih.gov" 
+              href="https://keralaexcise.gov.in/" 
               target="_blank" 
               rel="noopener" 
               className={styles.resourceCard}
             >
               <div className={styles.resourceIcon}>◎</div>
               <div>
-                <div className={styles.resourceName}>NIDA</div>
-                <div className={styles.resourceDesc}>Science-based drug information</div>
+                <div className={styles.resourceName}>Kerala Excise Department</div>
+                <div className={styles.resourceDesc}>Official department responsible for anti-narcotics awareness and enforcement.</div>
               </div>
             </motion.a>
             <motion.a 
               whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }}
-              href="https://www.drugfree.org" 
+              href="https://nmba.dosje.gov.in/" 
               target="_blank" 
               rel="noopener" 
               className={styles.resourceCard}
             >
               <div className={styles.resourceIcon}>◈</div>
               <div>
-                <div className={styles.resourceName}>Partnership to End Addiction</div>
-                <div className={styles.resourceDesc}>Support for families</div>
+                <div className={styles.resourceName}>Nasha Mukt Bharat Abhiyaan</div>
+                <div className={styles.resourceDesc}>Government of India’s flagship campaign to combat drug abuse.</div>
               </div>
             </motion.a>
           </div>

@@ -77,14 +77,14 @@ const CertificateTemplate = forwardRef(({ data }, ref) => {
       </div>
 
       <div className={`${styles.sig} ${styles.sig1}`}>
-        <div className={styles.script}>Santosh</div>
+        <div className={styles.script}>nil</div>
         <div className={styles.line}></div>
         <div className={styles.role}>Campaign Initiative</div>
         <div className={styles.person}>Operation Toofan</div>
       </div>
 
       <div className={`${styles.sig} ${styles.sig2}`}>
-        <div className={styles.script}>Madhav</div>
+        <div className={styles.script}>nil</div>
         <div className={styles.line}></div>
         <div className={styles.role}>Official Record</div>
         <div className={styles.person}>ID: {data?.id || '---'}</div>
