@@ -3,12 +3,7 @@ import { motion } from 'framer-motion'
 
 export default function Nav({ page, navigate }) {
   return (
-    <motion.nav 
-      initial={{ top: -100 }}
-      animate={{ top: 16 }} // 1rem
-      transition={{ type: "spring", stiffness: 100, damping: 20 }}
-      className={styles.nav}
-    >
+    <nav className={styles.nav}>
       <motion.button 
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -36,6 +31,6 @@ export default function Nav({ page, navigate }) {
           Take the pledge
         </motion.button>
       </div>
-    </motion.nav>
+    </nav>
   )
 }
