@@ -8,12 +8,19 @@ import SendPage from './pages/SendPage'
 import AboutPage from './pages/AboutPage'
 import PrivacyPage from './pages/PrivacyPage'
 import Nav from './components/Nav'
+import ChallengePopup from './components/ChallengePopup'
 import { AnimatePresence, motion } from 'framer-motion'
+
+function getRefFromUrl() {
+  const params = new URLSearchParams(window.location.search)
+  return params.get('ref')
+}
 
 export default function App() {
   const initialPage = window.location.pathname.includes('/send') ? 'send' : 'landing'
   const [page, setPage] = useState(initialPage)
   const [pledgeData, setPledgeData] = useState(null)
+  const [challengerName, setChallengerName] = useState(getRefFromUrl)
 
   const navigate = (to, data) => {
     if (data) setPledgeData(data)
@@ -54,6 +61,23 @@ export default function App() {
           {page === 'privacy' && <PrivacyPage />}
         </motion.div>
       </AnimatePresence>
+
+      {/* Challenge popup when opened via a shared ?ref= link */}
+      {challengerName && (
+        <ChallengePopup
+          challengerName={challengerName}
+          onAccept={() => {
+            setChallengerName(null)
+            // Clear the ref param from the URL without reload
+            window.history.replaceState({}, '', window.location.pathname)
+            navigate('game')
+          }}
+          onClose={() => {
+            setChallengerName(null)
+            window.history.replaceState({}, '', window.location.pathname)
+          }}
+        />
+      )}
     </div>
   )
 }

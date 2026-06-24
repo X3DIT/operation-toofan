@@ -73,11 +73,13 @@ export default function CertificatePage({ data, navigate }) {
   }
 
   const handleShare = async () => {
-    const text = `Today, I pledged to stay drug-free through Operation Toofan.
+    const senderName = data?.name || 'Someone';
+    const refParam = encodeURIComponent(senderName);
+    const text = `${senderName} challenged you to take the pledge 🌿
 
-A single pledge may seem small, but thousands of pledges can create a powerful movement. Join me and take the Drug-Free Pledge:
+${senderName} just completed the Operation Toofan drug-free quest and thinks you should too.
 
-Take the Pledge Now : https://operation-toofan-jet.vercel.app/`;
+Take the pledge → https://operation-toofan-jet.vercel.app?ref=${refParam}`;
     
     setSharing(true);
     try {
@@ -95,7 +97,7 @@ Take the Pledge Now : https://operation-toofan-jet.vercel.app/`;
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
-              title: 'My drug-free pledge',
+              title: `${senderName} challenged you!`,
               text: text,
               files: [file]
             });

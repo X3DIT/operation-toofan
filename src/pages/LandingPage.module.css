@@ -294,6 +294,25 @@
 }
 .pullQuote em { color: var(--green-600); font-style: italic; }
 
+.mythVsFactSection {
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+  padding: 6rem 2rem;
+}
+
+.mythVsFact {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mythVsFactTitle {
+  font-weight: 700;
+  font-size: 70px;
+}
+
 .forOrgs {
   width: 100%;
   padding: 6rem 2rem;

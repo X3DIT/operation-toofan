@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import styles from './LandingPage.module.css'
 import FAQAccordion from '../components/FAQAccordion'
+import MythVsFact from '../components/MythVsFact'
 
 
 const STEPS = [
@@ -188,6 +189,20 @@ export default function LandingPage({ navigate }) {
           >
             Begin quest →
           </motion.button>
+        </div>
+      </motion.section>
+
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className={styles.mythVsFactSection}
+      >
+        <div className={styles.mythVsFact}>
+          <div className={styles.sectionLabel}>Test Your Knowledge</div>
+          <h2 className={`${styles.sectionTitle} ${styles.mythVsFactTitle}`}>Myth vs Fact Challenge</h2>
+          <MythVsFact navigate={navigate} />
         </div>
       </motion.section>
 
