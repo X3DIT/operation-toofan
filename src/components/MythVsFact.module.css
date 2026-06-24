@@ -658,6 +658,14 @@
   .factBtn {
     padding: 12px 14px;
     font-size: 14px;
+    min-height: 48px;
+  }
+
+  .startBtn,
+  .nextBtn,
+  .pledgeBtn,
+  .replayBtn {
+    min-height: 48px;
   }
 
   .scoreCircle {

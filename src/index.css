@@ -196,3 +196,8 @@ a:hover { text-decoration: underline; }
   padding: 0; margin: -1px; overflow: hidden;
   clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
+
+@media (max-width: 768px) {
+  .bg-grid-fade { animation: none; }
+  .shape-blob { animation: none; }
+}

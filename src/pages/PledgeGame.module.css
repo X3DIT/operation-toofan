@@ -207,3 +207,16 @@
   padding-left: 12px;
   font-style: italic;
 }
+
+@media (max-width: 600px) {
+  .wrap {
+    padding: 2rem 1rem;
+    min-height: calc(100vh - 80px);
+  }
+  .valueGrid {
+    grid-template-columns: 1fr;
+  }
+  .option, .valueBtn, .primaryBtn {
+    min-height: 48px;
+  }
+}
