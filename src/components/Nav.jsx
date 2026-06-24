@@ -7,7 +7,6 @@ export default function Nav({ page, navigate }) {
       initial={{ y: -100, x: "-50%" }}
       animate={{ y: 0, x: "-50%" }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-      transformTemplate={(_, generated) => `${generated} translateZ(0)`}
       className={styles.nav}
     >
       <motion.button 

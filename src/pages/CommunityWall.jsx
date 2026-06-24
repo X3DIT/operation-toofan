@@ -1,7 +1,82 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../utils/supabase'
 import styles from './CommunityWall.module.css'
+
+// ─── Heart-burst cheer button ────────────────────────────────────────────────
+function CheerButton({ pledgeKey }) {
+  const storageKey = `toofan_cheer_${pledgeKey}`
+  const [count, setCount] = useState(() => {
+    return parseInt(localStorage.getItem(storageKey) || '0', 10)
+  })
+  const [particles, setParticles] = useState([])
+  const nextId = useRef(0)
+  const btnRef = useRef(null)
+
+  const handleCheer = useCallback(() => {
+    const newCount = count + 1
+    setCount(newCount)
+    localStorage.setItem(storageKey, String(newCount))
+
+    // Spawn 6-8 mini-heart particles
+    const batch = []
+    const numHearts = 6 + Math.floor(Math.random() * 3)
+    for (let i = 0; i < numHearts; i++) {
+      batch.push({
+        id: nextId.current++,
+        x: (Math.random() - 0.5) * 60,
+        y: -(20 + Math.random() * 50),
+        rot: (Math.random() - 0.5) * 90,
+        scale: 0.6 + Math.random() * 0.7,
+        delay: Math.random() * 0.08,
+      })
+    }
+    setParticles(prev => [...prev, ...batch])
+
+    // Clean up after animation
+    setTimeout(() => {
+      setParticles(prev => prev.filter(p => !batch.includes(p)))
+    }, 900)
+  }, [count, storageKey])
+
+  return (
+    <div className={styles.cheerWrap}>
+      <motion.button
+        ref={btnRef}
+        className={styles.cheerBtn}
+        onClick={handleCheer}
+        whileTap={{ scale: 1.3 }}
+        transition={{ type: 'spring', stiffness: 500, damping: 15 }}
+        aria-label={`Cheer this pledge (${count})`}
+      >
+        <span className={styles.cheerHeart}>❤</span>
+        {count > 0 && <span className={styles.cheerCount}>{count}</span>}
+      </motion.button>
+
+      {/* Particle burst */}
+      <AnimatePresence>
+        {particles.map(p => (
+          <motion.span
+            key={p.id}
+            className={styles.heartParticle}
+            initial={{ opacity: 1, x: 0, y: 0, scale: p.scale, rotate: 0 }}
+            animate={{
+              opacity: 0,
+              x: p.x,
+              y: p.y,
+              scale: p.scale * 0.3,
+              rotate: p.rot,
+            }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7, delay: p.delay, ease: [0.2, 0.8, 0.4, 1] }}
+          >
+            ❤
+          </motion.span>
+        ))}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 const SEED_PLEDGES = []
 
@@ -118,16 +193,19 @@ export default function CommunityWall({ navigate }) {
                     <span className={styles.perfectBadge} title="Perfect score">✦</span>
                   )}
                 </div>
-                <div className={styles.cardValues}>
-                  {p.values.map(v => (
-                    <span
-                      key={v}
-                      className={styles.valuePill}
-                      style={VALUE_COLORS[v] || {}}
-                    >
-                      {v}
-                    </span>
-                  ))}
+                <div className={styles.cardBottom}>
+                  <div className={styles.cardValues}>
+                    {p.values.map(v => (
+                      <span
+                        key={v}
+                        className={styles.valuePill}
+                        style={VALUE_COLORS[v] || {}}
+                      >
+                        {v}
+                      </span>
+                    ))}
+                  </div>
+                  <CheerButton pledgeKey={`${p.name}_${p.date}_${i}`} />
                 </div>
               </motion.div>
             ))}
