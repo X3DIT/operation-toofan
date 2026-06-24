@@ -4,8 +4,8 @@ import { motion } from 'framer-motion'
 export default function Nav({ page, navigate }) {
   return (
     <motion.nav 
-      initial={{ y: -100, x: "-50%" }}
-      animate={{ y: 0, x: "-50%" }}
+      initial={{ top: -100 }}
+      animate={{ top: 16 }} // 1rem
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
       className={styles.nav}
     >
