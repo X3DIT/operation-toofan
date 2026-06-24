@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import styles from './LandingPage.module.css'
+import FAQAccordion from '../components/FAQAccordion'
 
 
 const STEPS = [
@@ -201,6 +202,16 @@ export default function LandingPage({ navigate }) {
           "The pledge isn't a promise to the world.<br />
           <em>It's a promise to yourself.</em>"
         </blockquote>
+      </motion.section>
+
+      <motion.section 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        style={{ padding: '6rem 1.5rem' }}
+      >
+        <FAQAccordion />
       </motion.section>
 
       <motion.section 

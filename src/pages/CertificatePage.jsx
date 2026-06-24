@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import styles from './CertificatePage.module.css'
 import { generateCertificatePDF, generateCertificateCanvas } from '../utils/generatePDF'
 import CertificateTemplate from '../components/CertificateTemplate'
+import CertificateDrawAnimation from '../components/CertificateDrawAnimation'
 import html2canvas from 'html2canvas'
 
 export default function CertificatePage({ data, navigate }) {
@@ -10,6 +11,7 @@ export default function CertificatePage({ data, navigate }) {
   const [downloadingPDF, setDownloadingPDF] = useState(false)
   const [downloadingPNG, setDownloadingPNG] = useState(false)
   const [sharing, setSharing] = useState(false)
+  const [animationDone, setAnimationDone] = useState(false)
 
   if (!data) {
     return (
@@ -174,16 +176,43 @@ Take the Pledge Now : https://operation-toofan-jet.vercel.app/`;
           marginBottom: '2rem', 
           overflow: 'hidden', 
           borderRadius: 'var(--radius)',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
+          boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+          position: 'relative',
         }}>
-          <div style={{ 
-            width: '1290px', 
-            height: '950px', 
-            transform: `scale(${scale})`, 
-            transformOrigin: 'top left' 
-          }}>
-            <CertificateTemplate ref={certRef} data={data} />
-          </div>
+
+          {/* ── Animated draw-in preview (visible to user) ── */}
+          <AnimatePresence mode="wait">
+            {!animationDone ? (
+              <motion.div
+                key="anim"
+                style={{ width: '1290px', height: '950px', transform: `scale(${scale})`, transformOrigin: 'top left' }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <CertificateDrawAnimation
+                  data={data}
+                  onComplete={() => setAnimationDone(true)}
+                />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="real"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                style={{ width: '1290px', height: '950px', transform: `scale(${scale})`, transformOrigin: 'top left' }}
+              >
+                <CertificateTemplate ref={certRef} data={data} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* ── Hidden certRef clone – always rendered off-screen for PDF/PNG ── */}
+          {!animationDone && (
+            <div style={{ position: 'absolute', top: 0, left: 0, opacity: 0, pointerEvents: 'none', zIndex: -1, width: '1290px', height: '950px', transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+              <CertificateTemplate ref={certRef} data={data} />
+            </div>
+          )}
         </motion.div>
 
         <motion.div 

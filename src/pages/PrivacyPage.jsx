@@ -1,6 +1,7 @@
 export default function PrivacyPage() {
   return (
     <div style={{ padding: '8rem 2rem', maxWidth: '800px', margin: '0 auto', color: 'var(--text)' }}>
+      <div className="bg-grid-fade" />
       <h1 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Privacy Policy</h1>
       <p style={{ marginBottom: '1.5rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
         Your privacy is important to us. Operation Toofan does not collect personally identifiable information 
@@ -8,7 +9,7 @@ export default function PrivacyPage() {
       </p>
       <p style={{ marginBottom: '1.5rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
         Any data collected (such as your name for the certificate) is used solely for the purpose of generating 
-        your personalized pledge certificate and displaying it on the community wall if you choose to share it.
+        your personalized pledge certificate and displaying it on the community wall.
       </p>
       <p style={{ marginBottom: '1.5rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
         We do not sell, trade, or otherwise transfer your personal information to outside parties. 

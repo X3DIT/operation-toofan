@@ -1,6 +1,7 @@
 export default function AboutPage() {
   return (
     <div style={{ padding: '8rem 2rem', maxWidth: '800px', margin: '0 auto', color: 'var(--text)' }}>
+      <div className="bg-grid-fade" />
       <h1 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>About Operation Toofan</h1>
       <p style={{ marginBottom: '1.5rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
         Operation Toofan is a student-led anti-drug awareness initiative conducted by Providence College of Engineering. 
