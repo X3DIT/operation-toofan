@@ -46,20 +46,7 @@
   z-index: 0;
 }
 
-/* Brick wall effect at the bottom of hero */
-.parallaxFloor {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 48px;
-  background-image: url('/assests/Elements/floor/floor1.png');
-  background-repeat: repeat-x;
-  background-size: contain;
-  background-position: top center;
-  image-rendering: pixelated;
-  z-index: 2;
-}
+
 
 .hero {
   display: grid;

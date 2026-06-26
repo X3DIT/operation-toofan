@@ -83,7 +83,7 @@ export default function LandingPage({ navigate }) {
       <div className={styles.heroWrapper}>
         <div className={styles.parallaxBg}>
           <video 
-            src="/assests/Elements/pixelated%20video%20bg.mp4" 
+            src="/assests/Elements/0pixelated%20video%20bg.mp4" 
             autoPlay 
             loop 
             muted 
@@ -91,7 +91,6 @@ export default function LandingPage({ navigate }) {
             className={styles.bgVideo} 
           />
         </div>
-        <div className={styles.parallaxFloor} />
         <section className={styles.hero}>
           <div className={styles.heroContent}>
             <motion.div

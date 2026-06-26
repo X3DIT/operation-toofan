@@ -135,7 +135,7 @@
   pointer-events: none;
 }
 
-.primaryBtn:hover::before:not(:disabled) {
+.primaryBtn:hover:not(:disabled)::before {
   opacity: 1;
   transform: translateX(0);
 }
