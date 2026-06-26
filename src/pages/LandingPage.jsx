@@ -88,7 +88,15 @@ export default function LandingPage({ navigate }) {
             loop 
             muted 
             playsInline 
-            className={styles.bgVideo} 
+            className={`${styles.bgVideo} ${styles.desktopVideo}`} 
+          />
+          <video 
+            src="/assests/Elements/0pixelated%20video%20bg%20mob.mp4" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className={`${styles.bgVideo} ${styles.mobileVideo}`} 
           />
         </div>
         <section className={styles.hero}>
@@ -220,6 +228,16 @@ export default function LandingPage({ navigate }) {
         <div className={styles.sectionLabelCenter}>HOW IT WORKS</div>
         <h2 className={styles.sectionTitleCenter}>THREE STAGES TO YOUR CERTIFICATE</h2>
 
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className={`${styles.certificatePreview} ${styles.mobileOnlyCert}`}
+        >
+          <img src="/assests/cert.png" alt="Certificate Preview" className={styles.certImg} />
+        </motion.div>
+
         <div className={styles.questChain}>
           {QUESTS.map((q, i) => (
             <motion.div
@@ -316,7 +334,7 @@ export default function LandingPage({ navigate }) {
       >
         <div className={styles.allianceInner}>
           <div className={styles.allianceCard}>
-            <div className={styles.sectionLabel}>// ALLIANCE PROTOCOL</div>
+            <div className={styles.sectionLabel}>ALLIANCE PROTOCOL</div>
             <h2 className={styles.allianceTitle}>Run a Group Pledge Campaign</h2>
             <p>Enroll a whole classroom, get co-branded scrolls, and download a completion report — all free.</p>
             <motion.button

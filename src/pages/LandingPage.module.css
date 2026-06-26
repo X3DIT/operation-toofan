@@ -37,6 +37,14 @@
   pointer-events: none;
 }
 
+.mobileVideo {
+  display: none;
+}
+
+.desktopVideo {
+  display: block;
+}
+
 /* Overlay to ensure text readability if background is too bright */
 .heroWrapper::before {
   content: '';
@@ -229,6 +237,10 @@
   display: block;
 }
 
+.mobileOnlyCert {
+  display: none;
+}
+
 
 /* ══════════════════════════════════════════════
    ABOUT THE ORDER / INITIATIVE
@@ -264,7 +276,7 @@
 
 .sectionLabel {
   font-family: var(--font-pixel);
-  font-size: 12px;
+  font-size: 10px;
   color: var(--danger);
   margin-bottom: 1.5rem;
   text-transform: uppercase;
@@ -624,6 +636,18 @@
     padding: 6rem 1.5rem 8rem;
     text-align: center;
   }
+
+  .mobileVideo {
+    display: block;
+  }
+
+  .desktopVideo {
+    display: none;
+  }
+
+  .heroArt {
+    display: none;
+  }
   
   .heroCtas {
     justify-content: center;
@@ -641,6 +665,11 @@
   .questChain {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .mobileOnlyCert {
+    display: block;
+    margin: 0 auto 2.5rem auto;
   }
 
   .dialogueBox {

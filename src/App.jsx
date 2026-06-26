@@ -4,7 +4,6 @@ import LandingPage from './pages/LandingPage'
 import PledgeGame from './pages/PledgeGame'
 import CertificatePage from './pages/CertificatePage'
 import CommunityWall from './pages/CommunityWall'
-import SendPage from './pages/SendPage'
 import AboutPage from './pages/AboutPage'
 import PrivacyPage from './pages/PrivacyPage'
 
@@ -17,8 +16,7 @@ function getRefFromUrl() {
 }
 
 export default function App() {
-  const initialPage = window.location.pathname.includes('/send') ? 'send' : 'landing'
-  const [page, setPage] = useState(initialPage)
+  const [page, setPage] = useState('landing')
   const [pledgeData, setPledgeData] = useState(null)
   const [challengerName, setChallengerName] = useState(getRefFromUrl)
 
@@ -61,7 +59,6 @@ export default function App() {
           {page === 'game' && <PledgeGame navigate={navigate} />}
           {page === 'certificate' && <CertificatePage data={pledgeData} navigate={navigate} />}
           {page === 'community' && <CommunityWall navigate={navigate} />}
-          {page === 'send' && <SendPage />}
           {page === 'about' && <AboutPage />}
           {page === 'privacy' && <PrivacyPage />}
         </motion.div>
