@@ -293,9 +293,28 @@
     min-height: calc(100vh - 80px);
   }
   .valueGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
-  .option, .valueBtn, .primaryBtn {
+  .valueBtn {
+    flex-direction: column;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    padding: 10px;
+    font-size: 11px;
+    text-align: center;
+  }
+  .valueBtn .valueIcon {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  .valueBtn .valueCheck {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    margin-left: 0;
+  }
+  .option, .primaryBtn {
     min-height: 48px;
   }
 }

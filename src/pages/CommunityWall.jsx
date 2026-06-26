@@ -6,20 +6,52 @@ import styles from './CommunityWall.module.css'
 const getCheerData = () => JSON.parse(localStorage.getItem('toofan_cheers') || '{}')
 
 // ─── Heart-burst cheer button ────────────────────────────────────────────────
-function CheerButton({ pledgeKey }) {
+function CheerButton({ pledge, pledgeKey }) {
   const [count, setCount] = useState(() => {
-    return getCheerData()[pledgeKey] || 0
+    return pledge?.likes !== undefined ? pledge.likes : (getCheerData()[pledgeKey] || 0)
   })
   const [particles, setParticles] = useState([])
   const nextId = useRef(0)
   const btnRef = useRef(null)
 
-  const handleCheer = useCallback(() => {
+  useEffect(() => {
+    if (pledge?.likes !== undefined) {
+      setCount(pledge.likes)
+    }
+  }, [pledge?.likes])
+
+  const handleCheer = async () => {
+    const historyKey = 'toofan_cheer_history'
+    let history = JSON.parse(localStorage.getItem(historyKey) || '[]')
+    const now = Date.now()
+    const oneHourAgo = now - 60 * 60 * 1000
+    
+    history = history.filter(time => time > oneHourAgo)
+    
+    if (history.length >= 50) {
+      alert("You've reached the limit of 50 cheers per hour. Take a break!")
+      return
+    }
+
+    history.push(now)
+    localStorage.setItem(historyKey, JSON.stringify(history))
+
     const newCount = count + 1
     setCount(newCount)
+    
     const cheers = getCheerData()
     cheers[pledgeKey] = newCount
     localStorage.setItem('toofan_cheers', JSON.stringify(cheers))
+
+    if (import.meta.env.VITE_SUPABASE_URL && pledge?.id) {
+      try {
+        const { data } = await supabase.from('pledges').select('likes').eq('id', pledge.id).single()
+        const currentLikes = data?.likes || 0
+        await supabase.from('pledges').update({ likes: currentLikes + 1 }).eq('id', pledge.id)
+      } catch (err) {
+        console.error('Error cheering globally', err)
+      }
+    }
 
     // Spawn 6-8 mini-heart particles
     const batch = []
@@ -40,7 +72,7 @@ function CheerButton({ pledgeKey }) {
     setTimeout(() => {
       setParticles(prev => prev.filter(p => !batch.includes(p)))
     }, 900)
-  }, [count, pledgeKey])
+  }
 
   return (
     <div className={styles.cheerWrap}>
@@ -207,7 +239,7 @@ export default function CommunityWall({ navigate }) {
                       </span>
                     ))}
                   </div>
-                  <CheerButton pledgeKey={`${p.name}_${p.date}_${i}`} />
+                  <CheerButton pledge={p} pledgeKey={p.id ? `pledge_${p.id}` : `${p.name}_${p.date}_${i}`} />
                 </div>
               </motion.div>
             ))}

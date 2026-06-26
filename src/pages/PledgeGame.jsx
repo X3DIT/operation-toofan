@@ -98,14 +98,23 @@ export default function PledgeGame({ navigate }) {
   }
 
   const toggleValue = (v) => {
-    setSelectedValues(prev => {
-      if (prev.find(x => x.id === v.id)) return prev.filter(x => x.id !== v.id)
-      if (prev.length >= 3) return prev
-      const next = [...prev, v]
-      setXp(x => x + 1)
-      addFloat('+1 XP', true)
-      return next
-    })
+    const isSelected = selectedValues.find(x => x.id === v.id);
+    
+    if (isSelected) {
+      const next = selectedValues.filter(x => x.id !== v.id);
+      setSelectedValues(next);
+      if (next.length === 0) {
+        setXp(x => x - 1);
+      }
+    } else {
+      if (selectedValues.length >= 3) return;
+      const next = [...selectedValues, v];
+      setSelectedValues(next);
+      if (selectedValues.length === 0) {
+        setXp(x => x + 1);
+        addFloat('+1 XP', true);
+      }
+    }
   }
 
   const handleSealPledge = async () => {
@@ -288,6 +297,7 @@ export default function PledgeGame({ navigate }) {
             <div className={styles.valueGrid}>
               {VALUES.map((v, i) => {
                 const sel = !!selectedValues.find(x => x.id === v.id)
+                const IconComponent = v.icon
                 return (
                   <motion.button
                     key={v.id}
@@ -300,7 +310,9 @@ export default function PledgeGame({ navigate }) {
                     onClick={() => toggleValue(v)}
                     aria-pressed={sel}
                   >
-                    <span className={styles.valueIcon}>{v.icon}</span>
+                    <span className={styles.valueIcon}>
+                      <IconComponent size={24} strokeWidth={2} />
+                    </span>
                     <span>{v.label}</span>
                     {sel && <motion.span initial={{scale:0}} animate={{scale:1}} className={styles.valueCheck}>✓</motion.span>}
                   </motion.button>

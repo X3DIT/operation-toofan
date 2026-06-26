@@ -110,14 +110,6 @@ export default function LandingPage({ navigate }) {
                 <div className={styles.eyebrow}>
                   YOUR COMMITMENT, MADE REAL
                 </div>
-                <motion.div 
-                  initial={{ y: 2 }}
-                  animate={{ y: -2 }}
-                  transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-                  className={styles.cloudWrapper}
-                >
-                  <img src="/assests/Elements/cloud/c1.png" alt="Cloud" className={styles.heroCloud} />
-                </motion.div>
               </div>
 
               <h1 className={styles.headline}>

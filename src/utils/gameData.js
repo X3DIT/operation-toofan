@@ -51,13 +51,15 @@ export const QUESTIONS = [
   },
 ]
 
+import { Heart, Rocket, Home, Users, Sparkles, Bird } from 'lucide-react'
+
 export const VALUES = [
-  { id: 'health', label: 'My health', icon: '◎', color: 'green' },
-  { id: 'future', label: 'My future', icon: '◈', color: 'purple' },
-  { id: 'family', label: 'My family', icon: '◉', color: 'teal' },
-  { id: 'friends', label: 'My friends', icon: '◇', color: 'blue' },
-  { id: 'dreams', label: 'My dreams', icon: '◊', color: 'amber' },
-  { id: 'freedom', label: 'My freedom', icon: '✦', color: 'coral' },
+  { id: 'health', label: 'My health', icon: Heart, color: 'green' },
+  { id: 'future', label: 'My future', icon: Rocket, color: 'purple' },
+  { id: 'family', label: 'My family', icon: Home, color: 'teal' },
+  { id: 'friends', label: 'My friends', icon: Users, color: 'blue' },
+  { id: 'dreams', label: 'My dreams', icon: Sparkles, color: 'amber' },
+  { id: 'freedom', label: 'My freedom', icon: Bird, color: 'coral' },
 ]
 
 export const buildPledgeText = (name, values) => {
