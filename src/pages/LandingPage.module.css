@@ -23,15 +23,18 @@
 
 .parallaxBg {
   position: absolute;
-  top: -20%;
-  left: -10%;
-  right: -10%;
-  bottom: -20%;
-  background-image: url('/assests/Elements/pixelated%20bg.png');
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 0;
+}
+
+.bgVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
 }
 
 /* Overlay to ensure text readability if background is too bright */
@@ -46,10 +49,10 @@
 /* Brick wall effect at the bottom of hero */
 .parallaxFloor {
   position: absolute;
-  bottom: -100px;
+  bottom: 0;
   left: 0;
   right: 0;
-  height: 148px; /* Extra height to account for parallax movement */
+  height: 48px;
   background-image: url('/assests/Elements/floor/floor1.png');
   background-repeat: repeat-x;
   background-size: contain;
