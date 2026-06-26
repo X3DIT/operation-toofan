@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ProgressBar from '../components/ProgressBar'
+import TypewriterText from '../components/TypewriterText'
 import { QUESTIONS, VALUES, buildPledgeText } from '../utils/gameData'
 import { supabase } from '../utils/supabase'
 import styles from './PledgeGame.module.css'
@@ -14,6 +15,41 @@ function generatePledgeId(date = new Date()) {
   const month = String(date.getMonth() + 1).padStart(2, '0')
 
   return `PRC - ${randomPart}-${year}${day}${month}`
+}
+
+function ParticleBurst({ active }) {
+  const [particles, setParticles] = useState([])
+  
+  useEffect(() => {
+    if (!active) return
+    const batch = Array.from({ length: 15 }).map((_, i) => ({
+      id: i,
+      x: (Math.random() - 0.5) * 400,
+      y: (Math.random() - 0.5) * 400,
+      scale: Math.random() * 0.8 + 0.4,
+      rot: Math.random() * 360,
+      delay: Math.random() * 0.1
+    }))
+    setParticles(batch)
+  }, [active])
+
+  if (!active) return null
+
+  return (
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 10 }}>
+      {particles.map(p => (
+        <motion.div
+          key={p.id}
+          initial={{ opacity: 1, x: 0, y: 0, scale: p.scale, rotate: 0 }}
+          animate={{ opacity: 0, x: p.x, y: p.y, scale: p.scale * 0.2, rotate: p.rot }}
+          transition={{ duration: 0.8, delay: p.delay, ease: "easeOut" }}
+          style={{ position: 'absolute', left: '50%', top: '50%', color: 'var(--primary)', fontSize: '20px' }}
+        >
+          ✦
+        </motion.div>
+      ))}
+    </div>
+  )
 }
 
 export default function PledgeGame({ navigate }) {
@@ -44,14 +80,8 @@ export default function PledgeGame({ navigate }) {
     const trimmedName = name.trim();
     if (!trimmedName) { nameRef.current?.focus(); return }
     
-    if (trimmedName.toLowerCase() === 'bypass') {
-      setScore(QUESTIONS.length);
-      setXp(QUESTIONS.length);
-      setStage(QUESTIONS.length + 1);
-    } else {
-      setXp(0); setScore(0); setSelectedValues([])
-      goNext()
-    }
+    setXp(0); setScore(0); setSelectedValues([])
+    goNext()
   }
 
   const handleAnswer = (opt, qIdx) => {
@@ -89,18 +119,12 @@ export default function PledgeGame({ navigate }) {
       values: selectedValues.map(v => v.label)
     }
 
-    const isRobot = name.trim().toLowerCase() === 'robot'
-    const isBypass = name.trim().toLowerCase() === 'bypass'
-
-    // Save to Supabase (if configured) and not robot easter egg or bypass
-    if (!isRobot && !isBypass) {
-      if (import.meta.env.VITE_SUPABASE_URL) {
-        await supabase.from('pledges').insert([newPledge])
-      } else {
-        // Fallback to localStorage if Supabase isn't set up yet
-        const savedPledges = JSON.parse(localStorage.getItem('toofan_pledges') || '[]')
-        localStorage.setItem('toofan_pledges', JSON.stringify([newPledge, ...savedPledges]))
-      }
+    if (import.meta.env.VITE_SUPABASE_URL) {
+      await supabase.from('pledges').insert([newPledge])
+    } else {
+      // Fallback to localStorage if Supabase isn't set up yet
+      const savedPledges = JSON.parse(localStorage.getItem('toofan_pledges') || '[]')
+      localStorage.setItem('toofan_pledges', JSON.stringify([newPledge, ...savedPledges]))
     }
 
     navigate('certificate', {
@@ -172,7 +196,10 @@ export default function PledgeGame({ navigate }) {
                 ref={nameRef}
                 type="text"
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={e => {
+                  const val = e.target.value.replace(/[^A-Za-z\s]/g, '')
+                  setName(val)
+                }}
                 onKeyDown={e => e.key === 'Enter' && handleStart()}
                 placeholder="Enter your name"
                 maxLength={60}
@@ -194,7 +221,10 @@ export default function PledgeGame({ navigate }) {
           <motion.div 
             key={`question-${stage}`}
             initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={answered !== null && q.options.find(o => o.text === answered)?.correct ? 
+              { opacity: 1, x: [0, -8, 8, -8, 8, 0] } : 
+              { opacity: 1, x: 0 }
+            }
             exit={{ opacity: 0, x: -50 }}
             transition={{ type: "spring", bounce: 0.4, duration: 0.6 }}
             className={styles.scene}
@@ -237,6 +267,7 @@ export default function PledgeGame({ navigate }) {
                 <p>{q.explanation}</p>
               </motion.div>
             )}
+            <ParticleBurst active={answered !== null && q.options.find(o => o.text === answered)?.correct} />
           </motion.div>
         )}
 

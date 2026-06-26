@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import styles from './ProgressBar.module.css'
 
 export default function ProgressBar({ stage, total = 5, xp, maxXp = 5 }) {
@@ -15,7 +16,20 @@ export default function ProgressBar({ stage, total = 5, xp, maxXp = 5 }) {
       <div className={styles.xpRow}>
         <span className={styles.label}>XP</span>
         <div className={styles.track}>
-          <div className={styles.fill} style={{ width: pct + '%' }} />
+          <motion.div 
+            className={styles.fill} 
+            initial={{ width: 0 }}
+            animate={{ width: `${pct}%` }}
+            transition={{ type: "spring", bounce: 0.5, duration: 0.8 }}
+          >
+            <motion.div 
+              key={xp}
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className={styles.flash}
+            />
+          </motion.div>
         </div>
         <span className={styles.count}>{xp} / {maxXp}</span>
       </div>

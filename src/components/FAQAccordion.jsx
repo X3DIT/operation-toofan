@@ -50,7 +50,7 @@ export default function FAQAccordion() {
                 <motion.span
                   className={styles.icon}
                   animate={{ rotate: isOpen ? 90 : 0 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.3, type: "tween", ease: (v) => Math.floor(v * 4) / 4 }}
                 >
                   ▶
                 </motion.span>
@@ -61,7 +61,7 @@ export default function FAQAccordion() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.4, type: "tween", ease: (v) => Math.floor(v * 5) / 5 }}
                     className={styles.answerWrapper}
                   >
                     <div className={styles.answer}>

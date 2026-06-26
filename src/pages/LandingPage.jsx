@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import styles from './LandingPage.module.css'
 import FAQAccordion from '../components/FAQAccordion'
 import MythVsFact from '../components/MythVsFact'
@@ -72,6 +72,11 @@ function useTypewriter(text, speed = 60) {
 
 export default function LandingPage({ navigate }) {
   const { displayed: heroText, done: heroDone } = useTypewriter('THE STORM IS RISING.', 70)
+  const { scrollY } = useScroll()
+  
+  // Parallax effects
+  const bgY = useTransform(scrollY, [0, 1000], ['0%', '40%'])
+  const floorY = useTransform(scrollY, [0, 1000], ['0%', '-20%'])
 
   return (
     <main className={styles.main}>
@@ -81,6 +86,14 @@ export default function LandingPage({ navigate }) {
           SECTION 1: HERO
           ══════════════════════════════════════════════ */}
       <div className={styles.heroWrapper}>
+        <motion.div 
+          className={styles.parallaxBg} 
+          style={{ y: bgY }}
+        />
+        <motion.div 
+          className={styles.parallaxFloor} 
+          style={{ y: floorY }}
+        />
         <section className={styles.hero}>
           <div className={styles.heroContent}>
             <motion.div

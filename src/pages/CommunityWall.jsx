@@ -182,7 +182,7 @@ export default function CommunityWall({ navigate }) {
               >
                 <div className={styles.cardTop}>
                   <img
-                    src="/assets/dummy-avatar.jpg"
+                    src="/assests/dummy-avatar.jpg"
                     alt=""
                     className={styles.avatar}
                     aria-hidden="true"
