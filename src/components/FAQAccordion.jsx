@@ -35,24 +35,24 @@ export default function FAQAccordion() {
   return (
     <div className={styles.faqContainer}>
       <div className={styles.sectionLabel}>FAQ</div>
-      <h2 className={styles.sectionTitle}>Frequently asked questions</h2>
+      <h2 className={styles.sectionTitle}>FREQUENTLY ASKED QUESTIONS</h2>
       <div className={styles.accordion}>
         {FAQS.map((faq, i) => {
           const isOpen = openIndex === i
           return (
-            <div key={i} className={styles.item}>
-              <button 
-                className={styles.question} 
+            <div key={i} className={`${styles.item} ${isOpen ? styles.itemOpen : ''}`}>
+              <button
+                className={styles.question}
                 onClick={() => toggle(i)}
                 aria-expanded={isOpen}
               >
                 <span>{faq.question}</span>
-                <motion.span 
+                <motion.span
                   className={styles.icon}
-                  animate={{ rotate: isOpen ? 180 : 0 }}
+                  animate={{ rotate: isOpen ? 90 : 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  ↓
+                  ▶
                 </motion.span>
               </button>
               <AnimatePresence>

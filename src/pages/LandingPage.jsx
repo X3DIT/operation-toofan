@@ -4,262 +4,337 @@ import styles from './LandingPage.module.css'
 import FAQAccordion from '../components/FAQAccordion'
 import MythVsFact from '../components/MythVsFact'
 
-
-const STEPS = [
-  { icon: '◈', title: 'Answer 3 questions', body: 'Short knowledge checks on peer pressure and drug risks. No wrong answers - just honest thinking.' },
-  { icon: '◈', title: 'Shape your pledge', body: 'Pick the values that matter to you - family, health, dreams. Your pledge builds itself from your choices.' },
-  { icon: '◈', title: 'Earn your certificate', body: 'A personalized PDF with your name, pledge text, and a unique ID you can verify, share, or print.' },
+/* ── Quest Chain Data ── */
+const QUESTS = [
+  {
+    num: '01',
+    name: 'PREPARE & UNDERSTAND',
+    body: 'A 5 minute guided session to test your knowledge regarding choices and their consequences in the real world.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+      </svg>
+    ),
+  },
+  {
+    num: '02',
+    name: 'SHAPE YOUR PLEDGE',
+    body: 'Reflect on what matters to you - family, health, dreams. Your pledge will build itself from your choices.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+    ),
+  },
+  {
+    num: '03',
+    name: 'EARN YOUR CERTIFICATE',
+    body: 'Receive a personalized, verifiable certificate of your pledge. Download, share, and inspire others.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+      </svg>
+    ),
+    isLegendary: true,
+  },
 ]
 
-export default function LandingPage({ navigate }) {
-  const heroRef = useRef(null)
-  const [visible, setVisible] = useState(false)
+/* ── Typewriter Hook ── */
+function useTypewriter(text, speed = 60) {
+  const [displayed, setDisplayed] = useState('')
+  const [done, setDone] = useState(false)
 
   useEffect(() => {
-    setVisible(true)
-  }, [])
+    // Respect reduced motion
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReduced) {
+      setDisplayed(text)
+      setDone(true)
+      return
+    }
+
+    let i = 0
+    setDisplayed('')
+    setDone(false)
+    const interval = setInterval(() => {
+      i++
+      setDisplayed(text.slice(0, i))
+      if (i >= text.length) {
+        clearInterval(interval)
+        setDone(true)
+      }
+    }, speed)
+    return () => clearInterval(interval)
+  }, [text, speed])
+
+  return { displayed, done }
+}
+
+export default function LandingPage({ navigate }) {
+  const { displayed: heroText, done: heroDone } = useTypewriter('THE STORM IS RISING.', 70)
 
   return (
     <main className={styles.main}>
       <div className="bg-grid-fade" />
-      <div className={styles.heroWrapper}>
-        <div className={`${styles.blobBg} shape-blob`} aria-hidden="true" />
-        <div className={`${styles.blobBg2} shape-blob`} aria-hidden="true" style={{ animationDelay: '-4s', background: 'linear-gradient(135deg, var(--purple-200), var(--coral-200))' }} />
-        <section className={styles.hero}>
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className={`${styles.heroInner} ${visible ? styles.heroVisible : ''}`}
-        >
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className={styles.eyebrow}
-          >
-            <span className={styles.dot} />
-            Your commitment, made real
-          </motion.div>
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className={styles.headline}
-          >
-            One pledge.<br/>
-            <motion.em
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-            >Your whole future.</motion.em>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            className={styles.sub}
-          >
-            A 5-minute interactive journey that turns a decision into a certificate. Not a checkbox - a quest.
-          </motion.p>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-            className={styles.heroCtas}
-          >
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={styles.primaryBtn} 
-              onClick={() => navigate('game')}
-            >
-              Start your pledge quest →
-            </motion.button>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={styles.ghostBtn} 
-              onClick={() => navigate('community')}
-            >
-              See the community wall
-            </motion.button>
-          </motion.div>
-        </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1, delay: 0.5, type: 'spring' }}
-          className={styles.heroArt} 
-          aria-hidden="true"
-        >
-          <motion.img 
-            animate={{ y: [0, -15, 0] }}
-            transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
-            src="/assests/cert.png" 
-            alt="Certificate preview" 
-            className={styles.certImage} 
-          />
-        </motion.div>
-      </section>
+      {/* ══════════════════════════════════════════════
+          SECTION 1: HERO
+          ══════════════════════════════════════════════ */}
+      <div className={styles.heroWrapper}>
+        <section className={styles.hero}>
+          <div className={styles.heroContent}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className={styles.eyebrowWrapper}>
+                <div className={styles.eyebrow}>
+                  YOUR COMMITMENT, MADE REAL
+                </div>
+                <motion.div 
+                  initial={{ y: 2 }}
+                  animate={{ y: -2 }}
+                  transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                  className={styles.cloudWrapper}
+                >
+                  <img src="/assests/Elements/cloud/c1.png" alt="Cloud" className={styles.heroCloud} />
+                </motion.div>
+              </div>
+
+              <h1 className={styles.headline}>
+                ONE PLEDGE.<br />
+                <span>YOUR WHOLE<br />
+                FUTURE.</span>
+              </h1>
+
+              <motion.p
+                className={styles.sub}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+              >
+                A 5-minute interactive journey that turns a decision into a certificate. Not a checkbox — a quest.
+              </motion.p>
+
+              <motion.div
+                className={styles.heroCtas}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+              >
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={styles.primaryBtn}
+                  onClick={() => navigate('game')}
+                >
+                  START YOUR PLEDGE QUEST <span className={styles.btnSymbol}>▶</span>
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={styles.ghostBtn}
+                  onClick={() => navigate('community')}
+                >
+                  SEE THE COMMUNITY WALL
+                </motion.button>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Certificate Preview Card */}
+          <motion.div
+            className={styles.heroArt}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className={styles.certificatePreview}>
+              <img src="/assests/cert.png" alt="Certificate Preview" className={styles.certImg} />
+            </div>
+          </motion.div>
+        </section>
       </div>
 
-      <motion.section 
+      {/* ══════════════════════════════════════════════
+          SECTION 2: ABOUT THE ORDER
+          ══════════════════════════════════════════════ */}
+      <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className={styles.aboutInitiative}
+        className={styles.aboutSection}
       >
         <div className={styles.aboutInner}>
           <div className={styles.aboutContent}>
-            <div className={styles.sectionLabel}>About the Initiative</div>
-            <h2 className={styles.sectionTitle}>
-              Operation Toofan is conducted by<br/>Providence College of Engineering
-            </h2>
+            <div className={styles.sectionLabel}>ABOUT THE INITIATIVE</div>
+            <h2 className={styles.sectionTitle}>OPERATION TOOFAN IS CONDUCTED BY PROVIDENCE COLLEGE OF ENGINEERING</h2>
+            
             <p className={styles.aboutText}>
-              Operation Toofan is a student-led anti-drug awareness initiative conducted by Providence College of Engineering. The platform aims to encourage young people to make informed, healthy choices through awareness, reflection, and personal commitment.
+              Operation Toofan is a student-led anti-drug awareness initiative conducted by the students of Providence College of Engineering. The platform aims to encourage young people to make informed, healthy choices through awareness, reflection, and personal commitment.
             </p>
             <p className={styles.aboutText}>
               By transforming a simple pledge into an interactive experience, Operation Toofan seeks to build a stronger, drug-free community where every participant becomes an advocate for positive change.
             </p>
             <div className={styles.aboutTags}>
-              <motion.span whileHover={{ scale: 1.1 }}>Drug-Free Kerala</motion.span>
-              <span className={styles.tagDot}>•</span>
-              <motion.span whileHover={{ scale: 1.1 }}>Youth Awareness</motion.span>
-              <span className={styles.tagDot}>•</span>
-              <motion.span whileHover={{ scale: 1.1 }}>Action</motion.span>
+              <span className={styles.pixelTag}>DRUG-FREE KERALA</span>
+              <span className={styles.pixelTag}>YOUTH AWARENESS</span>
+              <span className={styles.pixelTag}>ACTION</span>
+              <span className={styles.pixelTag}>STATE COLLEGE -</span>
             </div>
-            <motion.a 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="https://providence.edu.in" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className={styles.glassBtn}
-            >
-              Visit College →
-            </motion.a>
           </div>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className={styles.aboutLogo}
+            className={styles.aboutCrest}
           >
-            <img src="/assests/logo2.jpg" alt="Providence College of Engineering" />
+            <img src="/assests/logo2.jpg" alt="Providence College of Engineering — The Order" />
           </motion.div>
         </div>
       </motion.section>
 
-      <motion.section 
+      {/* ══════════════════════════════════════════════
+          SECTION 3: QUEST CHAIN
+          ══════════════════════════════════════════════ */}
+      <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className={styles.howItWorks}
+        className={styles.questSection}
       >
-        <div className={styles.sectionLabel}>How it works</div>
-        <h2 className={styles.sectionTitle}>Three stages to your certificate</h2>
-        <div className={styles.steps}>
-          {STEPS.map((s, i) => (
-            <motion.div 
-              key={i} 
+        <div className={styles.sectionLabelCenter}>HOW IT WORKS</div>
+        <h2 className={styles.sectionTitleCenter}>THREE STAGES TO YOUR CERTIFICATE</h2>
+
+        <div className={styles.questChain}>
+          {QUESTS.map((q, i) => (
+            <motion.div
+              key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2, duration: 0.6 }}
-              whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
-              className={styles.step}
+              className={`${styles.questNode} ${q.isLegendary ? styles.questLegendary : ''}`}
             >
-              <div className={styles.stepIcon}>{s.icon}</div>
-              <h3>{s.title}</h3>
-              <p>{s.body}</p>
+              <div className={styles.questIcon}>{q.icon}</div>
+              <div className={styles.questNum}>{q.num}</div>
+              <h3 className={styles.questName}>{q.name}</h3>
+              <p className={styles.questBody}>{q.body}</p>
+              {/* Connector line (not on last) */}
+              {i < QUESTS.length - 1 && <div className={styles.questConnector} />}
             </motion.div>
           ))}
         </div>
-        <div className={styles.stepsCta}>
-          <motion.button 
+
+        <div className={styles.questCta}>
+          <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={styles.primaryBtn} 
+            className={styles.primaryBtn}
             onClick={() => navigate('game')}
           >
-            Begin quest →
+            <span className={styles.btnSymbol}>▶</span> BEGIN QUEST
           </motion.button>
         </div>
       </motion.section>
 
-      <motion.section 
+      {/* ══════════════════════════════════════════════
+          SECTION 4: DRUG DETECTIVE MISSION
+          ══════════════════════════════════════════════ */}
+      <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className={styles.mythVsFactSection}
+        className={styles.missionSection}
       >
-        <div className={styles.mythVsFact}>
-          <div className={styles.sectionLabel}>Test Your Knowledge</div>
-          <h2 className={`${styles.sectionTitle} ${styles.mythVsFactTitle}`}>Myth vs Fact Challenge</h2>
+        <div className={styles.missionInner}>
+          <div className={styles.sectionLabelCenter}>TEST YOUR KNOWLEDGE</div>
+          <h2 className={`${styles.sectionTitleCenter} ${styles.missionTitle}`}>MYTH VS FACT CHALLENGE</h2>
           <MythVsFact navigate={navigate} />
         </div>
       </motion.section>
 
-      <motion.section 
-        initial={{ opacity: 0, scale: 0.9 }}
+      {/* ══════════════════════════════════════════════
+          SECTION 5: QUOTE — RPG DIALOGUE BOX
+          ══════════════════════════════════════════════ */}
+      <motion.section
+        initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className={styles.pledge}
+        className={styles.quoteSection}
       >
-        <blockquote className={styles.pullQuote}>
-          "The pledge isn't a promise to the world.<br />
-          <em>It's a promise to yourself.</em>"
-        </blockquote>
+        <div className={styles.dialogueBox}>
+          <div className={styles.dialogueContent}>
+            <blockquote className={styles.dialogueQuote}>
+              "The pledge isn't a promise to the world.<br />
+              <br />
+              It's a promise to yourself.<br />
+              <span className={styles.dialogueCursor}>*</span>
+            </blockquote>
+          </div>
+        </div>
       </motion.section>
 
-      <motion.section 
+      {/* ══════════════════════════════════════════════
+          SECTION 6: THE CODEX (FAQ)
+          ══════════════════════════════════════════════ */}
+      <motion.section
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        style={{ padding: '6rem 1.5rem' }}
+        className={styles.codexSection}
       >
         <FAQAccordion />
       </motion.section>
 
-      <motion.section 
+      {/* ══════════════════════════════════════════════
+          SECTION 7: ALLIANCE PROTOCOL (For Orgs)
+          ══════════════════════════════════════════════ */}
+      <motion.section
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className={`${styles.forOrgs} bg-dot`}
+        className={styles.allianceSection}
       >
-        <div className={styles.forOrgsInner}>
-          <div className={styles.orgCard}>
-        
-          <div className={styles.sectionLabel}>For schools &amp; organisations</div>
-          <h2 style={{fontSize:'1.6rem'}}>Run a group pledge campaign</h2>
-          <p>Enroll a whole classroom, get co-branded certificates, and download a completion report - all free.</p>
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={styles.outlineBtn}
-          >
-            Contact us →
-          </motion.button>
-        </div>
+        <div className={styles.allianceInner}>
+          <div className={styles.allianceCard}>
+            <div className={styles.sectionLabel}>// ALLIANCE PROTOCOL</div>
+            <h2 className={styles.allianceTitle}>Run a Group Pledge Campaign</h2>
+            <p>Enroll a whole classroom, get co-branded scrolls, and download a completion report — all free.</p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={styles.primaryBtn}
+            >
+              Contact Us →
+            </motion.button>
+          </div>
         </div>
       </motion.section>
 
+      {/* ══════════════════════════════════════════════
+          FOOTER
+          ══════════════════════════════════════════════ */}
       <footer className={styles.footer}>
-        <span className={styles.logoText}>
-          <img src="/assests/logo.png" alt="Operation Toofan" style={{height: '20px', width: 'auto', marginRight: '8px', verticalAlign: 'middle'}} />
-          Operation Toofan
-        </span>
-        <span style={{color:'var(--text-hint)', fontSize:'13px'}}>A drug-free pledge platform · Free forever</span>
-        <div style={{display:'flex', gap:'16px'}}>
+        <div className={styles.footerLeft}>
+          <svg className={styles.footerShield} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span className={styles.footerBrand}>OPERATION TOOFAN</span>
+        </div>
+        <div className={styles.footerRight}>
+          <span className={styles.serverStatus}>
+            <span className={styles.statusDot} />
+            SERVER ONLINE
+          </span>
           <a href="#" onClick={(e) => { e.preventDefault(); navigate('privacy') }}>Privacy</a>
           <a href="#" onClick={(e) => { e.preventDefault(); navigate('about') }}>About</a>
         </div>

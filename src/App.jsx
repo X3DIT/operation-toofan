@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './index.css'
 import LandingPage from './pages/LandingPage'
 import PledgeGame from './pages/PledgeGame'
@@ -7,7 +7,7 @@ import CommunityWall from './pages/CommunityWall'
 import SendPage from './pages/SendPage'
 import AboutPage from './pages/AboutPage'
 import PrivacyPage from './pages/PrivacyPage'
-import Nav from './components/Nav'
+
 import ChallengePopup from './components/ChallengePopup'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -21,6 +21,12 @@ export default function App() {
   const [page, setPage] = useState(initialPage)
   const [pledgeData, setPledgeData] = useState(null)
   const [challengerName, setChallengerName] = useState(getRefFromUrl)
+
+  // Force remove any residual padding on #root in case CSS is cached
+  useEffect(() => {
+    const root = document.getElementById('root')
+    if (root) root.style.paddingTop = '0'
+  }, [])
 
   const navigate = (to, data) => {
     if (data) setPledgeData(data)
@@ -51,7 +57,6 @@ export default function App() {
           variants={pageVariants}
           transition={pageTransition}
         >
-          <Nav page={page} navigate={navigate} />
           {page === 'landing' && <LandingPage navigate={navigate} />}
           {page === 'game' && <PledgeGame navigate={navigate} />}
           {page === 'certificate' && <CertificatePage data={pledgeData} navigate={navigate} />}

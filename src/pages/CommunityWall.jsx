@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../utils/supabase'
 import styles from './CommunityWall.module.css'
 
+const getCheerData = () => JSON.parse(localStorage.getItem('toofan_cheers') || '{}')
+
 // ─── Heart-burst cheer button ────────────────────────────────────────────────
 function CheerButton({ pledgeKey }) {
-  const storageKey = `toofan_cheer_${pledgeKey}`
   const [count, setCount] = useState(() => {
-    return parseInt(localStorage.getItem(storageKey) || '0', 10)
+    return getCheerData()[pledgeKey] || 0
   })
   const [particles, setParticles] = useState([])
   const nextId = useRef(0)
@@ -16,7 +17,9 @@ function CheerButton({ pledgeKey }) {
   const handleCheer = useCallback(() => {
     const newCount = count + 1
     setCount(newCount)
-    localStorage.setItem(storageKey, String(newCount))
+    const cheers = getCheerData()
+    cheers[pledgeKey] = newCount
+    localStorage.setItem('toofan_cheers', JSON.stringify(cheers))
 
     // Spawn 6-8 mini-heart particles
     const batch = []
@@ -37,7 +40,7 @@ function CheerButton({ pledgeKey }) {
     setTimeout(() => {
       setParticles(prev => prev.filter(p => !batch.includes(p)))
     }, 900)
-  }, [count, storageKey])
+  }, [count, pledgeKey])
 
   return (
     <div className={styles.cheerWrap}>
@@ -78,9 +81,7 @@ function CheerButton({ pledgeKey }) {
   )
 }
 
-const SEED_PLEDGES = []
 
-const BASE_TOTAL_PLEDGES = 0
 const VALUE_COLORS = {
   'My health': { bg: 'var(--green-50)', color: 'var(--green-800)' },
   'My future': { bg: 'var(--purple-50)', color: 'var(--purple-800)' },
@@ -102,6 +103,7 @@ export default function CommunityWall({ navigate }) {
             .from('pledges')
             .select('*')
             .order('id', { ascending: false })
+            .limit(50)
           if (error) throw error
           if (data) setLocalPledges(data)
         } catch (err) {
@@ -115,8 +117,8 @@ export default function CommunityWall({ navigate }) {
     loadPledges()
   }, [])
 
-  const allPledges = [...localPledges, ...SEED_PLEDGES]
-  const totalPledges = BASE_TOTAL_PLEDGES + localPledges.length
+  const allPledges = localPledges
+  const totalPledges = localPledges.length
 
   const values = ['all', 'My health', 'My family', 'My future', 'My dreams', 'My freedom', 'My friends']
   const filtered = filter === 'all' ? allPledges : allPledges.filter(p => p.values.includes(filter))
@@ -180,7 +182,7 @@ export default function CommunityWall({ navigate }) {
               >
                 <div className={styles.cardTop}>
                   <img
-                    src="/assests/dummy-avatar.jpg"
+                    src="/assets/dummy-avatar.jpg"
                     alt=""
                     className={styles.avatar}
                     aria-hidden="true"

@@ -1,4 +1,6 @@
-/* ── MythVsFact Game — Premium Redesign ── */
+/* ═══════════════════════════════════════════════════════════
+   MYTH VS FACT — Dark RPG "Case Files" Theme
+   ═══════════════════════════════════════════════════════════ */
 
 .gameWrapper {
   max-width: 620px;
@@ -25,33 +27,38 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
 }
 
 .progressLabel svg {
-  color: var(--green-400);
+  color: var(--primary);
 }
 
 .progressCount {
-  color: var(--green-600);
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.02em;
+  color: var(--primary);
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.06em;
 }
 
 .progressTrack {
   width: 100%;
-  height: 6px;
-  background: var(--gray-100);
-  border-radius: var(--radius-pill);
+  height: 4px;
+  background: var(--surface);
+  border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--green-400), var(--green-600));
-  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--primary), #38b866);
+  border-radius: var(--radius);
   transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.3);
 }
 
 /* ── Card Scene ── */
@@ -76,10 +83,10 @@
 
 .cardFace {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 4px solid var(--border);
+  border-radius: 0;
   padding: 2rem 2rem 1.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.3);
   position: relative;
 }
 
@@ -87,29 +94,32 @@
 .timerBar {
   width: 100%;
   height: 3px;
-  background: var(--gray-100);
-  border-radius: var(--radius-pill);
+  background: var(--bg);
+  border-radius: var(--radius);
   margin-bottom: 1.5rem;
   overflow: hidden;
 }
 
 .timerFill {
   height: 100%;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius);
   transition: width 1s linear;
 }
 
 .timerFillNormal {
-  background: var(--green-400);
+  background: var(--primary);
+  box-shadow: 0 0 6px rgba(74, 222, 128, 0.3);
 }
 
 .timerFillWarning {
-  background: var(--amber-400);
+  background: var(--gold);
+  box-shadow: 0 0 6px rgba(212, 160, 23, 0.3);
 }
 
 .timerFillDanger {
-  background: var(--coral-400);
+  background: var(--danger);
   animation: pulse 0.5s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(255, 68, 68, 0.3);
 }
 
 @keyframes pulse {
@@ -119,10 +129,11 @@
 
 /* ── Case Header ── */
 .caseNumber {
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--green-600);
+  color: var(--primary);
   font-weight: 600;
   margin-bottom: 1.25rem;
   display: flex;
@@ -133,7 +144,8 @@
 .caseIcon {
   display: flex;
   align-items: center;
-  color: var(--green-400);
+  color: var(--primary);
+  filter: drop-shadow(0 0 3px rgba(74, 222, 128, 0.3));
 }
 
 .caseIcon svg {
@@ -150,21 +162,23 @@
   line-height: 1.6;
   margin-bottom: 1.75rem;
   padding: 1rem 1.25rem;
-  background: var(--gray-50);
-  border-left: 3px solid var(--green-400);
+  background: rgba(30, 46, 30, 0.4);
+  border-left: 3px solid var(--primary);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
 .statementQuote strong {
-  color: var(--green-600);
+  color: var(--primary);
 }
 
 /* ── Swipe Hint ── */
 .swipeHint {
-  font-size: 12px;
-  color: var(--text-hint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
   text-align: center;
   margin-top: 1rem;
+  letter-spacing: 0.06em;
 }
 
 /* ── Answer Buttons ── */
@@ -177,29 +191,36 @@
 .mythBtn,
 .factBtn {
   padding: 14px 16px;
-  border-radius: var(--radius-sm);
-  font-size: 15px;
-  font-weight: 600;
+  border-radius: 0;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: all 0.2s ease;
-  border: 1px solid var(--border);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  border: 4px solid var(--border);
   background: var(--surface);
   color: var(--text);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .mythBtn:hover {
-  border-color: var(--coral-400);
-  background: var(--coral-50);
-  color: var(--coral-600);
+  border-color: var(--danger);
+  background: var(--danger-dim);
+  color: var(--danger);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
 }
 
 .factBtn:hover {
-  border-color: var(--green-400);
-  background: var(--green-50);
-  color: var(--green-600);
+  border-color: var(--primary);
+  background: var(--primary-dim);
+  color: var(--primary);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
 }
 
 .btnIcon {
@@ -231,31 +252,36 @@
 }
 
 .resultLabel {
-  font-size: 15px;
-  font-weight: 600;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  font-weight: 400;
   margin-bottom: 1.25rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .resultCorrect {
-  color: var(--green-600);
+  color: var(--primary);
 }
 
 .resultCorrect svg {
-  color: var(--green-400);
+  color: var(--primary);
+  filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.4));
 }
 
 .resultIncorrect {
-  color: var(--coral-600);
+  color: var(--danger);
 }
 
 .resultIncorrect svg {
-  color: var(--coral-400);
+  color: var(--danger);
+  filter: drop-shadow(0 0 6px rgba(255, 68, 68, 0.3));
 }
 
 .resultExplanation {
-  background: var(--gray-50);
+  background: rgba(30, 46, 30, 0.4);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   padding: 1rem 1.25rem;
   margin-bottom: 1.5rem;
   font-size: 14px;
@@ -274,40 +300,50 @@
 .resultExplanation strong svg {
   width: 14px;
   height: 14px;
-  color: var(--green-400);
+  color: var(--primary);
 }
 
 .pointsEarned {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--green-50);
-  border-radius: var(--radius-pill);
+  background: var(--primary-dim);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: var(--radius);
   padding: 6px 16px;
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 12px;
   font-weight: 600;
-  color: var(--green-600);
+  color: var(--primary);
   margin-bottom: 1.5rem;
+  letter-spacing: 0.06em;
 }
 
 .pointsEarned svg {
   width: 14px;
   height: 14px;
-  color: var(--green-400);
+  color: var(--primary);
 }
 
 .nextBtn {
-  background: var(--green-600);
-  color: #fff;
+  background: var(--primary);
+  color: #000;
   padding: 12px 28px;
-  border-radius: var(--radius-pill);
-  font-size: 15px;
-  font-weight: 500;
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.8);
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  font-weight: 400;
   width: 100%;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .nextBtn:hover {
-  background: var(--green-800);
+  background: #ffea00;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.8);
 }
 
 /* ── Badge Unlock ── */
@@ -318,16 +354,16 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background: var(--green-50);
-  border: 1px solid var(--green-100);
-  border-radius: var(--radius-sm);
+  background: var(--gold-dim);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  border-radius: var(--radius);
   padding: 12px 18px;
 }
 
 .badgeIcon {
   display: flex;
   align-items: center;
-  color: var(--green-600);
+  color: var(--gold);
 }
 
 .badgeIcon svg {
@@ -340,17 +376,19 @@
 }
 
 .badgeLabel {
-  font-size: 11px;
+  font-family: var(--font-mono);
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-hint);
+  letter-spacing: 0.1em;
+  color: var(--gold);
   font-weight: 500;
 }
 
 .badgeName {
+  font-family: var(--font-ui);
   font-size: 14px;
-  font-weight: 600;
-  color: var(--green-800);
+  font-weight: 700;
+  color: var(--text);
 }
 
 /* ── Start Screen ── */
@@ -365,10 +403,11 @@
   width: 72px;
   height: 72px;
   margin: 0 auto 1.25rem;
-  border-radius: 50%;
-  background: var(--green-50);
-  border: 1px solid var(--green-100);
-  color: var(--green-600);
+  border-radius: var(--radius);
+  background: var(--primary-dim);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  color: var(--primary);
+  filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.2));
 }
 
 .startIcon svg {
@@ -377,15 +416,17 @@
 }
 
 .startTitle {
-  font-size: clamp(1.3rem, 2.5vw, 1.6rem);
-  font-weight: 600;
+  font-family: var(--font-pixel);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 400;
   color: var(--text);
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
 }
 
 .startSub {
   color: var(--text-muted);
-  font-size: 15px;
+  font-size: 14px;
   max-width: 380px;
   margin: 0 auto 2rem;
   line-height: 1.6;
@@ -404,9 +445,11 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 11px;
   color: var(--text-muted);
   font-weight: 500;
+  letter-spacing: 0.06em;
 }
 
 .startFeature span:first-child {
@@ -415,10 +458,10 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   background: var(--surface);
   border: 1px solid var(--border);
-  color: var(--green-400);
+  color: var(--primary);
 }
 
 .startFeature span:first-child svg {
@@ -427,16 +470,23 @@
 }
 
 .startBtn {
-  background: var(--green-600);
-  color: #fff;
+  background: var(--primary);
+  color: #000;
   padding: 12px 28px;
-  border-radius: var(--radius-pill);
-  font-size: 15px;
-  font-weight: 500;
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.8);
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .startBtn:hover {
-  background: var(--green-800);
+  background: #ffea00;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.8);
 }
 
 /* ── End Screen ── */
@@ -445,6 +495,7 @@
 }
 
 .endTitle {
+  font-family: var(--font-display);
   font-size: clamp(1.4rem, 3vw, 1.8rem);
   font-weight: 600;
   color: var(--text);
@@ -458,40 +509,48 @@
 .endTitle svg {
   width: 28px;
   height: 28px;
-  color: var(--green-400);
+  color: var(--gold);
+  filter: drop-shadow(0 0 6px rgba(212, 160, 23, 0.4));
 }
 
 .endSubtitle {
-  color: var(--text-hint);
-  font-size: 14px;
+  font-family: var(--font-mono);
+  color: var(--muted);
+  font-size: 11px;
   margin-bottom: 2rem;
+  letter-spacing: 0.1em;
 }
 
 .scoreCircle {
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  background: var(--green-50);
-  border: 2px solid var(--green-200);
+  background: var(--primary-dim);
+  border: 2px solid rgba(74, 222, 128, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto 2rem;
+  box-shadow: 0 0 24px rgba(74, 222, 128, 0.1);
 }
 
 .scoreValue {
+  font-family: var(--font-display);
   font-size: 2.4rem;
   font-weight: 700;
-  color: var(--green-600);
+  color: var(--primary);
   line-height: 1;
 }
 
 .scoreLabel {
-  font-size: 12px;
-  color: var(--text-hint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
   margin-top: 4px;
   font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .badgesEarned {
@@ -508,17 +567,20 @@
   gap: 6px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius);
   padding: 6px 14px;
-  font-size: 13px;
-  font-weight: 500;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
   color: var(--text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .earnedBadge svg {
   width: 14px;
   height: 14px;
-  color: var(--green-400);
+  color: var(--primary);
 }
 
 .earnedBadgeLocked {
@@ -526,7 +588,7 @@
 }
 
 .earnedBadgeLocked svg {
-  color: var(--text-hint);
+  color: var(--muted);
 }
 
 .skillsList {
@@ -545,18 +607,19 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
+  font-size: 13px;
+  font-family: var(--font-body);
   color: var(--text);
   padding: 10px 14px;
-  background: var(--gray-50);
-  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border-radius: var(--radius);
   border: 1px solid var(--border);
 }
 
 .skillCheck {
   display: flex;
   align-items: center;
-  color: var(--green-400);
+  color: var(--primary);
   flex-shrink: 0;
 }
 
@@ -569,7 +632,7 @@
   font-family: var(--font-display);
   font-style: italic;
   font-size: 14px;
-  color: var(--text-muted);
+  color: var(--muted);
   margin-bottom: 2rem;
   padding: 0 1rem;
   line-height: 1.7;
@@ -584,30 +647,37 @@
 
 .replayBtn {
   background: none;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--border);
   color: var(--text);
   padding: 12px 24px;
-  border-radius: var(--radius-pill);
-  font-size: 15px;
-  font-weight: 500;
+  border-radius: var(--radius);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .replayBtn:hover {
-  border-color: var(--text-muted);
-  background: var(--gray-50);
+  border-color: var(--primary);
+  background: var(--primary-dim);
 }
 
 .pledgeBtn {
-  background: var(--green-600);
-  color: #fff;
+  background: var(--primary);
+  color: var(--bg);
   padding: 12px 28px;
-  border-radius: var(--radius-pill);
-  font-size: 15px;
-  font-weight: 500;
+  border-radius: var(--radius);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .pledgeBtn:hover {
-  background: var(--green-800);
+  background: #5eeb94;
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
 }
 
 /* ── Confetti ── */
@@ -632,9 +702,10 @@
   top: -20px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 18px;
+  font-family: var(--font-mono);
+  font-size: 16px;
   font-weight: 700;
-  color: var(--green-600);
+  color: var(--primary);
   pointer-events: none;
   z-index: 10;
 }
@@ -657,7 +728,7 @@
   .mythBtn,
   .factBtn {
     padding: 12px 14px;
-    font-size: 14px;
+    font-size: 13px;
     min-height: 48px;
   }
 

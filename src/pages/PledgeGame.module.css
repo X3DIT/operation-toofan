@@ -1,10 +1,16 @@
 .wrap {
-  min-height: calc(100vh - 60px);
+  min-height: 100vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding: 4rem 1.5rem;
   position: relative;
+  background-image: 
+    linear-gradient(rgba(10, 14, 46, 0.7), rgba(10, 14, 46, 0.9)),
+    url('/assests/Elements/pixelated%20bg2.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-attachment: fixed;
 }
 
 .inner {
@@ -42,14 +48,17 @@
   display: block;
 }
 .welcomeTitle {
+  font-family: var(--font-pixel);
   font-size: clamp(1.8rem, 4vw, 2.4rem);
-  color: var(--text);
+  color: var(--primary);
   margin-bottom: 0.75rem;
+  text-shadow: 2px 2px 0 #000;
 }
 .welcomeSub {
   font-size: 15px;
   max-width: 380px;
   margin: 0 auto 1.5rem;
+  font-family: var(--font-body);
 }
 
 .badges {
@@ -60,10 +69,12 @@
   margin-bottom: 2rem;
 }
 .badge {
+  font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
   padding: 5px 14px;
-  border-radius: var(--radius-pill);
+  border-radius: 0;
+  border: 2px solid #000;
 }
 
 .nameField {
@@ -80,32 +91,46 @@
 }
 
 .primaryBtn {
-  background: var(--green-600);
-  color: #fff;
-  padding: 12px 28px;
-  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: #000;
+  padding: 14px 28px;
+  border-radius: 0;
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.8);
   font-size: 15px;
-  font-weight: 500;
+  font-family: var(--font-pixel);
   display: inline-block;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
-.primaryBtn:hover { background: var(--green-800); }
+.primaryBtn:hover { 
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.8);
+}
+.primaryBtn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.8);
+}
 .primaryBtn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .stagePill {
   display: inline-block;
+  font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
   padding: 5px 14px;
-  border-radius: var(--radius-pill);
+  border-radius: 0;
+  border: 2px solid #000;
   margin-bottom: 1.2rem;
 }
 
 .question {
-  font-family: var(--font-display);
+  font-family: var(--font-pixel);
   font-size: clamp(1.2rem, 3vw, 1.6rem);
-  color: var(--text);
+  color: #fff;
   margin-bottom: 1.5rem;
-  line-height: 1.35;
+  line-height: 1.5;
+  text-shadow: 2px 2px 0 #000;
 }
 
 .options { display: flex; flex-direction: column; gap: 10px; }
@@ -115,19 +140,24 @@
   gap: 12px;
   text-align: left;
   padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border: 2px solid #000;
+  border-radius: 0;
   background: var(--surface);
   color: var(--text);
   font-size: 14px;
+  font-family: var(--font-body);
   line-height: 1.5;
-  transition: border-color 0.15s, background 0.15s;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  transition: transform 0.1s, box-shadow 0.1s;
   cursor: pointer;
 }
-.option:hover:not(:disabled) { border-color: var(--green-400); background: var(--green-50); }
+.option:hover:not(:disabled) { 
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+}
 .option:disabled { cursor: default; }
-.optCorrect { background: var(--green-50) !important; border-color: var(--green-400) !important; color: var(--green-800); }
-.optWrong { background: #fcebeb !important; border-color: #a32d2d !important; color: #791f1f; }
+.optCorrect { background: var(--green-400) !important; color: #000 !important; }
+.optWrong { background: var(--danger) !important; color: #fff !important; }
 
 .optLetter {
   display: flex;
@@ -144,18 +174,20 @@
 }
 .optCorrect .optLetter { background: var(--green-100); color: var(--green-800); }
 .optWrong .optLetter { background: #f7c1c1; color: #791f1f; }
-.optCheck { margin-left: auto; color: var(--green-600); font-size: 16px; }
+.optCheck { margin-left: auto; color: #000; font-size: 16px; }
 
 .explanation {
   margin-top: 1.2rem;
   display: flex;
   gap: 12px;
   padding: 14px 16px;
-  background: var(--gray-100);
-  border-radius: var(--radius-sm);
+  background: rgba(0,0,0,0.85);
+  border: 2px solid #000;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
 }
-.explanationIcon { font-size: 18px; color: var(--green-400); flex-shrink: 0; margin-top: 2px; }
-.explanation p { font-size: 13px; color: var(--text-muted); }
+.explanationIcon { font-size: 18px; color: var(--primary); flex-shrink: 0; margin-top: 2px; }
+.explanation p { font-size: 14px; color: #fff; font-family: var(--font-body); }
 
 .valueSub { font-size: 14px; color: var(--text-muted); margin-bottom: 1.2rem; }
 
@@ -170,32 +202,39 @@
   align-items: center;
   gap: 10px;
   padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border: 2px solid #000;
+  border-radius: 0;
   background: var(--surface);
   color: var(--text);
   font-size: 14px;
+  font-family: var(--font-body);
   font-weight: 500;
-  transition: all 0.15s;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  transition: transform 0.1s, box-shadow 0.1s;
   cursor: pointer;
   position: relative;
 }
-.valueBtn:hover { border-color: var(--green-400); background: var(--green-50); }
-.valueSel { background: var(--green-50) !important; border-color: var(--green-400) !important; color: var(--green-800); }
+.valueBtn:hover { 
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+}
+.valueSel { background: var(--primary) !important; color: #000; }
 .valueIcon { font-size: 18px; }
-.valueCheck { margin-left: auto; color: var(--green-600); }
+.valueCheck { margin-left: auto; color: #000; }
 
 .pledgePreview {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 1.2rem 1.4rem;
+  border: 2px solid #000;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+  padding: 1.5rem;
 }
 .pledgePreviewLabel {
+  font-family: var(--font-mono);
   font-size: 12px;
   color: var(--text-hint);
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }

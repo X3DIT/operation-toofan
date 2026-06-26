@@ -30,21 +30,21 @@ function sleep(ms) {
 // ─── Step definitions ─────────────────────────────────────────────────────────
 function buildSteps(data) {
   return [
-    { id: 'circle',       cursor: { x: 285, y: 455 }, delay: 300,  duration: 400, type: 'fade' },
-    { id: 'bg',           cursor: { x: 800, y: 430 }, delay: 200,  duration: 700, type: 'draw' },
-    { id: 'heading',      cursor: { x: 96,  y: 100 }, delay: 150,  duration: 600, type: 'typewriter', text: 'CERTIFICATE' },
-    { id: 'sub',          cursor: { x: 96,  y: 248 }, delay: 100,  duration: 400, type: 'typewriter', text: 'OF PLEDGE' },
-    { id: 'date',         cursor: { x: 1100, y: 100 }, delay: 100, duration: 300, type: 'fade' },
-    { id: 'given',        cursor: { x: 96,  y: 373 }, delay: 100,  duration: 350, type: 'typewriter', text: 'This is to certify that:' },
-    { id: 'name',         cursor: { x: 96,  y: 440 }, delay: 120,  duration: 700, type: 'typewriter', text: (data?.name || 'JHOSUA STEVEN').toUpperCase() },
-    { id: 'award',        cursor: { x: 96,  y: 513 }, delay: 100,  duration: 450, type: 'typewriter', text: 'Operation Toofan Drug-Free Pledge' },
-    { id: 'quote',        cursor: { x: 96,  y: 570 }, delay: 100,  duration: 600, type: 'fade' },
-    { id: 'auth',         cursor: { x: 96,  y: 673 }, delay: 80,   duration: 250, type: 'typewriter', text: 'Authorized by:' },
-    { id: 'sig1',         cursor: { x: 200, y: 770 }, delay: 150,  duration: 400, type: 'slide-up' },
-    { id: 'sig2',         cursor: { x: 490, y: 770 }, delay: 150,  duration: 400, type: 'slide-up' },
-    { id: 'burst',        cursor: { x: 1050, y: 400 }, delay: 200, duration: 500, type: 'pop' },
-    { id: 'mainLogo',     cursor: { x: 1150, y: 760 }, delay: 150, duration: 350, type: 'fade' },
-    { id: 'providenceLogo', cursor: { x: 1150, y: 840 }, delay: 100, duration: 350, type: 'fade' },
+    { id: 'circle',       cursor: { x: 285, y: 455 }, delay: 30,  duration: 60, type: 'fade' },
+    { id: 'bg',           cursor: { x: 800, y: 430 }, delay: 20,  duration: 100, type: 'draw' },
+    { id: 'heading',      cursor: { x: 96,  y: 100 }, delay: 15,  duration: 90, type: 'typewriter', text: 'CERTIFICATE' },
+    { id: 'sub',          cursor: { x: 96,  y: 248 }, delay: 10,  duration: 60, type: 'typewriter', text: 'OF PLEDGE' },
+    { id: 'date',         cursor: { x: 1100, y: 100 }, delay: 10, duration: 40, type: 'fade' },
+    { id: 'given',        cursor: { x: 96,  y: 373 }, delay: 10,  duration: 50, type: 'typewriter', text: 'This is to certify that:' },
+    { id: 'name',         cursor: { x: 96,  y: 440 }, delay: 10,  duration: 100, type: 'typewriter', text: (data?.name || 'JHOSUA STEVEN').toUpperCase() },
+    { id: 'award',        cursor: { x: 96,  y: 513 }, delay: 10,  duration: 60, type: 'typewriter', text: 'Operation Toofan Drug-Free Pledge' },
+    { id: 'quote',        cursor: { x: 96,  y: 570 }, delay: 10,  duration: 90, type: 'fade' },
+    { id: 'auth',         cursor: { x: 96,  y: 673 }, delay: 10,   duration: 40, type: 'typewriter', text: 'Authorized by:' },
+    { id: 'sig1',         cursor: { x: 200, y: 770 }, delay: 15,  duration: 60, type: 'slide-up' },
+    { id: 'sig2',         cursor: { x: 490, y: 770 }, delay: 15,  duration: 60, type: 'slide-up' },
+    { id: 'burst',        cursor: { x: 1050, y: 400 }, delay: 20, duration: 80, type: 'pop' },
+    { id: 'mainLogo',     cursor: { x: 1150, y: 760 }, delay: 15, duration: 50, type: 'fade' },
+    { id: 'providenceLogo', cursor: { x: 1150, y: 840 }, delay: 10, duration: 50, type: 'fade' },
   ];
 }
 
@@ -54,18 +54,18 @@ function getRevealVariant(type) {
     case 'slide-up':
       return {
         hidden: { opacity: 0, y: 18 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } },
       };
     case 'pop':
       return {
         hidden: { opacity: 0, scale: 0.55 },
-        visible: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 300, damping: 22 } },
+        visible: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 500, damping: 20 } },
       };
     case 'fade':
     default:
       return {
         hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { duration: 0.45, ease: 'easeOut' } },
+        visible: { opacity: 1, transition: { duration: 0.2, ease: 'easeOut' } },
       };
   }
 }
@@ -162,7 +162,7 @@ function Cursor({ x, y, clicking }) {
         zIndex: 20,
       }}
       animate={{ x, y }}
-      transition={{ type: 'spring', stiffness: 260, damping: 26, mass: 0.7 }}
+      transition={{ type: 'spring', stiffness: 600, damping: 30, mass: 0.4 }}
     >
       <motion.svg
         width="22"
@@ -170,7 +170,7 @@ function Cursor({ x, y, clicking }) {
         viewBox="0 0 22 26"
         fill="none"
         animate={clicking ? { scale: 0.8 } : { scale: 1 }}
-        transition={{ duration: 0.1 }}
+        transition={{ duration: 0.05 }}
       >
         {/* Drop shadow path */}
         <path
@@ -228,7 +228,7 @@ export default function CertificateDrawAnimation({ data, onComplete }) {
     let cancelled = false;
 
     async function run() {
-      await sleep(700); // initial pause
+      await sleep(200); // initial pause
 
       for (let i = 0; i < steps.length; i++) {
         if (cancelled) return;
@@ -238,11 +238,11 @@ export default function CertificateDrawAnimation({ data, onComplete }) {
         setCursorPos({ x: step.cursor.x, y: step.cursor.y });
 
         // Wait for spring animation to settle
-        await sleep(380);
+        await sleep(120);
 
         // Click
         setClicking(true);
-        await sleep(180);
+        await sleep(30);
         setClicking(false);
 
         // Reveal element
@@ -254,7 +254,7 @@ export default function CertificateDrawAnimation({ data, onComplete }) {
 
       if (!cancelled) {
         setCursorPos({ x: 1450, y: -150 });
-        await sleep(700);
+        await sleep(200);
         if (!cancelled) {
           setDone(true);
           onComplete?.();
