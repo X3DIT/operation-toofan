@@ -1,99 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion'
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion'
 import styles from './MythVsFact.module.css'
+import { Icons } from './Icons'
+import { QUESTIONS, BADGES } from '../constants/mythData'
 
-const Icons = {
-  Search: () => <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>,
-  Target: () => <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>,
-  Clock: () => <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
-  Medal: () => <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>,
-  Shield: () => <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-  Star: () => <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
-  Stop: () => <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>,
-  Check: () => <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
-  X: () => <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
-  Trophy: () => <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-}
 
-const QUESTIONS = [
-  {
-    id: 1,
-    character: 'Anu',
-    statement: 'Trying drugs just once won\'t hurt me.',
-    answer: 'myth',
-    explanation: 'Even one use can be dangerous. Some drugs can cause severe reactions, accidents, or lead to repeated use.',
-  },
-  {
-    id: 2,
-    character: 'Meera',
-    statement: 'Vapes are just flavored water vapor.',
-    answer: 'myth',
-    explanation: 'Many vapes contain nicotine and other chemicals that can affect developing brains and lungs.',
-  },
-  {
-    id: 3,
-    character: 'Arjun',
-    statement: 'Only bad students use drugs.',
-    answer: 'myth',
-    explanation: 'Substance abuse can affect people from any background. Good choices and support systems help prevent it.',
-  },
-  {
-    id: 4,
-    character: 'Rahul',
-    statement: 'Prescription medicines are always safe.',
-    answer: 'myth',
-    explanation: 'Medicines are safe only when used as directed by a doctor. Misusing them can be dangerous.',
-  },
-  {
-    id: 5,
-    character: 'Priya',
-    statement: 'Drugs help people perform better in school.',
-    answer: 'myth',
-    explanation: 'Drug use often affects memory, concentration, decision-making, and academic performance.',
-  },
-  {
-    id: 6,
-    character: 'Deepak',
-    statement: 'If my friends do it, I should too.',
-    answer: 'myth',
-    explanation: 'Real friends respect your decisions. Saying "No" is a sign of confidence and responsibility.',
-  },
-  {
-    id: 7,
-    character: 'Sneha',
-    statement: 'Energy pills and unknown tablets are harmless.',
-    answer: 'myth',
-    explanation: 'Never take unknown substances. They may contain harmful or illegal ingredients.',
-  },
-  {
-    id: 8,
-    character: 'Vikram',
-    statement: 'Asking for help is a weakness.',
-    answer: 'myth',
-    explanation: 'Asking for help shows courage and maturity. It is a sign of strength, not weakness.',
-  },
-  {
-    id: 9,
-    character: 'Kavya',
-    statement: 'Drug addiction happens only to adults.',
-    answer: 'myth',
-    explanation: 'Young people can also be affected. Prevention and awareness are important at every age.',
-  },
-  {
-    id: 10,
-    character: 'Arun',
-    statement: 'A healthy lifestyle isn\'t important.',
-    answer: 'myth',
-    explanation: 'Exercise, hobbies, good sleep, and supportive friends help protect physical and mental health.',
-  },
-]
-
-const BADGES = [
-  { threshold: 3, icon: <Icons.Medal />, name: 'Myth Buster', desc: 'Identified 3 misconceptions' },
-  { threshold: 5, icon: <Icons.Search />, name: 'Truth Seeker', desc: 'Uncovered 5 truths' },
-  { threshold: 8, icon: <Icons.Shield />, name: 'Drug-Free Champion', desc: 'Defended against 8 myths' },
-  { threshold: 10, icon: <Icons.Star />, name: 'Toofan Agent', desc: 'Completed the full mission' },
-]
 
 const TIMER_SECONDS = 10
 
@@ -453,7 +366,7 @@ function EndScreen({ score, correctCount, onReplay, navigate }) {
         </motion.button>
         <motion.button
           className={styles.pledgeBtn}
-          onClick={() => navigate('game')}
+          onClick={() => navigate('/game')}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -465,7 +378,8 @@ function EndScreen({ score, correctCount, onReplay, navigate }) {
 }
 
 // ── Main Component ──
-export default function MythVsFact({ navigate }) {
+export default function MythVsFact() {
+  const navigate = useNavigate();
   const [phase, setPhase] = useState('start') // 'start' | 'question' | 'result' | 'end'
   const [currentIndex, setCurrentIndex] = useState(0)
   const [score, setScore] = useState(0)

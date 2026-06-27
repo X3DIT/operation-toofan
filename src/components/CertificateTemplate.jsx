@@ -91,14 +91,14 @@ const CertificateTemplate = forwardRef(({ data }, ref) => {
       </div>
 
       {/* BURST REPLACEMENT */}
-      <img src="/assests/1element.png" alt="Element" className={styles.burst} width="220" />
+      <img src="/assets/1element.png" alt="Element" className={styles.burst} width="220" />
 
 
       {/* MAIN LOGO */}
-      <img src="/assests/logo.png" alt="Main Logo" className={styles.mainLogo} />
+      <img src="/assets/logo.png" alt="Main Logo" className={styles.mainLogo} />
 
       {/* PROVIDENCE LOGO */}
-      <img src="/assests/providence.png" alt="Providence Logo" className={styles.providenceLogo} />
+      <img src="/assets/providence.png" alt="Providence Logo" className={styles.providenceLogo} />
 
     </div>
   );

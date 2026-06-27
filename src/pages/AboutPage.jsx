@@ -60,7 +60,7 @@ export default function AboutPage() {
             border: '2px solid #000' 
           }}>
             <div style={{ background: '#fff', padding: '4px', border: '2px solid #000' }}>
-              <img src="/assests/logo2.jpg" alt="Providence College" style={{ height: '42px', display: 'block' }} />
+              <img src="/assets/logo2.jpg" alt="Providence College" style={{ height: '42px', display: 'block' }} />
             </div>
             <div>
               <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '10px', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>

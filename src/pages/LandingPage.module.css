@@ -180,7 +180,7 @@
   position: relative;
   background-image: 
     linear-gradient(rgba(10, 14, 46, 0.9), rgba(10, 14, 46, 0.98)),
-    url('/assests/campus-bg.png');
+    url('/assets/campus-bg.png');
   background-size: cover;
   background-position: center;
   background-blend-mode: normal;
@@ -363,7 +363,7 @@
   position: relative;
   background-image: 
     linear-gradient(rgba(10, 14, 46, 0.75), rgba(10, 14, 46, 0.95)),
-    url('/assests/Elements/pixelated%20bg2.png');
+    url('/assets/Elements/pixelated%20bg2.png');
   background-size: cover;
   background-position: center bottom;
 }

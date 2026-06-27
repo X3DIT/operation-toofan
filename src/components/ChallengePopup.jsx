@@ -40,7 +40,7 @@ export default function ChallengePopup({ challengerName, onAccept, onClose }) {
 
             {/* Logo */}
             <motion.img
-              src="/assests/logo.png"
+              src="/assets/logo.png"
               alt="Operation Toofan"
               initial={{ scale: 0, rotate: -45 }}
               animate={{ scale: 1, rotate: 0 }}

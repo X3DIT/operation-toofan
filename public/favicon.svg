@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="12" fill="#0a0a1a"/>
-  <!-- Lightning bolt -->
-  <polygon points="38,4 20,34 30,34 26,60 46,26 34,26" fill="#f0b429"/>
-  <!-- "T" for Toofan subtle letterform overlay -->
-</svg>

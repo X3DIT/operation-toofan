@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../utils/supabase'
 import styles from './CommunityWall.module.css'
@@ -123,7 +124,8 @@ const VALUE_COLORS = {
   'My freedom': { bg: 'var(--coral-50)', color: 'var(--coral-600)' },
 }
 
-export default function CommunityWall({ navigate }) {
+export default function CommunityWall() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState('all')
   const [localPledges, setLocalPledges] = useState([])
 
@@ -214,7 +216,7 @@ export default function CommunityWall({ navigate }) {
               >
                 <div className={styles.cardTop}>
                   <img
-                    src="/assests/dummy-avatar.jpg"
+                    src="/assets/dummy-avatar.jpg"
                     alt=""
                     className={styles.avatar}
                     aria-hidden="true"
@@ -258,7 +260,7 @@ export default function CommunityWall({ navigate }) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="btn-primary" 
-            onClick={() => navigate('game')}
+            onClick={() => navigate('/game')}
           >
             Take the pledge →
           </motion.button>

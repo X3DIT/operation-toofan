@@ -459,7 +459,7 @@ export default function CertificateDrawAnimation({ data, onComplete }) {
 
         {/* Burst */}
         <motion.img
-          src="/assests/1element.png"
+          src="/assets/1element.png"
           alt=""
           style={S.burst}
           variants={variantOf('burst')}
@@ -469,7 +469,7 @@ export default function CertificateDrawAnimation({ data, onComplete }) {
 
         {/* Main Logo */}
         <motion.img
-          src="/assests/logo.png"
+          src="/assets/logo.png"
           alt=""
           style={S.mainLogo}
           variants={variantOf('mainLogo')}
@@ -479,7 +479,7 @@ export default function CertificateDrawAnimation({ data, onComplete }) {
 
         {/* Providence Logo */}
         <motion.img
-          src="/assests/providence.png"
+          src="/assets/providence.png"
           alt=""
           style={S.providenceLogo}
           variants={variantOf('providenceLogo')}

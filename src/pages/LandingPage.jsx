@@ -1,77 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './LandingPage.module.css'
 import FAQAccordion from '../components/FAQAccordion'
 import MythVsFact from '../components/MythVsFact'
 import WhyItMatters from '../components/WhyItMatters'
+import { useTypewriter } from '../hooks/useTypewriter'
+import HeroSection from '../components/LandingPage/HeroSection'
+import AboutSection from '../components/LandingPage/AboutSection'
+import QuestChainSection from '../components/LandingPage/QuestChainSection'
 
-/* ── Quest Chain Data ── */
-const QUESTS = [
-  {
-    num: '01',
-    name: 'PREPARE & UNDERSTAND',
-    body: 'A 5 minute guided session to test your knowledge regarding choices and their consequences in the real world.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-      </svg>
-    ),
-  },
-  {
-    num: '02',
-    name: 'SHAPE YOUR PLEDGE',
-    body: 'Reflect on what matters to you - family, health, dreams. Your pledge will build itself from your choices.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-      </svg>
-    ),
-  },
-  {
-    num: '03',
-    name: 'EARN YOUR CERTIFICATE',
-    body: 'Receive a personalized, verifiable certificate of your pledge. Download, share, and inspire others.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-      </svg>
-    ),
-    isLegendary: true,
-  },
-]
-
-/* ── Typewriter Hook ── */
-function useTypewriter(text, speed = 60) {
-  const [displayed, setDisplayed] = useState('')
-  const [done, setDone] = useState(false)
-
-  useEffect(() => {
-    // Respect reduced motion
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) {
-      setDisplayed(text)
-      setDone(true)
-      return
-    }
-
-    let i = 0
-    setDisplayed('')
-    setDone(false)
-    const interval = setInterval(() => {
-      i++
-      setDisplayed(text.slice(0, i))
-      if (i >= text.length) {
-        clearInterval(interval)
-        setDone(true)
-      }
-    }, speed)
-    return () => clearInterval(interval)
-  }, [text, speed])
-
-  return { displayed, done }
-}
-
-export default function LandingPage({ navigate }) {
+export default function LandingPage() {
+  const navigate = useNavigate();
   const { displayed: heroText, done: heroDone } = useTypewriter('THE STORM IS RISING.', 70)
   const [challenger, setChallenger] = useState(null)
 
@@ -141,194 +81,13 @@ export default function LandingPage({ navigate }) {
         )}
       </AnimatePresence>
 
-      {/* ══════════════════════════════════════════════
-          SECTION 1: HERO
-          ══════════════════════════════════════════════ */}
-      <div className={styles.heroWrapper}>
-        <div className={styles.parallaxBg}>
-          <video 
-            src="/assests/Elements/0pixelated%20video%20bg.mp4" 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className={`${styles.bgVideo} ${styles.desktopVideo}`} 
-          />
-          <video 
-            src="/assests/Elements/0pixelated%20video%20bg%20mob.mp4" 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className={`${styles.bgVideo} ${styles.mobileVideo}`} 
-          />
-        </div>
-        <section className={styles.hero}>
-          <div className={styles.heroContent}>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className={styles.eyebrowWrapper}>
-                <div className={styles.eyebrow}>
-                  YOUR COMMITMENT, MADE REAL
-                </div>
-              </div>
-
-              <h1 className={styles.headline}>
-                PLEDGE FOR A<br />
-                DRUG-FREE<br />
-                <span>FUTURE.</span>
-              </h1>
-
-              <motion.p
-                className={styles.sub}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-              >
-                Take a 5-minute interactive quest to build your pledge and earn a verifiable certificate.
-              </motion.p>
-
-              <motion.div
-                className={styles.heroCtas}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-              >
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary"
-                  onClick={() => navigate('game')}
-                >
-                  START YOUR PLEDGE QUEST <span className="btnSymbol">▶</span>
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-ghost"
-                  onClick={() => navigate('community')}
-                >
-                  SEE THE COMMUNITY WALL
-                </motion.button>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* Certificate Preview Card */}
-          <motion.div
-            className={styles.heroArt}
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className={styles.certificatePreview}>
-              <img src="/assests/cert.png" alt="Certificate Preview" className={styles.certImg} />
-            </div>
-          </motion.div>
-        </section>
-      </div>
+      <HeroSection />
 
       <WhyItMatters />
 
-      {/* ══════════════════════════════════════════════
-          SECTION 2: ABOUT THE ORDER
-          ══════════════════════════════════════════════ */}
-      <motion.section
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
-        className={styles.aboutSection}
-        aria-labelledby="about-heading"
-      >
-        <div className={styles.aboutInner}>
-          <div className={styles.aboutContent}>
-            <div className={styles.sectionLabel}>ABOUT THE INITIATIVE</div>
-            <h2 id="about-heading" className={styles.sectionTitle}>OPERATION TOOFAN IS CONDUCTED BY PROVIDENCE COLLEGE OF ENGINEERING</h2>
-            
-            <p className={styles.aboutText}>
-              Operation Toofan is a student-led anti-drug awareness initiative conducted by the students of Providence College of Engineering. The platform aims to encourage young people to make informed, healthy choices through awareness, reflection, and personal commitment.
-            </p>
-            <p className={styles.aboutText}>
-              By transforming a simple pledge into an interactive experience, Operation Toofan seeks to build a stronger, drug-free community where every participant becomes an advocate for positive change.
-            </p>
-            <div className={styles.aboutTags}>
-              <span className={styles.pixelTag}>DRUG-FREE KERALA</span>
-              <span className={styles.pixelTag}>YOUTH AWARENESS</span>
-              <span className={styles.pixelTag}>ACTION</span>
-              <span className={styles.pixelTag}>STATE COLLEGE -</span>
-            </div>
-          </div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className={styles.aboutCrest}
-          >
-            <img src="/assests/logo2.jpg" alt="Providence College of Engineering — The Order" />
-          </motion.div>
-        </div>
-      </motion.section>
+      <AboutSection />
 
-      {/* ══════════════════════════════════════════════
-          SECTION 3: QUEST CHAIN
-          ══════════════════════════════════════════════ */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
-        className={styles.questSection}
-        aria-labelledby="quest-heading"
-      >
-        <div className={styles.sectionLabelCenter}>HOW IT WORKS</div>
-        <h2 id="quest-heading" className={styles.sectionTitleCenter}>THREE STAGES TO YOUR CERTIFICATE</h2>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className={`${styles.certificatePreview} ${styles.mobileOnlyCert}`}
-        >
-          <img src="/assests/cert.png" alt="Certificate Preview" className={styles.certImg} />
-        </motion.div>
-
-        <div className={styles.questChain}>
-          {QUESTS.map((q, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2, duration: 0.6 }}
-              className={`${styles.questNode} ${q.isLegendary ? styles.questLegendary : ''}`}
-            >
-              <div className={styles.questIcon}>{q.icon}</div>
-              <div className={styles.questNum}>{q.num}</div>
-              <h3 className={styles.questName}>{q.name}</h3>
-              <p className={styles.questBody}>{q.body}</p>
-              {/* Connector line (not on last) */}
-              {i < QUESTS.length - 1 && <div className={styles.questConnector} />}
-            </motion.div>
-          ))}
-        </div>
-
-        <div className={styles.questCta}>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary"
-            onClick={() => navigate('game')}
-          >
-            <span className="btnSymbol">▶</span> BEGIN QUEST
-          </motion.button>
-        </div>
-      </motion.section>
+      <QuestChainSection />
 
       {/* ══════════════════════════════════════════════
           SECTION 4: DRUG DETECTIVE MISSION
@@ -427,8 +186,8 @@ export default function LandingPage({ navigate }) {
             <span className={styles.statusDot} />
             SERVER ONLINE
           </span>
-          <a href="#" onClick={(e) => { e.preventDefault(); navigate('privacy') }}>Privacy</a>
-          <a href="#" onClick={(e) => { e.preventDefault(); navigate('about') }}>About</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); navigate('/privacy') }}>Privacy</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); navigate('/about') }}>About</a>
         </div>
       </footer>
     </main>

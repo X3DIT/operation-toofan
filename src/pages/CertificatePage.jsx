@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './CertificatePage.module.css'
 import { generateCertificatePDF, generateCertificateCanvas } from '../utils/generatePDF'
@@ -7,7 +8,8 @@ import CertificateDrawAnimation from '../components/CertificateDrawAnimation'
 import ScrollCertificate from '../components/ScrollCertificate'
 import html2canvas from 'html2canvas'
 
-export default function CertificatePage({ data, navigate }) {
+export default function CertificatePage({ data }) {
+  const navigate = useNavigate();
   const certRef = useRef(null)
   const [downloadingPDF, setDownloadingPDF] = useState(false)
   const [downloadingPNG, setDownloadingPNG] = useState(false)
@@ -18,7 +20,7 @@ export default function CertificatePage({ data, navigate }) {
     return (
       <div style={{ padding: '4rem', textAlign: 'center' }}>
         <p>No pledge data found.</p>
-        <button onClick={() => navigate('game')} style={{ marginTop: '1rem', padding: '10px 24px', background: 'var(--green-600)', color: '#fff', borderRadius: 'var(--radius-pill)' }}>
+        <button onClick={() => navigate('/game')} style={{ marginTop: '1rem', padding: '10px 24px', background: 'var(--green-600)', color: '#fff', borderRadius: 'var(--radius-pill)' }}>
           Take the pledge
         </button>
       </div>
@@ -272,10 +274,10 @@ Take the pledge → https://operation-toofan-seven.vercel.app/?ref=${refParam}`;
           transition={{ delay: 0.6 }}
           className={styles.next}
         >
-          <button className={styles.ghostLink} onClick={() => navigate('community')}>
+          <button className={styles.ghostLink} onClick={() => navigate('/community')}>
             See the community wall →
           </button>
-          <button className={styles.ghostLink} onClick={() => navigate('game')}>
+          <button className={styles.ghostLink} onClick={() => navigate('/game')}>
             Restart quest
           </button>
         </motion.div>

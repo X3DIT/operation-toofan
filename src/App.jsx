@@ -1,4 +1,5 @@
 import { useState, useEffect, Suspense, lazy } from 'react'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import './index.css'
 import ChallengePopup from './components/ChallengePopup'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -15,43 +16,10 @@ function getRefFromUrl() {
   return params.get('ref')
 }
 
-export default function App() {
-  const [page, setPage] = useState(() => {
-    return (window.history.state && window.history.state.page) ? window.history.state.page : 'landing'
-  })
-  const [pledgeData, setPledgeData] = useState(null)
-  const [challengerName, setChallengerName] = useState(getRefFromUrl)
-
-  // Force remove any residual padding on #root in case CSS is cached
-  useEffect(() => {
-    const root = document.getElementById('root')
-    if (root) root.style.paddingTop = '0'
-  }, [])
-
-  // Sync state with browser history for back button support
-  useEffect(() => {
-    if (!window.history.state || !window.history.state.page) {
-      window.history.replaceState({ page: 'landing' }, '', window.location.search ? window.location.href : window.location.pathname)
-    }
-
-    const handlePopState = (event) => {
-      if (event.state && event.state.page) {
-        setPage(event.state.page)
-      } else {
-        setPage('landing')
-      }
-    }
-
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [])
-
-  const navigate = (to, data) => {
-    if (data) setPledgeData(data)
-    setPage(to)
-    window.history.pushState({ page: to }, '', window.location.search ? window.location.href : window.location.pathname)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+function AnimatedRoutes({ pledgeData, setPledgeData }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [challengerName, setChallengerName] = useState(getRefFromUrl);
 
   const pageVariants = {
     initial: { opacity: 0, y: 20 },
@@ -66,25 +34,40 @@ export default function App() {
   }
 
   return (
-    <main id="main-content">
+    <>
       <AnimatePresence mode="wait">
-        <motion.div
-          key={page}
-          initial="initial"
-          animate="in"
-          exit="out"
-          variants={pageVariants}
-          transition={pageTransition}
-        >
-          <Suspense fallback={<div style={{ padding: '24px', color: '#e0e0e0' }}>Loading...</div>}>
-            {page === 'landing' && <LandingPage navigate={navigate} />}
-            {page === 'game' && <PledgeGame navigate={navigate} />}
-            {page === 'certificate' && <CertificatePage data={pledgeData} navigate={navigate} />}
-            {page === 'community' && <CommunityWall navigate={navigate} />}
-            {page === 'about' && <AboutPage />}
-            {page === 'privacy' && <PrivacyPage />}
-          </Suspense>
-        </motion.div>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={
+            <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
+              <LandingPage />
+            </motion.div>
+          } />
+          <Route path="/game" element={
+            <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
+              <PledgeGame onComplete={(data) => { setPledgeData(data); navigate('/certificate'); }} />
+            </motion.div>
+          } />
+          <Route path="/certificate" element={
+            <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
+              <CertificatePage data={pledgeData} />
+            </motion.div>
+          } />
+          <Route path="/community" element={
+            <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
+              <CommunityWall />
+            </motion.div>
+          } />
+          <Route path="/about" element={
+            <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
+              <AboutPage />
+            </motion.div>
+          } />
+          <Route path="/privacy" element={
+            <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
+              <PrivacyPage />
+            </motion.div>
+          } />
+        </Routes>
       </AnimatePresence>
 
       {/* Challenge popup when opened via a shared ?ref= link */}
@@ -93,16 +76,36 @@ export default function App() {
           challengerName={challengerName}
           onAccept={() => {
             setChallengerName(null)
-            // Clear the ref param from the URL without reload
-            window.history.replaceState({}, '', window.location.pathname)
-            navigate('game')
+            const newUrl = new URL(window.location.href);
+            newUrl.searchParams.delete('ref');
+            window.history.replaceState({}, '', newUrl);
+            navigate('/game')
           }}
           onClose={() => {
             setChallengerName(null)
-            window.history.replaceState({}, '', window.location.pathname)
+            const newUrl = new URL(window.location.href);
+            newUrl.searchParams.delete('ref');
+            window.history.replaceState({}, '', newUrl);
           }}
         />
       )}
+    </>
+  )
+}
+
+export default function App() {
+  const [pledgeData, setPledgeData] = useState(null)
+
+  useEffect(() => {
+    const root = document.getElementById('root')
+    if (root) root.style.paddingTop = '0'
+  }, [])
+
+  return (
+    <main id="main-content">
+      <Suspense fallback={<div style={{ padding: '24px', color: '#e0e0e0' }}>Loading...</div>}>
+        <AnimatedRoutes pledgeData={pledgeData} setPledgeData={setPledgeData} />
+      </Suspense>
     </main>
   )
 }
