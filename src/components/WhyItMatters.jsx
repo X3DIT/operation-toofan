@@ -1,5 +1,3 @@
-import React from 'react'
-
 const stats = [
   { figure: '36,314', label: 'NDPS cases in Kerala (2025)', trend: '+32% from 2024' },
   { figure: '4,201', label: 'Arrests in first 3 weeks of Op. Toofan', trend: 'since June 2, 2026' },

@@ -4,10 +4,6 @@ import styles from '../../pages/LandingPage.module.css'
 export default function AboutSection() {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8 }}
       className={styles.aboutSection}
       aria-labelledby="about-heading"
     >
@@ -30,10 +26,6 @@ export default function AboutSection() {
           </div>
         </div>
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
           className={styles.aboutCrest}
         >
           <img src="/assets/logo2.jpg" alt="Providence College of Engineering — The Order" />

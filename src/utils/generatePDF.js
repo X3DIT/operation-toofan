@@ -7,7 +7,7 @@ import { jsPDF } from 'jspdf';
  * so we draw them onto a temporary canvas first.
  */
 function imgToDataURL(src, width, height) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = () => {

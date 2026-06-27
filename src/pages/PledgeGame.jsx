@@ -1,13 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ProgressBar from '../components/ProgressBar'
-import TypewriterText from '../components/TypewriterText'
 import { QUESTIONS, VALUES, buildPledgeText } from '../utils/gameData'
 import { supabase } from '../utils/supabase'
 import styles from './PledgeGame.module.css'
-
-const STAGE_LABELS = ['Welcome', 'Knowledge', 'Knowledge', 'Knowledge', 'Your values', 'Certificate']
-
 function generatePledgeId(date = new Date()) {
   const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase()
   const year = date.getFullYear()
@@ -17,12 +13,9 @@ function generatePledgeId(date = new Date()) {
   return `PRC - ${randomPart}-${year}${day}${month}`
 }
 
-function ParticleBurst({ active }) {
-  const [particles, setParticles] = useState([])
-  
-  useEffect(() => {
-    if (!active) return
-    const batch = Array.from({ length: 15 }).map((_, i) => ({
+function ParticleBurst() {
+  const [particles] = useState(() => 
+    Array.from({ length: 15 }).map((_, i) => ({
       id: i,
       x: (Math.random() - 0.5) * 400,
       y: (Math.random() - 0.5) * 400,
@@ -30,10 +23,7 @@ function ParticleBurst({ active }) {
       rot: Math.random() * 360,
       delay: Math.random() * 0.1
     }))
-    setParticles(batch)
-  }, [active])
-
-  if (!active) return null
+  )
 
   return (
     <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 10 }}>
@@ -52,7 +42,7 @@ function ParticleBurst({ active }) {
   )
 }
 
-export default function PledgeGame({ navigate }) {
+export default function PledgeGame({ onComplete }) {
   const [stage, setStage] = useState(0)
   const [name, setName] = useState('')
   const [xp, setXp] = useState(0)
@@ -60,21 +50,18 @@ export default function PledgeGame({ navigate }) {
   const [answered, setAnswered] = useState(null)
   const [selectedValues, setSelectedValues] = useState([])
   const [floaters, setFloaters] = useState([])
-  const [key, setKey] = useState(0)
   const nameRef = useRef(null)
 
-  useEffect(() => {
-    setKey(k => k + 1)
-    setAnswered(null)
-  }, [stage])
-
   const addFloat = (text, good) => {
-    const id = Date.now()
+    const id = crypto.randomUUID()
     setFloaters(f => [...f, { id, text, good }])
     setTimeout(() => setFloaters(f => f.filter(x => x.id !== id)), 1800)
   }
 
-  const goNext = () => setStage(s => s + 1)
+  const goNext = () => {
+    setStage(s => s + 1)
+    setAnswered(null)
+  }
 
   const handleStart = () => {
     const trimmedName = name.trim();
@@ -84,7 +71,7 @@ export default function PledgeGame({ navigate }) {
     goNext()
   }
 
-  const handleAnswer = (opt, qIdx) => {
+  const handleAnswer = (opt) => {
     if (answered !== null) return
     setAnswered(opt.text)
     if (opt.correct) {
@@ -136,16 +123,18 @@ export default function PledgeGame({ navigate }) {
       localStorage.setItem('toofan_pledges', JSON.stringify([newPledge, ...savedPledges]))
     }
 
-    navigate('certificate', {
-      name: name.trim(),
-      pledgeText,
-      values: selectedValues,
-      score,
-      xp,
-      date: new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }),
-      id,
-      perfect: score === QUESTIONS.length,
-    })
+    if (onComplete) {
+      onComplete({
+        name: name.trim(),
+        pledgeText,
+        values: selectedValues,
+        score,
+        xp,
+        date: new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }),
+        id,
+        perfect: score === QUESTIONS.length,
+      })
+    }
   }
 
   const q = stage >= 1 && stage <= QUESTIONS.length ? QUESTIONS[stage - 1] : null
@@ -256,7 +245,7 @@ export default function PledgeGame({ navigate }) {
                       ? opt.correct ? styles.optCorrect : styles.optWrong
                       : answered && opt.correct ? styles.optCorrect : ''
                   }`}
-                  onClick={() => handleAnswer(opt, stage - 1)}
+                  onClick={() => handleAnswer(opt)}
                   disabled={answered !== null}
                 >
                   <span className={styles.optLetter}>{String.fromCharCode(65 + i)}</span>
@@ -276,7 +265,7 @@ export default function PledgeGame({ navigate }) {
                 <p>{q.explanation}</p>
               </motion.div>
             )}
-            <ParticleBurst active={answered !== null && q.options.find(o => o.text === answered)?.correct} />
+            {answered !== null && q.options.find(o => o.text === answered)?.correct && <ParticleBurst />}
           </motion.div>
         )}
 

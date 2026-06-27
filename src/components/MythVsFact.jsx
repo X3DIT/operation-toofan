@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion'
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion'
 import styles from './MythVsFact.module.css'
 import { Icons } from './Icons'
 import { QUESTIONS, BADGES } from '../constants/mythData'
@@ -12,14 +11,17 @@ const TIMER_SECONDS = 10
 
 function Confetti() {
   const colors = ['var(--green-400)', 'var(--purple-400)', 'var(--amber-100)', 'var(--coral-400)', 'var(--teal-400)']
-  const pieces = Array.from({ length: 24 }, (_, i) => ({
+  const [pieces] = useState(() => Array.from({ length: 24 }, (_, i) => ({
     id: i,
     left: `${(Math.random() - 0.5) * 300}px`,
     delay: Math.random() * 0.3,
     color: colors[i % colors.length],
     rotation: Math.random() * 360,
     size: 6 + Math.random() * 6,
-  }))
+    duration: 1.2 + Math.random() * 0.5,
+    borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+    fallOffset: 200 + Math.random() * 150,
+  })))
 
   return (
     <div className={styles.confetti}>
@@ -30,17 +32,17 @@ function Confetti() {
           initial={{ opacity: 1, y: 0, x: 0, rotate: 0, scale: 1 }}
           animate={{
             opacity: 0,
-            y: 200 + Math.random() * 150,
+            y: p.fallOffset,
             x: parseFloat(p.left),
             rotate: p.rotation + 360,
             scale: 0.4,
           }}
-          transition={{ duration: 1.2 + Math.random() * 0.5, delay: p.delay, ease: 'easeOut' }}
+          transition={{ duration: p.duration, delay: p.delay, ease: 'easeOut' }}
           style={{
             background: p.color,
             width: p.size,
             height: p.size,
-            borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+            borderRadius: p.borderRadius,
           }}
         />
       ))}
@@ -97,12 +99,11 @@ function QuestionCard({ question, index, onAnswer }) {
   const factOpacity = useTransform(x, [0, 50, 200], [0, 0.5, 1])
 
   useEffect(() => {
-    setTimer(TIMER_SECONDS)
     const interval = setInterval(() => {
       setTimer((prev) => (prev > 0 ? prev - 1 : 0))
     }, 1000)
     return () => clearInterval(interval)
-  }, [question.id])
+  }, [])
 
   const handleDragEnd = useCallback((_, info) => {
     if (info.offset.x < -100) {
@@ -287,7 +288,6 @@ function ResultCard({ question, isCorrect, onNext, isLast, newBadge, showConfett
 
 // ── End Screen ──
 function EndScreen({ score, correctCount, onReplay, navigate }) {
-  const earnedBadges = BADGES.filter((b) => correctCount >= b.threshold)
   const title =
     correctCount === 10
       ? 'Mission Complete!'

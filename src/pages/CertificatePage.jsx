@@ -5,8 +5,6 @@ import styles from './CertificatePage.module.css'
 import { generateCertificatePDF, generateCertificateCanvas } from '../utils/generatePDF'
 import CertificateTemplate from '../components/CertificateTemplate'
 import CertificateDrawAnimation from '../components/CertificateDrawAnimation'
-import ScrollCertificate from '../components/ScrollCertificate'
-import html2canvas from 'html2canvas'
 
 export default function CertificatePage({ data }) {
   const navigate = useNavigate();
@@ -15,17 +13,6 @@ export default function CertificatePage({ data }) {
   const [downloadingPNG, setDownloadingPNG] = useState(false)
   const [sharing, setSharing] = useState(false)
   const [animationDone, setAnimationDone] = useState(false)
-
-  if (!data) {
-    return (
-      <div style={{ padding: '4rem', textAlign: 'center' }}>
-        <p>No pledge data found.</p>
-        <button onClick={() => navigate('/game')} style={{ marginTop: '1rem', padding: '10px 24px', background: 'var(--green-600)', color: '#fff', borderRadius: 'var(--radius-pill)' }}>
-          Take the pledge
-        </button>
-      </div>
-    )
-  }
 
   const containerRef = useRef(null)
   const [scale, setScale] = useState(1)
@@ -40,6 +27,17 @@ export default function CertificatePage({ data }) {
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, []);
+
+  if (!data) {
+    return (
+      <div style={{ padding: '4rem', textAlign: 'center' }}>
+        <p>No pledge data found.</p>
+        <button onClick={() => navigate('/game')} style={{ marginTop: '1rem', padding: '10px 24px', background: 'var(--green-600)', color: '#fff', borderRadius: 'var(--radius-pill)' }}>
+          Take the pledge
+        </button>
+      </div>
+    )
+  }
 
   const handleDownloadPDF = async () => {
     setDownloadingPDF(true)
@@ -255,18 +253,6 @@ Take the pledge → https://operation-toofan-seven.vercel.app/?ref=${refParam}`;
           </motion.button>
         </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55 }}
-          style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}
-        >
-          <ScrollCertificate 
-            pledgerName={data.name || 'Anonymous'} 
-            rollNumber={data.rollNumber} 
-            date={new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })} 
-          />
-        </motion.div>
 
         <motion.div 
           initial={{ opacity: 0 }}

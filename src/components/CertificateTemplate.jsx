@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from 'react';
+import { forwardRef, useEffect } from 'react';
 import styles from './CertificateTemplate.module.css';
 
 // Load Google Fonts via link tag in document head (only once)

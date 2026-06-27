@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../utils/supabase'
@@ -11,15 +11,15 @@ function CheerButton({ pledge, pledgeKey }) {
   const [count, setCount] = useState(() => {
     return pledge?.likes !== undefined ? pledge.likes : (getCheerData()[pledgeKey] || 0)
   })
+  const [prevLikes, setPrevLikes] = useState(pledge?.likes)
   const [particles, setParticles] = useState([])
   const nextId = useRef(0)
   const btnRef = useRef(null)
 
-  useEffect(() => {
-    if (pledge?.likes !== undefined) {
-      setCount(pledge.likes)
-    }
-  }, [pledge?.likes])
+  if (pledge?.likes !== undefined && pledge.likes !== prevLikes) {
+    setPrevLikes(pledge.likes)
+    setCount(pledge.likes)
+  }
 
   const handleCheer = async () => {
     const historyKey = 'toofan_cheer_history'
@@ -249,10 +249,6 @@ export default function CommunityWall() {
         </motion.div>
 
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
           className={styles.cta}
         >
           <p>Add your name to the wall.</p>

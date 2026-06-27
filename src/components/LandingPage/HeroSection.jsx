@@ -5,7 +5,7 @@ import styles from '../../pages/LandingPage.module.css'
 
 export default function HeroSection() {
   const navigate = useNavigate();
-  const { displayed: heroText } = useTypewriter('THE STORM IS RISING.', 70)
+  useTypewriter('THE STORM IS RISING.', 70)
 
   return (
     <div className={styles.heroWrapper}>

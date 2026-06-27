@@ -7,10 +7,10 @@
 :root {
   /* ── Typography ── */
   --font-pixel: 'Press Start 2P', monospace;
-  --font-display: 'Share Tech Mono', monospace;
-  --font-ui: 'Share Tech Mono', monospace;
+  --font-display: 'Press Start 2P', monospace;
+  --font-ui: 'Montserrat', system-ui, sans-serif;
   --font-body: 'Montserrat', system-ui, sans-serif;
-  --font-mono: 'Share Tech Mono', monospace;
+  --font-mono: 'Montserrat', system-ui, sans-serif;
 
   /* ── Colors: Retro 8-bit Palette ── */
   --bg: #0a0e2e;
@@ -398,23 +398,6 @@ button:disabled,
   cursor: not-allowed;
 }
 
-/* ─── Skip to main content (screen reader / keyboard user) ─── */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: #f0b429;
-  color: #0a0a1a;
-  font-weight: 700;
-  padding: 8px 16px;
-  z-index: 9999;
-  text-decoration: none;
-  border-radius: 0 0 8px 0;
-  transition: top 0.2s;
-}
-.skip-link:focus {
-  top: 0;
-}
 
 /* ─── Hero overlay for text legibility over background images ─── */
 .hero-section {

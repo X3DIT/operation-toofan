@@ -1,6 +1,5 @@
-import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import styles from './LandingPage.module.css'
 import FAQAccordion from '../components/FAQAccordion'
 import MythVsFact from '../components/MythVsFact'
@@ -12,9 +11,7 @@ import QuestChainSection from '../components/LandingPage/QuestChainSection'
 
 export default function LandingPage() {
   const navigate = useNavigate();
-  const { displayed: heroText, done: heroDone } = useTypewriter('THE STORM IS RISING.', 70)
-
-
+  useTypewriter('THE STORM IS RISING.', 70)
   return (
     <main className={styles.main}>
       <div className="bg-grid-fade" />
@@ -33,10 +30,6 @@ export default function LandingPage() {
           SECTION 4: DRUG DETECTIVE MISSION
           ══════════════════════════════════════════════ */}
       <motion.section
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
         className={styles.missionSection}
         aria-labelledby="mission-heading"
       >
@@ -51,10 +44,6 @@ export default function LandingPage() {
           SECTION 5: QUOTE — RPG DIALOGUE BOX
           ══════════════════════════════════════════════ */}
       <motion.section
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
         className={styles.quoteSection}
         aria-label="Student quote"
       >
@@ -74,10 +63,6 @@ export default function LandingPage() {
           SECTION 6: THE CODEX (FAQ)
           ══════════════════════════════════════════════ */}
       <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
         className={styles.codexSection}
         aria-label="Frequently Asked Questions"
       >
@@ -88,10 +73,6 @@ export default function LandingPage() {
           SECTION 7: ALLIANCE PROTOCOL (For Orgs)
           ══════════════════════════════════════════════ */}
       <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
         className={styles.allianceSection}
         aria-labelledby="alliance-heading"
       >

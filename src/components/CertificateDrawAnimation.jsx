@@ -119,6 +119,7 @@ function TypewriterText({ text, duration, style }) {
 
   useEffect(() => {
     idxRef.current = 0;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDisplayed('');
     const interval = duration / Math.max(text.length, 1);
     const timer = setInterval(() => {

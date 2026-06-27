@@ -1,7 +1,12 @@
 import styles from './Nav.module.css'
 import { motion } from 'framer-motion'
+import { useNavigate, useLocation } from 'react-router-dom'
 
-export default function Nav({ page, navigate }) {
+export default function Nav() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isCommunity = location.pathname === '/community';
+
   return (
     <nav className={styles.nav}>
       {/* Scanline overlay */}
@@ -11,7 +16,7 @@ export default function Nav({ page, navigate }) {
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         className={styles.logo}
-        onClick={() => navigate('landing')}
+        onClick={() => navigate('/')}
       >
         {/* Glowing shield icon */}
         <svg className={styles.shieldIcon} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -24,8 +29,8 @@ export default function Nav({ page, navigate }) {
         <motion.button
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.95 }}
-          className={`${styles.link} ${page === 'community' ? styles.active : ''}`}
-          onClick={() => navigate('community')}
+          className={`${styles.link} ${isCommunity ? styles.active : ''}`}
+          onClick={() => navigate('/community')}
         >
           [COMMUNITY WALL]
         </motion.button>
@@ -33,7 +38,7 @@ export default function Nav({ page, navigate }) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className={styles.cta}
-          onClick={() => navigate('game')}
+          onClick={() => navigate('/game')}
         >
           [TAKE THE OATH]
         </motion.button>

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import styles from '../../pages/LandingPage.module.css'
@@ -41,10 +42,6 @@ export default function QuestChainSection() {
 
   return (
     <motion.section
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8 }}
       className={styles.questSection}
       aria-labelledby="quest-heading"
     >
@@ -52,10 +49,6 @@ export default function QuestChainSection() {
       <h2 id="quest-heading" className={styles.sectionTitleCenter}>THREE STAGES TO YOUR CERTIFICATE</h2>
 
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
         className={`${styles.certificatePreview} ${styles.mobileOnlyCert}`}
       >
         <img src="/assets/cert.png" alt="Certificate Preview" className={styles.certImg} />
@@ -65,10 +58,6 @@ export default function QuestChainSection() {
         {QUESTS.map((q, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.2, duration: 0.6 }}
             className={`${styles.questNode} ${q.isLegendary ? styles.questLegendary : ''}`}
           >
             <div className={styles.questIcon}>{q.icon}</div>
