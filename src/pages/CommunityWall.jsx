@@ -257,7 +257,7 @@ export default function CommunityWall({ navigate }) {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={styles.primaryBtn} 
+            className="btn-primary" 
             onClick={() => navigate('game')}
           >
             Take the pledge →

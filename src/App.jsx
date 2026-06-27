@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense, lazy } from 'react'
 import './index.css'
-import LandingPage from './pages/LandingPage'
-import PledgeGame from './pages/PledgeGame'
-import CertificatePage from './pages/CertificatePage'
-import CommunityWall from './pages/CommunityWall'
-import AboutPage from './pages/AboutPage'
-import PrivacyPage from './pages/PrivacyPage'
-
 import ChallengePopup from './components/ChallengePopup'
 import { AnimatePresence, motion } from 'framer-motion'
+
+const LandingPage = lazy(() => import('./pages/LandingPage'))
+const PledgeGame = lazy(() => import('./pages/PledgeGame'))
+const CertificatePage = lazy(() => import('./pages/CertificatePage'))
+const CommunityWall = lazy(() => import('./pages/CommunityWall'))
+const AboutPage = lazy(() => import('./pages/AboutPage'))
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'))
 
 function getRefFromUrl() {
   const params = new URLSearchParams(window.location.search)
@@ -66,7 +66,7 @@ export default function App() {
   }
 
   return (
-    <div>
+    <main id="main-content">
       <AnimatePresence mode="wait">
         <motion.div
           key={page}
@@ -76,12 +76,14 @@ export default function App() {
           variants={pageVariants}
           transition={pageTransition}
         >
-          {page === 'landing' && <LandingPage navigate={navigate} />}
-          {page === 'game' && <PledgeGame navigate={navigate} />}
-          {page === 'certificate' && <CertificatePage data={pledgeData} navigate={navigate} />}
-          {page === 'community' && <CommunityWall navigate={navigate} />}
-          {page === 'about' && <AboutPage />}
-          {page === 'privacy' && <PrivacyPage />}
+          <Suspense fallback={<div style={{ padding: '24px', color: '#e0e0e0' }}>Loading...</div>}>
+            {page === 'landing' && <LandingPage navigate={navigate} />}
+            {page === 'game' && <PledgeGame navigate={navigate} />}
+            {page === 'certificate' && <CertificatePage data={pledgeData} navigate={navigate} />}
+            {page === 'community' && <CommunityWall navigate={navigate} />}
+            {page === 'about' && <AboutPage />}
+            {page === 'privacy' && <PrivacyPage />}
+          </Suspense>
         </motion.div>
       </AnimatePresence>
 
@@ -101,6 +103,6 @@ export default function App() {
           }}
         />
       )}
-    </div>
+    </main>
   )
 }

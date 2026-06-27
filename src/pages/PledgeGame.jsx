@@ -218,7 +218,7 @@ export default function PledgeGame({ navigate }) {
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={styles.primaryBtn} 
+              className="btn-primary" 
               onClick={handleStart}
             >
               Begin quest →
@@ -332,7 +332,7 @@ export default function PledgeGame({ navigate }) {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={styles.primaryBtn}
+              className="btn-primary"
               onClick={handleSealPledge}
               disabled={selectedValues.length === 0}
               style={{ marginTop: '1.5rem' }}

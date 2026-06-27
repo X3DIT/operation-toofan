@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import styles from './LandingPage.module.css'
 import FAQAccordion from '../components/FAQAccordion'
 import MythVsFact from '../components/MythVsFact'
+import WhyItMatters from '../components/WhyItMatters'
 
 /* ── Quest Chain Data ── */
 const QUESTS = [
@@ -126,10 +127,10 @@ export default function LandingPage({ navigate }) {
               </p>
 
               <button 
-                className={styles.primaryBtn} 
+                className="btn-primary" 
                 onClick={handleAcceptChallenge}
               >
-                TAKE THE PLEDGE <span className={styles.btnSymbol}>▶</span>
+                TAKE THE PLEDGE <span className="btnSymbol">▶</span>
               </button>
               
               <div className={styles.popupFooterText}>
@@ -176,9 +177,9 @@ export default function LandingPage({ navigate }) {
               </div>
 
               <h1 className={styles.headline}>
-                ONE PLEDGE.<br />
-                <span>YOUR WHOLE<br />
-                FUTURE.</span>
+                PLEDGE FOR A<br />
+                DRUG-FREE<br />
+                <span>FUTURE.</span>
               </h1>
 
               <motion.p
@@ -187,7 +188,7 @@ export default function LandingPage({ navigate }) {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
               >
-                A 5-minute interactive journey that turns a decision into a certificate. Not a checkbox — a quest.
+                Take a 5-minute interactive quest to build your pledge and earn a verifiable certificate.
               </motion.p>
 
               <motion.div
@@ -199,15 +200,15 @@ export default function LandingPage({ navigate }) {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={styles.primaryBtn}
+                  className="btn-primary"
                   onClick={() => navigate('game')}
                 >
-                  START YOUR PLEDGE QUEST <span className={styles.btnSymbol}>▶</span>
+                  START YOUR PLEDGE QUEST <span className="btnSymbol">▶</span>
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className={styles.ghostBtn}
+                  className="btn-ghost"
                   onClick={() => navigate('community')}
                 >
                   SEE THE COMMUNITY WALL
@@ -230,6 +231,8 @@ export default function LandingPage({ navigate }) {
         </section>
       </div>
 
+      <WhyItMatters />
+
       {/* ══════════════════════════════════════════════
           SECTION 2: ABOUT THE ORDER
           ══════════════════════════════════════════════ */}
@@ -239,11 +242,12 @@ export default function LandingPage({ navigate }) {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
         className={styles.aboutSection}
+        aria-labelledby="about-heading"
       >
         <div className={styles.aboutInner}>
           <div className={styles.aboutContent}>
             <div className={styles.sectionLabel}>ABOUT THE INITIATIVE</div>
-            <h2 className={styles.sectionTitle}>OPERATION TOOFAN IS CONDUCTED BY PROVIDENCE COLLEGE OF ENGINEERING</h2>
+            <h2 id="about-heading" className={styles.sectionTitle}>OPERATION TOOFAN IS CONDUCTED BY PROVIDENCE COLLEGE OF ENGINEERING</h2>
             
             <p className={styles.aboutText}>
               Operation Toofan is a student-led anti-drug awareness initiative conducted by the students of Providence College of Engineering. The platform aims to encourage young people to make informed, healthy choices through awareness, reflection, and personal commitment.
@@ -279,9 +283,10 @@ export default function LandingPage({ navigate }) {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
         className={styles.questSection}
+        aria-labelledby="quest-heading"
       >
         <div className={styles.sectionLabelCenter}>HOW IT WORKS</div>
-        <h2 className={styles.sectionTitleCenter}>THREE STAGES TO YOUR CERTIFICATE</h2>
+        <h2 id="quest-heading" className={styles.sectionTitleCenter}>THREE STAGES TO YOUR CERTIFICATE</h2>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -317,10 +322,10 @@ export default function LandingPage({ navigate }) {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={styles.primaryBtn}
+            className="btn-primary"
             onClick={() => navigate('game')}
           >
-            <span className={styles.btnSymbol}>▶</span> BEGIN QUEST
+            <span className="btnSymbol">▶</span> BEGIN QUEST
           </motion.button>
         </div>
       </motion.section>
@@ -334,10 +339,11 @@ export default function LandingPage({ navigate }) {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
         className={styles.missionSection}
+        aria-labelledby="mission-heading"
       >
         <div className={styles.missionInner}>
           <div className={styles.sectionLabelCenter}>TEST YOUR KNOWLEDGE</div>
-          <h2 className={`${styles.sectionTitleCenter} ${styles.missionTitle}`}>MYTH VS FACT CHALLENGE</h2>
+          <h2 id="mission-heading" className={`${styles.sectionTitleCenter} ${styles.missionTitle}`}>MYTH VS FACT CHALLENGE</h2>
           <MythVsFact navigate={navigate} />
         </div>
       </motion.section>
@@ -351,6 +357,7 @@ export default function LandingPage({ navigate }) {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
         className={styles.quoteSection}
+        aria-label="Student quote"
       >
         <div className={styles.dialogueBox}>
           <div className={styles.dialogueContent}>
@@ -373,6 +380,7 @@ export default function LandingPage({ navigate }) {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
         className={styles.codexSection}
+        aria-label="Frequently Asked Questions"
       >
         <FAQAccordion />
       </motion.section>
@@ -386,16 +394,17 @@ export default function LandingPage({ navigate }) {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
         className={styles.allianceSection}
+        aria-labelledby="alliance-heading"
       >
         <div className={styles.allianceInner}>
           <div className={styles.allianceCard}>
             <div className={styles.sectionLabel}>ALLIANCE PROTOCOL</div>
-            <h2 className={styles.allianceTitle}>Run a Group Pledge Campaign</h2>
+            <h2 id="alliance-heading" className={styles.allianceTitle}>Run a Group Pledge Campaign</h2>
             <p>Enroll a whole classroom, get co-branded scrolls, and download a completion report — all free.</p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={styles.primaryBtn}
+              className="btn-primary"
             >
               Contact Us →
             </motion.button>

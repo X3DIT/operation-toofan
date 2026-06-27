@@ -27,8 +27,7 @@
   --muted: #5e6baf;
   --text: #ffffff;
   --text-muted: #a6b0d9;
-  --text-hint: #5e6baf;
-
+  --text-hint: #7c8be0;
   /* ── Radii (Pixel Art — sharp corners) ── */
   --radius: 0px;
   --radius-sm: 0px;
@@ -120,8 +119,102 @@ button {
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-button:focus-visible {
-  box-shadow: 0 0 0 2px var(--primary);
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ── Global Button Variants ── */
+.btn-primary {
+  position: relative;
+  background: var(--primary);
+  color: #000;
+  padding: 14px 20px;
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.8);
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.15s ease;
+  min-height: 44px; /* Mobile touch target */
+}
+.btn-primary::before {
+  content: '►';
+  position: absolute;
+  left: -30px;
+  color: var(--primary);
+  font-family: var(--font-pixel);
+  font-size: 16px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.15s, transform 0.15s;
+  text-shadow: 2px 2px 0px #000;
+  pointer-events: none;
+}
+.btn-primary:hover::before, .btn-primary:focus-visible::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+.btn-primary:hover, .btn-primary:focus-visible {
+  background: #000;
+  color: var(--primary);
+  border-color: var(--primary);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.8), 0 0 15px var(--primary);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0 rgba(0,0,0,0.8);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.8);
+}
+.btn-primary .btnSymbol {
+  font-size: 10px;
+}
+
+.btn-ghost {
+  background: rgba(0, 0, 0, 0.4);
+  border: 4px solid var(--primary);
+  color: var(--primary);
+  padding: 14px 20px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.8);
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px; /* Mobile touch target */
+}
+.btn-ghost:hover, .btn-ghost:focus-visible {
+  background: rgba(0, 0, 0, 0.6);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.8);
+}
+.btn-ghost:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0 rgba(0,0,0,0.8);
+}
+.btn-ghost:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.8);
 }
 
 /* ── Inputs ── */
@@ -262,14 +355,95 @@ a:hover {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   REDUCED MOTION
+   ACCESSIBILITY & REDUCED MOTION
    ═══════════════════════════════════════════════════════════ */
+
+/* ─── Accessibility: Focus Indicators ─── */
+*:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 2px;
+}
+
+/* ─── Accessibility: High contrast text on dark backgrounds ─── */
+/* Minimum 4.5:1 for body text, 3:1 for large text (>18px bold or >24px) */
+body {
+  color: #e0e0e0; /* contrast ratio ≥ 7:1 on #0a0a1a */
+}
+.hero-text,
+.section-body-text {
+  color: #d0d0d0; /* minimum 5.5:1 on dark bg */
+}
+/* Muted/secondary text: keep above 4.5:1 */
+.text-muted {
+  color: #9090a0; /* 4.6:1 on #0a0a1a — do NOT go darker than this */
+}
+
+/* ─── Ensure interactive elements are reachable by keyboard ─── */
+button,
+[role="button"] {
+  cursor: pointer;
+}
+button:disabled,
+[role="button"][aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Skip to main content (screen reader / keyboard user) ─── */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #f0b429;
+  color: #0a0a1a;
+  font-weight: 700;
+  padding: 8px 16px;
+  z-index: 9999;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ─── Hero overlay for text legibility over background images ─── */
+.hero-section {
+  position: relative;
+}
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 26, 0.65) 0%,
+    rgba(10, 10, 26, 0.4) 50%,
+    rgba(10, 10, 26, 0.75) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+.hero-section > * {
+  position: relative;
+  z-index: 2;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
   .bg-grid-fade { animation: none; }
 }

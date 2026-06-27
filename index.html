@@ -1,16 +1,104 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
     <title>OPERATION TOOFAN — The Storm Is Rising</title>
-    <meta name="description" content="The storm is rising. Take your oath against the shadow. Earn a legendary scroll. Join the Order — a drug-free pledge quest by Providence College of Engineering." />
-    <link rel="icon" type="image/png" href="/assests/logo.png" />
+    <meta name="description" content="The storm is rising. Take your oath against the shadow. Earn a legendary scroll. Join the Order — a drug-free pledge quest by Providence College of Engineering, Kerala." />
+    <meta name="keywords" content="Operation Toofan, drug-free pledge, Providence College of Engineering, PCE Kerala, anti-drug campaign, Kerala Police" />
+    <link rel="canonical" href="https://operationtoofan.in/" />
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://operationtoofan.in/" />
+    <meta property="og:title" content="OPERATION TOOFAN — Take the Drug-Free Oath" />
+    <meta property="og:description" content="The storm is rising. Take your oath against the shadow. Earn a legendary scroll. Join the Order — a drug-free pledge quest by PCE Kerala." />
+    <meta property="og:image" content="https://operationtoofan.in/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Operation Toofan — Drug-Free Pledge Campaign by Providence College of Engineering" />
+    <meta property="og:site_name" content="Operation Toofan" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="OPERATION TOOFAN — Take the Drug-Free Oath" />
+    <meta name="twitter:description" content="Join The Order. Pledge drug-free. Earn your legendary scroll. A campaign by PCE Kerala." />
+    <meta name="twitter:image" content="https://operationtoofan.in/og-image.png" />
+    <meta name="twitter:image:alt" content="Operation Toofan campaign banner" />
+
+    <!-- PWA / Mobile -->
+    <meta name="theme-color" content="#0a0a1a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Op. Toofan" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Press+Start+2P&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+    
+    <link rel="preload" as="image" href="/hero-storm.webp" type="image/webp" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "Operation Toofan Drug-Free Pledge Campaign",
+      "description": "A gamified drug-free pledge quest by Providence College of Engineering, Kerala, in association with Kerala Police Operation Toofan.",
+      "organizer": {
+        "@type": "EducationalOrganization",
+        "name": "Providence College of Engineering",
+        "url": "https://pcekannur.ac.in"
+      },
+      "url": "https://operationtoofan.in/",
+      "startDate": "2026-06-01",
+      "location": {
+        "@type": "Place",
+        "name": "Providence College of Engineering, Kannur, Kerala"
+      }
+    }
+    </script>
+
   </head>
   <body>
+    <noscript>
+      <style>
+        .noscript-banner {
+          font-family: sans-serif;
+          background: #0a0a1a;
+          color: #e0e0e0;
+          padding: 48px 24px;
+          text-align: center;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .noscript-banner h1 { color: #f0b429; font-size: 28px; margin-bottom: 16px; }
+        .noscript-banner p { max-width: 480px; line-height: 1.6; margin-bottom: 12px; }
+        .noscript-banner a { color: #78b0f7; }
+      </style>
+      <div class="noscript-banner">
+        <h1>OPERATION TOOFAN</h1>
+        <p>This campaign requires JavaScript to run. Please enable JavaScript in your browser to take the drug-free pledge and earn your legendary scroll.</p>
+        <p>A drug-free pledge initiative by <strong>Providence College of Engineering, Kerala</strong>, in association with <strong>Kerala Police Operation Toofan</strong>.</p>
+        <p>Contact us: <a href="mailto:toofan@pcekannur.ac.in">toofan@pcekannur.ac.in</a></p>
+      </div>
+    </noscript>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

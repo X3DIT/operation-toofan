@@ -42,9 +42,9 @@ export default function AboutPage() {
           padding: '2rem 2.5rem',
           position: 'relative'
         }}>
-          <h3 style={{ fontFamily: 'var(--font-pixel)', fontSize: '1.5rem', color: '#000', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+          <h2 style={{ fontFamily: 'var(--font-pixel)', fontSize: '1.5rem', color: '#000', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
             Our Mission
-          </h3>
+          </h2>
           <p style={{ color: '#000', fontSize: '1.1rem', lineHeight: '1.6', fontWeight: '500' }}>
             Creating a drug-free generation through awareness, education, and action.
           </p>

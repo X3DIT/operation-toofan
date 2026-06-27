@@ -4,6 +4,7 @@ import styles from './CertificatePage.module.css'
 import { generateCertificatePDF, generateCertificateCanvas } from '../utils/generatePDF'
 import CertificateTemplate from '../components/CertificateTemplate'
 import CertificateDrawAnimation from '../components/CertificateDrawAnimation'
+import ScrollCertificate from '../components/ScrollCertificate'
 import html2canvas from 'html2canvas'
 
 export default function CertificatePage({ data, navigate }) {
@@ -226,7 +227,7 @@ Take the pledge → https://operation-toofan-seven.vercel.app/?ref=${refParam}`;
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={styles.primaryBtn} 
+            className="btn-primary" 
             onClick={handleDownloadPDF} 
             disabled={downloadingPDF}
           >
@@ -235,7 +236,7 @@ Take the pledge → https://operation-toofan-seven.vercel.app/?ref=${refParam}`;
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={styles.primaryBtn} 
+            className="btn-primary" 
             onClick={handleDownloadPNG} 
             disabled={downloadingPNG}
           >
@@ -250,6 +251,19 @@ Take the pledge → https://operation-toofan-seven.vercel.app/?ref=${refParam}`;
           >
             {sharing ? 'Preparing share…' : '⬆ "Challenge a friend'}
           </motion.button>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55 }}
+          style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}
+        >
+          <ScrollCertificate 
+            pledgerName={data.name || 'Anonymous'} 
+            rollNumber={data.rollNumber} 
+            date={new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })} 
+          />
         </motion.div>
 
         <motion.div 
