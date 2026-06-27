@@ -16,7 +16,9 @@ function getRefFromUrl() {
 }
 
 export default function App() {
-  const [page, setPage] = useState('landing')
+  const [page, setPage] = useState(() => {
+    return (window.history.state && window.history.state.page) ? window.history.state.page : 'landing'
+  })
   const [pledgeData, setPledgeData] = useState(null)
   const [challengerName, setChallengerName] = useState(getRefFromUrl)
 
@@ -26,9 +28,28 @@ export default function App() {
     if (root) root.style.paddingTop = '0'
   }, [])
 
+  // Sync state with browser history for back button support
+  useEffect(() => {
+    if (!window.history.state || !window.history.state.page) {
+      window.history.replaceState({ page: 'landing' }, '', window.location.search ? window.location.href : window.location.pathname)
+    }
+
+    const handlePopState = (event) => {
+      if (event.state && event.state.page) {
+        setPage(event.state.page)
+      } else {
+        setPage('landing')
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
   const navigate = (to, data) => {
     if (data) setPledgeData(data)
     setPage(to)
+    window.history.pushState({ page: to }, '', window.location.search ? window.location.href : window.location.pathname)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 

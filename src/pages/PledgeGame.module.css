@@ -290,7 +290,7 @@
 @media (max-width: 600px) {
   .wrap {
     padding: 2rem 1rem;
-    min-height: calc(100vh - 80px);
+    min-height: 100dvh;
   }
   .valueGrid {
     grid-template-columns: repeat(2, 1fr);

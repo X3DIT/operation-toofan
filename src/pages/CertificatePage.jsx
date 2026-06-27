@@ -77,9 +77,9 @@ export default function CertificatePage({ data, navigate }) {
     const refParam = encodeURIComponent(senderName);
     const text = `${senderName} challenged you to take the pledge 🌿
 
-${senderName} just completed the Operation Toofan drug-free quest and thinks you should too.
+She just completed the Operation Toofan drug-free quest and thinks you should too.
 
-Take the pledge → https://operation-toofan-jet.vercel.app?ref=${refParam}`;
+Take the pledge → https://operation-toofan-seven.vercel.app/?ref=${refParam}`;
     
     setSharing(true);
     try {

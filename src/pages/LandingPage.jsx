@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import styles from './LandingPage.module.css'
 import FAQAccordion from '../components/FAQAccordion'
 import MythVsFact from '../components/MythVsFact'
@@ -72,10 +72,73 @@ function useTypewriter(text, speed = 60) {
 
 export default function LandingPage({ navigate }) {
   const { displayed: heroText, done: heroDone } = useTypewriter('THE STORM IS RISING.', 70)
+  const [challenger, setChallenger] = useState(null)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get('ref');
+    if (ref) {
+      setChallenger(ref);
+    }
+  }, []);
+
+  const handleAcceptChallenge = () => {
+    setChallenger(null);
+    window.history.replaceState({}, '', window.location.pathname);
+  };
 
   return (
     <main className={styles.main}>
       <div className="bg-grid-fade" />
+
+      {/* ══════════════════════════════════════════════
+          CHALLENGE POPUP
+          ══════════════════════════════════════════════ */}
+      <AnimatePresence>
+        {challenger && (
+          <motion.div 
+            className={styles.popupOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div 
+              className={styles.popupContent}
+              initial={{ scale: 0.8, y: 50, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.8, y: 50, opacity: 0 }}
+            >
+              <button 
+                className={styles.closeBtn} 
+                onClick={handleAcceptChallenge}
+                aria-label="Close"
+              >
+                X
+              </button>
+              
+              <div className={styles.popupTitle}>
+                {challenger} challenged you to<br />
+                <span>take the pledge</span> 🌿
+              </div>
+              
+              <p className={styles.popupSubtitle}>
+                They just completed the Operation Toofan drug-free quest and think you should too.
+              </p>
+
+              <button 
+                className={styles.primaryBtn} 
+                onClick={handleAcceptChallenge}
+              >
+                TAKE THE PLEDGE <span className={styles.btnSymbol}>▶</span>
+              </button>
+              
+              <div className={styles.popupFooterText}>
+                It only takes 5 minutes
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ══════════════════════════════════════════════
           SECTION 1: HERO

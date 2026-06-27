@@ -1,24 +1,75 @@
 export default function AboutPage() {
   return (
-    <div style={{ padding: '8rem 2rem', maxWidth: '800px', margin: '0 auto', color: 'var(--text)' }}>
-      <div className="bg-grid-fade" />
-      <h1 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>About Operation Toofan</h1>
-      <p style={{ marginBottom: '1.5rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
-        Operation Toofan is a student-led anti-drug awareness initiative conducted by Providence College of Engineering. 
-        The platform aims to encourage young people to make informed, healthy choices through awareness, reflection, and personal commitment.
-      </p>
-      <p style={{ marginBottom: '1.5rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
-        By transforming a simple pledge into an interactive experience, Operation Toofan seeks to build a stronger, 
-        drug-free community where every participant becomes an advocate for positive change.
-      </p>
-      <div style={{ marginTop: '3rem', padding: '2rem', background: 'var(--surface)', borderRadius: 'var(--radius)', border: '1px solid var(--border)' }}>
-        <h3 style={{ marginBottom: '1rem' }}>Our Mission</h3>
-        <p style={{ color: 'var(--text-muted)' }}>Creating a drug-free generation through awareness, education, and action.</p>
-        <div style={{ marginTop: '2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <img src="/assests/logo2.jpg" alt="Providence College" style={{ height: '50px', borderRadius: '8px' }} />
-          <div>
-            <div style={{ fontSize: '14px', color: 'var(--text-hint)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Initiated by</div>
-            <div style={{ fontWeight: '500' }}>Providence College of Engineering</div>
+    <div style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden', padding: '8rem 2rem', display: 'flex', justifyContent: 'center' }}>
+      <div className="bg-grid-fade" style={{ zIndex: 0 }} />
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', width: '100%' }}>
+        <h1 style={{ 
+          fontFamily: 'var(--font-pixel)', 
+          fontSize: 'clamp(2rem, 4vw, 3rem)', 
+          color: '#fff', 
+          textShadow: '4px 4px 0 #000', 
+          marginBottom: '3rem', 
+          textTransform: 'uppercase', 
+          letterSpacing: '2px',
+          lineHeight: '1.4'
+        }}>
+          About <span style={{ color: 'var(--primary)' }}>Operation Toofan</span>
+        </h1>
+        
+        <div style={{ 
+          background: 'rgba(10, 14, 46, 0.95)', 
+          border: '4px solid #000', 
+          boxShadow: '8px 8px 0 #000', 
+          padding: '3rem 2.5rem', 
+          marginBottom: '3rem',
+          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.2) 1px, transparent 1px)',
+          backgroundSize: '20px 20px'
+        }}>
+          <p style={{ marginBottom: '1.5rem', lineHeight: '1.8', color: '#ccc', fontSize: '1.1rem' }}>
+            Operation Toofan is a student-led anti-drug awareness initiative conducted by Providence College of Engineering. 
+            The platform aims to encourage young people to make informed, healthy choices through awareness, reflection, and personal commitment.
+          </p>
+          <p style={{ margin: 0, lineHeight: '1.8', color: '#ccc', fontSize: '1.1rem' }}>
+            By transforming a simple pledge into an interactive experience, Operation Toofan seeks to build a stronger, 
+            drug-free community where every participant becomes an advocate for positive change.
+          </p>
+        </div>
+
+        <div style={{ 
+          background: 'var(--primary)', 
+          border: '4px solid #000', 
+          boxShadow: '8px 8px 0 #000', 
+          padding: '2rem 2.5rem',
+          position: 'relative'
+        }}>
+          <h3 style={{ fontFamily: 'var(--font-pixel)', fontSize: '1.5rem', color: '#000', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            Our Mission
+          </h3>
+          <p style={{ color: '#000', fontSize: '1.1rem', lineHeight: '1.6', fontWeight: '500' }}>
+            Creating a drug-free generation through awareness, education, and action.
+          </p>
+          
+          <div style={{ 
+            marginTop: '2.5rem', 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '1rem', 
+            background: '#000', 
+            padding: '1.25rem', 
+            color: '#fff', 
+            border: '2px solid #000' 
+          }}>
+            <div style={{ background: '#fff', padding: '4px', border: '2px solid #000' }}>
+              <img src="/assests/logo2.jpg" alt="Providence College" style={{ height: '42px', display: 'block' }} />
+            </div>
+            <div>
+              <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '10px', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
+                Initiated by
+              </div>
+              <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '11px', lineHeight: '1.4' }}>
+                Providence College of Engineering
+              </div>
+            </div>
           </div>
         </div>
       </div>
