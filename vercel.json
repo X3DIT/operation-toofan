@@ -24,7 +24,5 @@
   "redirects": [
     { "source": "/home", "destination": "/", "permanent": true },
     { "source": "/pledge-now", "destination": "/game", "permanent": false }
-  ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  ]
 }
