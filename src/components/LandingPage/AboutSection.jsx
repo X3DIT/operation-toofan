@@ -1,9 +1,8 @@
-import { motion } from 'framer-motion'
 import styles from '../../pages/LandingPage.module.css'
 
 export default function AboutSection() {
   return (
-    <motion.section
+    <section
       className={styles.aboutSection}
       aria-labelledby="about-heading"
     >
@@ -22,15 +21,15 @@ export default function AboutSection() {
             <span className={styles.pixelTag}>DRUG-FREE KERALA</span>
             <span className={styles.pixelTag}>YOUTH AWARENESS</span>
             <span className={styles.pixelTag}>ACTION</span>
-            <span className={styles.pixelTag}>STATE COLLEGE -</span>
+            <a href="https://providence.edu.in/" target="_blank" rel="noopener noreferrer" className={styles.pixelActionBtn}>VIEW COLLEGE →</a>
           </div>
         </div>
-        <motion.div
+        <div
           className={styles.aboutCrest}
         >
           <img src="/assets/logo2.jpg" alt="Providence College of Engineering — The Order" />
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   )
 }

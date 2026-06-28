@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../utils/supabase'
 import styles from './CommunityWall.module.css'
+import SkeletonLoader from '../components/SkeletonLoader'
 
 const getCheerData = () => JSON.parse(localStorage.getItem('toofan_cheers') || '{}')
 
@@ -128,9 +129,11 @@ export default function CommunityWall() {
   const navigate = useNavigate();
   const [filter, setFilter] = useState('all')
   const [localPledges, setLocalPledges] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function loadPledges() {
+      setLoading(true)
       if (import.meta.env.VITE_SUPABASE_URL) {
         try {
           const { data, error } = await supabase
@@ -147,6 +150,7 @@ export default function CommunityWall() {
         const saved = JSON.parse(localStorage.getItem('toofan_pledges') || '[]')
         setLocalPledges(saved)
       }
+      setLoading(false)
     }
     loadPledges()
   }, [])
@@ -202,9 +206,12 @@ export default function CommunityWall() {
         </motion.div>
 
         <motion.div layout className={styles.grid}>
-          <AnimatePresence>
-            {filtered.map((p, i) => (
-              <motion.div 
+          {loading ? (
+            <SkeletonLoader type="cards" count={6} />
+          ) : (
+            <AnimatePresence>
+              {filtered.map((p, i) => (
+                <motion.div 
                 key={p.name + p.date + i} 
                 layout
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -245,21 +252,30 @@ export default function CommunityWall() {
                 </div>
               </motion.div>
             ))}
-          </AnimatePresence>
+            </AnimatePresence>
+          )}
         </motion.div>
 
         <motion.div 
           className={styles.cta}
         >
           <p>Add your name to the wall.</p>
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary" 
-            onClick={() => navigate('/game')}
-          >
-            Take the pledge →
-          </motion.button>
+          <div className={styles.ctaButtons}>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary" 
+              onClick={() => navigate('/game')}
+            >
+              Take the pledge →
+            </motion.button>
+            <button 
+              className={styles.ghostLink} 
+              onClick={() => navigate('/')}
+            >
+              Return to home page
+            </button>
+          </div>
         </motion.div>
       </div>
     </div>

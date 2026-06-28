@@ -1,5 +1,4 @@
 /* eslint-disable react-refresh/only-export-components */
-import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import styles from '../../pages/LandingPage.module.css'
 
@@ -41,22 +40,22 @@ export default function QuestChainSection() {
   const navigate = useNavigate();
 
   return (
-    <motion.section
+    <section
       className={styles.questSection}
       aria-labelledby="quest-heading"
     >
       <div className={styles.sectionLabelCenter}>HOW IT WORKS</div>
       <h2 id="quest-heading" className={styles.sectionTitleCenter}>THREE STAGES TO YOUR CERTIFICATE</h2>
 
-      <motion.div
+      <div
         className={`${styles.certificatePreview} ${styles.mobileOnlyCert}`}
       >
         <img src="/assets/cert.png" alt="Certificate Preview" className={styles.certImg} />
-      </motion.div>
+      </div>
 
       <div className={styles.questChain}>
         {QUESTS.map((q, i) => (
-          <motion.div
+          <div
             key={i}
             className={`${styles.questNode} ${q.isLegendary ? styles.questLegendary : ''}`}
           >
@@ -66,20 +65,18 @@ export default function QuestChainSection() {
             <p className={styles.questBody}>{q.body}</p>
             {/* Connector line (not on last) */}
             {i < QUESTS.length - 1 && <div className={styles.questConnector} />}
-          </motion.div>
+          </div>
         ))}
       </div>
 
       <div className={styles.questCta}>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <button
           className="btn-primary"
           onClick={() => navigate('/game')}
         >
           <span className="btnSymbol">▶</span> BEGIN QUEST
-        </motion.button>
+        </button>
       </div>
-    </motion.section>
+    </section>
   )
 }

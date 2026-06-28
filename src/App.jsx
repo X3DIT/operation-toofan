@@ -2,6 +2,7 @@ import { useState, useEffect, Suspense, lazy } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import './index.css'
 import ChallengePopup from './components/ChallengePopup'
+import SkeletonLoader from './components/SkeletonLoader'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const LandingPage = lazy(() => import('./pages/LandingPage'))
@@ -39,32 +40,44 @@ function AnimatedRoutes({ pledgeData, setPledgeData }) {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={
             <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
-              <LandingPage />
+              <Suspense fallback={<SkeletonLoader type="hero" />}>
+                <LandingPage />
+              </Suspense>
             </motion.div>
           } />
           <Route path="/game" element={
             <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
-              <PledgeGame onComplete={(data) => { setPledgeData(data); navigate('/certificate'); }} />
+              <Suspense fallback={<SkeletonLoader type="page" />}>
+                <PledgeGame onComplete={(data) => { setPledgeData(data); navigate('/certificate'); }} />
+              </Suspense>
             </motion.div>
           } />
           <Route path="/certificate" element={
             <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
-              <CertificatePage data={pledgeData} />
+              <Suspense fallback={<SkeletonLoader type="certificate" />}>
+                <CertificatePage data={pledgeData} />
+              </Suspense>
             </motion.div>
           } />
           <Route path="/community" element={
             <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
-              <CommunityWall />
+              <Suspense fallback={<SkeletonLoader type="cards" count={9} />}>
+                <CommunityWall />
+              </Suspense>
             </motion.div>
           } />
           <Route path="/about" element={
             <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
-              <AboutPage />
+              <Suspense fallback={<SkeletonLoader type="page" />}>
+                <AboutPage />
+              </Suspense>
             </motion.div>
           } />
           <Route path="/privacy" element={
             <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
-              <PrivacyPage />
+              <Suspense fallback={<SkeletonLoader type="page" />}>
+                <PrivacyPage />
+              </Suspense>
             </motion.div>
           } />
         </Routes>
@@ -103,9 +116,7 @@ export default function App() {
 
   return (
     <main id="main-content">
-      <Suspense fallback={<div style={{ padding: '24px', color: '#e0e0e0' }}>Loading...</div>}>
-        <AnimatedRoutes pledgeData={pledgeData} setPledgeData={setPledgeData} />
-      </Suspense>
+      <AnimatedRoutes pledgeData={pledgeData} setPledgeData={setPledgeData} />
     </main>
   )
 }

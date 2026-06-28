@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+
 import styles from './LandingPage.module.css'
 import FAQAccordion from '../components/FAQAccordion'
 import MythVsFact from '../components/MythVsFact'
@@ -22,14 +22,10 @@ export default function LandingPage() {
 
       <WhyItMatters />
 
-      <AboutSection />
-
-      <QuestChainSection />
-
       {/* ══════════════════════════════════════════════
-          SECTION 4: DRUG DETECTIVE MISSION
+          SECTION 3: DRUG DETECTIVE MISSION
           ══════════════════════════════════════════════ */}
-      <motion.section
+      <section
         className={styles.missionSection}
         aria-labelledby="mission-heading"
       >
@@ -38,12 +34,17 @@ export default function LandingPage() {
           <h2 id="mission-heading" className={`${styles.sectionTitleCenter} ${styles.missionTitle}`}>MYTH VS FACT CHALLENGE</h2>
           <MythVsFact navigate={navigate} />
         </div>
-      </motion.section>
+      </section>
+
+      <AboutSection />
+
+      <QuestChainSection />
+
 
       {/* ══════════════════════════════════════════════
           SECTION 5: QUOTE — RPG DIALOGUE BOX
           ══════════════════════════════════════════════ */}
-      <motion.section
+      <section
         className={styles.quoteSection}
         aria-label="Student quote"
       >
@@ -57,22 +58,22 @@ export default function LandingPage() {
             </blockquote>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* ══════════════════════════════════════════════
           SECTION 6: THE CODEX (FAQ)
           ══════════════════════════════════════════════ */}
-      <motion.section
+      <section
         className={styles.codexSection}
         aria-label="Frequently Asked Questions"
       >
         <FAQAccordion />
-      </motion.section>
+      </section>
 
       {/* ══════════════════════════════════════════════
           SECTION 7: ALLIANCE PROTOCOL (For Orgs)
           ══════════════════════════════════════════════ */}
-      <motion.section
+      <section
         className={styles.allianceSection}
         aria-labelledby="alliance-heading"
       >
@@ -81,32 +82,23 @@ export default function LandingPage() {
             <div className={styles.sectionLabel}>ALLIANCE PROTOCOL</div>
             <h2 id="alliance-heading" className={styles.allianceTitle}>Run a Group Pledge Campaign</h2>
             <p>Enroll a whole classroom, get co-branded scrolls, and download a completion report — all free.</p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <button
               className="btn-primary"
             >
               Contact Us →
-            </motion.button>
+            </button>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* ══════════════════════════════════════════════
           FOOTER
           ══════════════════════════════════════════════ */}
       <footer className={styles.footer}>
         <div className={styles.footerLeft}>
-          <svg className={styles.footerShield} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-          <span className={styles.footerBrand}>OPERATION TOOFAN</span>
+          <img src="/assets/toofan-logo white.png" alt="Operation Toofan" className={styles.footerLogo} />
         </div>
         <div className={styles.footerRight}>
-          <span className={styles.serverStatus}>
-            <span className={styles.statusDot} />
-            SERVER ONLINE
-          </span>
           <a href="#" onClick={(e) => { e.preventDefault(); navigate('/privacy') }}>Privacy</a>
           <a href="#" onClick={(e) => { e.preventDefault(); navigate('/about') }}>About</a>
         </div>

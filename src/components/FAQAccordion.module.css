@@ -101,3 +101,20 @@
   line-height: 1.7;
   font-size: 14px;
 }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .sectionTitle {
+    margin-bottom: 2.5rem;
+  }
+  
+  .question {
+    padding: 1rem;
+    font-size: 10px;
+  }
+
+  .answer {
+    padding: 0 1rem 1rem;
+    font-size: 13px;
+  }
+}

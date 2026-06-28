@@ -164,8 +164,8 @@
 .burst {
     position: absolute;
     right: 75px;
-    top: 190px;
-    height: 400px;
+    top: 210px;
+    height: 350px;
     width: auto;
 }
 
@@ -174,7 +174,7 @@
     position: absolute;
     right: 99px;
     bottom: 145px;
-    height: 60px;
+    height: 120px;
     width: auto;
 }
 
@@ -182,7 +182,7 @@
 .providenceLogo {
     position: absolute;
     right: 90px;
-    bottom:75px;
+    bottom: 60px;
     height: 60px;
     width: auto;
 }

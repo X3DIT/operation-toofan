@@ -16,7 +16,8 @@
   width: 100%;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   overflow: hidden; /* Important for parallax layers so they don't leak out */
 }
@@ -64,7 +65,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 8rem 2rem 8rem; /* Extra padding for breathing room */
+  padding: 1rem 1rem 12rem; /* Reduced top padding to close gap with logo */
   position: relative;
   z-index: 1;
 }
@@ -90,6 +91,16 @@
 .heroContent {
   position: relative;
   z-index: 2;
+}
+
+.heroLogo {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 10;
+  max-width: 130px; 
+  width: 80%; 
+  height: auto;
 }
 
 .eyebrowWrapper {
@@ -241,6 +252,33 @@
   text-transform: uppercase;
 }
 
+.pixelActionBtn {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: #000;
+  background: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 8px 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 3px 3px 0px rgba(0,0,0,0.5);
+}
+
+.pixelActionBtn:hover {
+  background: #000;
+  color: var(--primary);
+  border-color: var(--primary);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.8), 0 0 10px var(--primary);
+}
+
+.pixelActionBtn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0 rgba(0,0,0,0.8);
+}
+
 .aboutCrest {
   flex-shrink: 0;
   display: flex;
@@ -383,7 +421,7 @@
    QUOTE
    ══════════════════════════════════════════════ */
 .quoteSection {
-  padding: 6rem 2rem;
+  padding: 2rem 2 rem;
   display: flex;
   justify-content: center;
   background-color: var(--primary);
@@ -486,25 +524,21 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  max-width: 100%;
+  height: 50%;
 }
 
-.footerShield {
-  color: var(--primary);
+.footerLogo {
+  height: 100px; /* You can adjust this value to control the logo size */
+  width: auto;
   flex-shrink: 0;
-}
-
-.footerBrand {
-  font-family: var(--font-pixel);
-  font-size: 8px;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
 }
 
 .footerRight {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 80px;
+  margin-left: 30px;
 }
 
 .serverStatus {
@@ -563,6 +597,13 @@
     text-align: center;
   }
 
+  .heroLogo {
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 120px; /* Slightly larger since it's centered */
+  }
+ 
   .mobileVideo {
     display: block;
   }
@@ -582,6 +623,7 @@
   .aboutInner {
     flex-direction: column;
     text-align: center;
+    gap: 2rem;
   }
 
   .aboutTags {
@@ -606,8 +648,13 @@
   .allianceSection,
   .aboutSection,
   .quoteSection {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .footerLeft,
@@ -615,6 +662,34 @@
     width: 100%;
     justify-content: center;
     text-align: center;
+  }
+
+  .footerRight {
+    gap: 2rem;
+    margin-left: 0;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .serverStatus {
+    font-size: 10px;
+  }
+
+  .footer a {
+    font-size: 10px;
+    padding: 8px;
+  }
+
+  .questConnector {
+    display: block;
+    position: absolute;
+    bottom: -1.5rem;
+    left: 50%;
+    width: 4px;
+    height: 1.5rem;
+    background: var(--border);
+    transform: translateX(-50%);
+    z-index: -1;
   }
 }
 
@@ -697,4 +772,18 @@
   color: rgba(255, 255, 255, 0.5);
   margin-top: 1.5rem;
   text-transform: uppercase;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .popupContent {
+    padding: 3rem 1.5rem 2rem;
+  }
+  .popupTitle {
+    font-size: 1.1rem;
+  }
+  .closeBtn {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
 }

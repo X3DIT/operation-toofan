@@ -340,9 +340,9 @@ export default function CertificateDrawAnimation({ data, onComplete }) {
     line: { width: 250, borderBottom: '1px solid #c8c8c8', marginTop: 5, marginBottom: 10 },
     role: { fontSize: 16, fontWeight: 600, color: '#3d3d42' },
     person: { fontSize: 14, color: '#929299', marginTop: 4 },
-    burst: { position: 'absolute', right: 75, top: 190, height: 400, width: 'auto' },
-    mainLogo: { position: 'absolute', right: 99, bottom: 145, height: 60, width: 'auto' },
-    providenceLogo: { position: 'absolute', right: 90, bottom: 75, height: 60, width: 'auto' },
+    burst: { position: 'absolute', right: 75, top: 210, height: 350, width: 'auto' },
+    mainLogo: { position: 'absolute', right: 99, bottom: 145, height: 120, width: 'auto' },
+    providenceLogo: { position: 'absolute', right: 90, bottom: 60, height: 60, width: 'auto' },
   };
 
   return (
@@ -466,11 +466,12 @@ export default function CertificateDrawAnimation({ data, onComplete }) {
           variants={variantOf('burst')}
           initial="hidden"
           animate={vis('burst') ? 'visible' : 'hidden'}
+          width="220"
         />
 
         {/* Main Logo */}
         <motion.img
-          src="/assets/logo.png"
+          src="/assets/toofan-logo.png"
           alt=""
           style={S.mainLogo}
           variants={variantOf('mainLogo')}

@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-mo
 import styles from './MythVsFact.module.css'
 import { Icons } from './Icons'
 import { QUESTIONS, BADGES } from '../constants/mythData'
-
+import DownloadableBadge from './DownloadableBadge'
 
 
 const TIMER_SECONDS = 10
@@ -63,6 +63,8 @@ function StartScreen({ onStart }) {
       <h3 className={styles.startTitle}>Drug Detective Mission</h3>
       <p className={styles.startSub}>
         10 statements. Are they Myth or Fact? Investigate each case and earn your badges.
+        <br /><br />
+        <strong>Instructions:</strong> Swipe left for MYTH, swipe right for FACT.
       </p>
       <div className={styles.startFeatures}>
         <div className={styles.startFeature}>
@@ -288,6 +290,8 @@ function ResultCard({ question, isCorrect, onNext, isLast, newBadge, showConfett
 
 // ── End Screen ──
 function EndScreen({ score, correctCount, onReplay, navigate }) {
+  const [showBadgeModal, setShowBadgeModal] = useState(false);
+  const highestBadge = BADGES.slice().reverse().find(b => correctCount >= b.threshold);
   const title =
     correctCount === 10
       ? 'Mission Complete!'
@@ -356,23 +360,46 @@ function EndScreen({ score, correctCount, onReplay, navigate }) {
       </p>
 
       <div className={styles.endCtas}>
-        <motion.button
-          className={styles.replayBtn}
-          onClick={onReplay}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          ↻ Replay
-        </motion.button>
-        <motion.button
-          className={styles.pledgeBtn}
-          onClick={() => navigate('/game')}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Take the Pledge →
-        </motion.button>
+        {score >= 80 && highestBadge ? (
+          <button
+            className="btn-primary"
+            onClick={() => setShowBadgeModal(true)}
+          >
+            <Icons.Medal /> Claim Your Reward Badge
+          </button>
+        ) : (
+          <div className={styles.lockedBadgeMessage}>
+            <Icons.Lock /> You have to score 80 or above to unlock the badge
+          </div>
+        )}
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <motion.button
+            className={styles.replayBtn}
+            onClick={onReplay}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            ↻ Replay
+          </motion.button>
+          <motion.button
+            className={styles.pledgeBtn}
+            onClick={() => navigate('/game')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Take the Pledge →
+          </motion.button>
+        </div>
       </div>
+
+      {showBadgeModal && highestBadge && (
+        <DownloadableBadge
+          score={score}
+          badgeName={highestBadge.name}
+          badgeIcon={highestBadge.icon}
+          onClose={() => setShowBadgeModal(false)}
+        />
+      )}
     </motion.div>
   )
 }

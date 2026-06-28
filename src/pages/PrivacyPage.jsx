@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function PrivacyPage() {
+  const navigate = useNavigate();
+
   return (
     <div style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden', padding: '8rem 2rem', display: 'flex', justifyContent: 'center' }}>
       <div className="bg-grid-fade" style={{ zIndex: 0 }} />
@@ -38,6 +42,15 @@ export default function PrivacyPage() {
           <p style={{ margin: 0, lineHeight: '1.8', color: '#ccc', fontSize: '1.1rem' }}>
             If you have any questions or concerns about how your data is handled, please contact the organizers at Providence College of Engineering.
           </p>
+        </div>
+        
+        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+          <button 
+            onClick={() => navigate('/')} 
+            className="btn-primary"
+          >
+            ← Go to Main Screen
+          </button>
         </div>
       </div>
     </div>

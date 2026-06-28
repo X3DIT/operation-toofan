@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { useTypewriter } from '../../hooks/useTypewriter'
 import styles from '../../pages/LandingPage.module.css'
@@ -27,13 +26,10 @@ export default function HeroSection() {
           className={`${styles.bgVideo} ${styles.mobileVideo}`} 
         />
       </div>
+      <img src="/assets/toofan-logo.png" alt="Operation Toofan" className={styles.heroLogo} />
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div>
             <div className={styles.eyebrowWrapper}>
               <div className={styles.eyebrow}>
                 YOUR COMMITMENT, MADE REAL
@@ -46,52 +42,39 @@ export default function HeroSection() {
               <span>FUTURE.</span>
             </h1>
 
-            <motion.p
+            <p
               className={styles.sub}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
             >
               Take a 5-minute interactive quest to build your pledge and earn a verifiable certificate.
-            </motion.p>
+            </p>
 
-            <motion.div
+            <div
               className={styles.heroCtas}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
             >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 className="btn-primary"
                 onClick={() => navigate('/game')}
               >
                 START YOUR PLEDGE QUEST <span className="btnSymbol">▶</span>
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              </button>
+              <button
                 className="btn-ghost"
                 onClick={() => navigate('/community')}
               >
                 SEE THE COMMUNITY WALL
-              </motion.button>
-            </motion.div>
-          </motion.div>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Certificate Preview Card */}
-        <motion.div
+        <div
           className={styles.heroArt}
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className={styles.certificatePreview}>
             <img src="/assets/cert.png" alt="Certificate Preview" className={styles.certImg} />
           </div>
-        </motion.div>
+        </div>
       </section>
     </div>
   )

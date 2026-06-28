@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function AboutPage() {
+  const navigate = useNavigate();
+
   return (
     <div style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden', padding: '8rem 2rem', display: 'flex', justifyContent: 'center' }}>
       <div className="bg-grid-fade" style={{ zIndex: 0 }} />
@@ -55,22 +59,32 @@ export default function AboutPage() {
             alignItems: 'center', 
             gap: '1rem', 
             background: '#000', 
-            padding: '1.25rem', 
+            padding: '1rem', 
             color: '#fff', 
-            border: '2px solid #000' 
+            border: '2px solid #000',
+            flexWrap: 'wrap'
           }}>
-            <div style={{ background: '#fff', padding: '4px', border: '2px solid #000' }}>
+            <div style={{ background: '#fff', padding: '4px', border: '2px solid #000', flexShrink: 0 }}>
               <img src="/assets/logo2.jpg" alt="Providence College" style={{ height: '42px', display: 'block' }} />
             </div>
-            <div>
+            <div style={{ flex: 1, minWidth: '150px' }}>
               <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '10px', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
                 Initiated by
               </div>
-              <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '11px', lineHeight: '1.4' }}>
+              <div style={{ fontFamily: 'var(--font-pixel)', fontSize: '11px', lineHeight: '1.4', wordWrap: 'break-word' }}>
                 Providence College of Engineering
               </div>
             </div>
           </div>
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+          <button 
+            onClick={() => navigate('/')} 
+            className="btn-primary"
+          >
+            ← Go to Main Screen
+          </button>
         </div>
       </div>
     </div>

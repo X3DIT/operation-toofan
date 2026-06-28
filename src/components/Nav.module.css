@@ -122,7 +122,7 @@
 }
 
 /* ── Mobile ── */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .nav {
     padding: 0 0.75rem;
   }
@@ -130,14 +130,22 @@
     display: none;
   }
   .links {
-    gap: 4px;
+    gap: 6px;
+    overflow-x: auto;
+    max-width: 100%;
   }
   .link {
-    padding: 6px 6px;
-    font-size: 10px;
+    padding: 12px 10px;
+    font-size: 12px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
   .cta {
-    padding: 6px 10px;
-    font-size: 10px;
+    padding: 10px 14px;
+    font-size: 11px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
 }

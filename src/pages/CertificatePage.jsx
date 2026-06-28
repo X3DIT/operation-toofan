@@ -28,15 +28,14 @@ export default function CertificatePage({ data }) {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!data) {
+      navigate('/')
+    }
+  }, [data, navigate])
+
   if (!data) {
-    return (
-      <div style={{ padding: '4rem', textAlign: 'center' }}>
-        <p>No pledge data found.</p>
-        <button onClick={() => navigate('/game')} style={{ marginTop: '1rem', padding: '10px 24px', background: 'var(--green-600)', color: '#fff', borderRadius: 'var(--radius-pill)' }}>
-          Take the pledge
-        </button>
-      </div>
-    )
+    return null
   }
 
   const handleDownloadPDF = async () => {
@@ -265,6 +264,9 @@ Take the pledge → https://operation-toofan-seven.vercel.app/?ref=${refParam}`;
           </button>
           <button className={styles.ghostLink} onClick={() => navigate('/game')}>
             Restart quest
+          </button>
+          <button className={styles.ghostLink} onClick={() => navigate('/')}>
+            Return to home page
           </button>
         </motion.div>
 

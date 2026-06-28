@@ -1,0 +1,234 @@
+.pageSkeleton {
+  padding: 40px 24px;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.certSkeletonWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px);
+  padding: 40px 24px;
+  gap: 24px;
+  width: 100%;
+}
+
+.certSkeleton {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 1.414 / 1; /* A4 aspect ratio */
+  background: var(--surface-hover);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.certSkeleton::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: shimmerSweep 1.5s infinite;
+}
+
+.heroSkeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 100px);
+  padding: 80px 24px;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .heroSkeleton {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+.cardSkeleton {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--surface-hover);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.cardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.cardBottom {
+  display: flex;
+  gap: 8px;
+}
+
+/* Base line style with shimmer */
+.line, .lineShort, .lineMini, .linePill {
+  background: var(--surface-hover);
+  position: relative;
+  overflow: hidden;
+}
+
+.line::after, .lineShort::after, .lineMini::after, .linePill::after, .avatar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  animation: shimmerSweep 1.5s infinite;
+}
+
+.line {
+  height: 20px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.line.title {
+  height: 40px;
+  width: 60%;
+  margin-bottom: 24px;
+}
+
+.line.short {
+  width: 80%;
+}
+
+.lineShort {
+  height: 16px;
+  width: 60%;
+  border-radius: 4px;
+}
+
+.lineMini {
+  height: 12px;
+  width: 40%;
+  border-radius: 4px;
+}
+
+.linePill {
+  height: 28px;
+  width: 80px;
+  border-radius: 14px;
+}
+
+.line.eyebrow {
+  height: 20px;
+  width: 200px;
+  margin-bottom: 24px;
+}
+
+.line.headline {
+  height: 50px;
+  width: 100%;
+}
+
+.line.headlineShort {
+  width: 60%;
+}
+
+.line.subtitle {
+  height: 24px;
+  width: 80%;
+  margin-top: 16px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.button {
+  height: 48px;
+  width: 200px;
+  border-radius: 4px;
+  background: var(--surface-hover);
+  position: relative;
+  overflow: hidden;
+}
+
+.button::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: shimmerSweep 1.5s infinite;
+}
+
+.heroArtSkeleton {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 4/5;
+  background: var(--surface-hover);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 40px;
+}
+@media (min-width: 900px) {
+  .heroArtSkeleton {
+    margin-top: 0;
+  }
+}
+.heroArtSkeleton::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: shimmerSweep 1.5s infinite;
+}

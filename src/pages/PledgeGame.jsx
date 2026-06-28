@@ -45,6 +45,7 @@ function ParticleBurst() {
 export default function PledgeGame({ onComplete }) {
   const [stage, setStage] = useState(0)
   const [name, setName] = useState('')
+  const [nameWarning, setNameWarning] = useState(false)
   const [xp, setXp] = useState(0)
   const [score, setScore] = useState(0)
   const [answered, setAnswered] = useState(null)
@@ -195,14 +196,25 @@ export default function PledgeGame({ onComplete }) {
                 type="text"
                 value={name}
                 onChange={e => {
-                  const val = e.target.value.replace(/[^A-Za-z\s]/g, '')
-                  setName(val)
+                  const originalVal = e.target.value;
+                  const cleanedVal = originalVal.replace(/[^A-Za-z\s]/g, '');
+                  if (originalVal !== cleanedVal) {
+                    setNameWarning(true);
+                  } else {
+                    setNameWarning(false);
+                  }
+                  setName(cleanedVal);
                 }}
                 onKeyDown={e => e.key === 'Enter' && handleStart()}
                 placeholder="Enter your name"
                 maxLength={60}
                 autoFocus
               />
+              {nameWarning && (
+                <div className={styles.nameWarning}>
+                  Please use only characters for your name.
+                </div>
+              )}
             </div>
             <motion.button 
               whileHover={{ scale: 1.05 }}

@@ -1,4 +1,4 @@
-import { Search, Target, Clock, Medal, Shield, Star, Ban as Stop, Check, X, Trophy } from 'lucide-react';
+import { Search, Target, Clock, Medal, Shield, Star, Ban as Stop, Check, X, Trophy, Download, Lock } from 'lucide-react';
 
 export const Icons = {
   Search,
@@ -10,5 +10,7 @@ export const Icons = {
   Stop,
   Check,
   X,
-  Trophy
+  Trophy,
+  Download,
+  Lock
 };

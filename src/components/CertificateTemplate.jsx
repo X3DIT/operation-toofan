@@ -95,7 +95,7 @@ const CertificateTemplate = forwardRef(({ data }, ref) => {
 
 
       {/* MAIN LOGO */}
-      <img src="/assets/logo.png" alt="Main Logo" className={styles.mainLogo} />
+      <img src="/assets/toofan-logo.png" alt="Main Logo" className={styles.mainLogo} />
 
       {/* PROVIDENCE LOGO */}
       <img src="/assets/providence.png" alt="Providence Logo" className={styles.providenceLogo} />
