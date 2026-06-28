@@ -40,7 +40,7 @@ export default function ChallengePopup({ challengerName, onAccept, onClose }) {
 
             {/* Logo */}
             <motion.img
-              src="/assets/logo.png"
+              src="/assets/toofan-logo white.png"
               alt="Operation Toofan"
               initial={{ scale: 0, rotate: -45 }}
               animate={{ scale: 1, rotate: 0 }}
@@ -139,7 +139,7 @@ const closeBtnStyle = {
 }
 
 const logoStyle = {
-  width: '72px',
+  width: '140px',
   height: 'auto',
   marginBottom: '1rem',
   imageRendering: 'pixelated',
