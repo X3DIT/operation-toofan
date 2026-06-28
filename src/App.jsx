@@ -11,6 +11,7 @@ const CertificatePage = lazy(() => import('./pages/CertificatePage'))
 const CommunityWall = lazy(() => import('./pages/CommunityWall'))
 const AboutPage = lazy(() => import('./pages/AboutPage'))
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 function getRefFromUrl() {
   const params = new URLSearchParams(window.location.search)
@@ -77,6 +78,13 @@ function AnimatedRoutes({ pledgeData, setPledgeData }) {
             <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
               <Suspense fallback={<SkeletonLoader type="page" />}>
                 <PrivacyPage />
+              </Suspense>
+            </motion.div>
+          } />
+          <Route path="*" element={
+            <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition}>
+              <Suspense fallback={<SkeletonLoader type="page" />}>
+                <NotFoundPage />
               </Suspense>
             </motion.div>
           } />
