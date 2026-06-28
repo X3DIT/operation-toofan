@@ -13,12 +13,19 @@ export default function DownloadableBadge({ score, badgeName, badgeIcon, onClose
   }, []);
 
   const handleLinkedInShare = () => {
-    // LinkedIn share URL parameters
-    const text = `I just scored ${score}/100 in the Operation Toofan Myth vs Fact game and earned the ${badgeName} badge! Try it out and test your knowledge.`;
-    const url = window.location.origin; // Link to the current site (can be adjusted if deployed)
+    // 1. Programmatically download the badge image
+    const link = document.createElement('a');
+    link.href = '/badge/badge.png';
+    link.download = 'Operation-Toofan-Badge.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // 2. Open LinkedIn share dialog
+    const shareText = `Just earned the **Drug-Free Champion** badge by scoring **${score/10}/10** in the **Operation Toofan: Myth vs Fact** challenge.\n\nThe game is a simple but effective way to test your awareness of drug-related myths and facts while promoting informed decision-making.\n\nThink you can beat my score? Give it a try and share your results.\n\n**Play here:** http://localhost:5173\n\n#OperationToofan #DrugFreeChampion #DrugAwareness #MythVsFact #Learning #Awareness #Kerala`;
     
     // Fallback share URL format for sharing text on LinkedIn
-    const linkedInShareUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(text + '\n\nPlay here: ' + url)}`;
+    const linkedInShareUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(shareText)}`;
     
     window.open(linkedInShareUrl, '_blank', 'noopener,noreferrer');
   };
