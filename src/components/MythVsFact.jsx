@@ -257,20 +257,7 @@ function ResultCard({ question, isCorrect, onNext, isLast, newBadge, showConfett
           </motion.div>
         )}
 
-        {newBadge && (
-          <motion.div
-            className={styles.badgeUnlock}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.5, type: 'spring', stiffness: 300 }}
-          >
-            <span className={styles.badgeIcon}>{newBadge.icon}</span>
-            <div className={styles.badgeInfo}>
-              <div className={styles.badgeLabel}>Badge Unlocked!</div>
-              <div className={styles.badgeName}>{newBadge.name}</div>
-            </div>
-          </motion.div>
-        )}
+
 
         <motion.button
           className={styles.nextBtn}
