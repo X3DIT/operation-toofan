@@ -129,6 +129,7 @@ export default function CommunityWall() {
   const navigate = useNavigate();
   const [filter, setFilter] = useState('all')
   const [localPledges, setLocalPledges] = useState([])
+  const [globalCount, setGlobalCount] = useState(0)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -136,27 +137,73 @@ export default function CommunityWall() {
       setLoading(true)
       if (import.meta.env.VITE_SUPABASE_URL) {
         try {
+          // Fetch global count
+          const { count: totalCount, error: countError } = await supabase
+            .from('pledges')
+            .select('*', { count: 'exact', head: true })
+            
+          if (!countError && totalCount !== null) {
+            setGlobalCount(totalCount)
+          }
+
+          // Fetch recent pledges
           const { data, error } = await supabase
             .from('pledges')
             .select('*')
             .order('id', { ascending: false })
             .limit(50)
           if (error) throw error
-          if (data) setLocalPledges(data)
+          if (data) {
+            setLocalPledges(data)
+            if (totalCount === null || data.length > totalCount) {
+              setGlobalCount(data.length)
+            }
+          }
         } catch (err) {
           console.error('Error loading pledges from Supabase', err)
         }
       } else {
         const saved = JSON.parse(localStorage.getItem('toofan_pledges') || '[]')
         setLocalPledges(saved)
+        setGlobalCount(saved.length)
       }
       setLoading(false)
     }
+    
     loadPledges()
+
+    // Real-time subscription
+    let subscription;
+    if (import.meta.env.VITE_SUPABASE_URL) {
+      subscription = supabase
+        .channel('public:pledges')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'pledges' }, payload => {
+          if (payload.eventType === 'INSERT') {
+            setLocalPledges(prev => {
+              const exists = prev.some(p => p.id === payload.new.id);
+              if (exists) return prev;
+              return [payload.new, ...prev].slice(0, 50);
+            });
+            setGlobalCount(prev => prev + 1);
+          } else if (payload.eventType === 'UPDATE') {
+            setLocalPledges(prev => prev.map(p => p.id === payload.new.id ? payload.new : p));
+          } else if (payload.eventType === 'DELETE') {
+            setLocalPledges(prev => prev.filter(p => p.id !== payload.old.id));
+            setGlobalCount(prev => Math.max(0, prev - 1));
+          }
+        })
+        .subscribe()
+    }
+
+    return () => {
+      if (subscription) {
+        supabase.removeChannel(subscription)
+      }
+    }
   }, [])
 
   const allPledges = localPledges
-  const totalPledges = localPledges.length
+  const totalPledges = globalCount
 
   const values = ['all', 'My health', 'My family', 'My future', 'My dreams', 'My freedom', 'My friends']
   const filtered = filter === 'all' ? allPledges : allPledges.filter(p => p.values.includes(filter))
